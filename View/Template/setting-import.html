@@ -1,0 +1,22 @@
+<div id="SettingImport">
+    <link rel="stylesheet" href="<?=U('/Public//css/dropzone.css')?>">
+    <script src="<?=U('/Public/js/dropzone.js')?>"></script>
+    <div class="had-container">
+        <h1 class="rv-title">批次匯入人員</h1>
+        <div class="attendance-block container">
+            <div class="pull-right">
+                <a class="waves-effect waves-light btn teal darken-1" data-toggle="downlaod-staff">下載現有人員名單Excel</a>
+                <a class="waves-effect waves-light btn btn-update" data-toggle="refresh-monthly">更新月考評表</a>
+            </div>
+            <div class="section">
+                <h3 class="att-title">請上傳要匯入之人員名單</h3>
+                <div class="drop-fild-block">
+                    <form action="Api/Data/Absence/add" method="post" enctype="multipart/form-data" class="dropzone dz-clickable">
+                        <!-- <input type="file" name="file" /> -->
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="<?=U('/Public/js/Index/setting-import.js')?>"></script>

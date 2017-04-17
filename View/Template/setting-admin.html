@@ -1,0 +1,82 @@
+<div id="SettingAdmin">
+    <div class="had-container rv-admin">
+        <h1 class="rv-title">超級管理員</h1>
+        <div class="filter-date row">
+            <h3 class="title">請選擇日期</h3>
+            <div class="dropdown">
+                <select id="getYear" class="btn dropdown-button" type="button" v-model="year" v-on:change="onSelected()">
+                    <option value="2017">2017年</option>
+                    <option value="2016">2016年</option>
+                </select>
+            </div>
+            <div class="dropdown">
+                <select id="getMonth" class="btn dropdown-button" type="button" v-model="month" v-on:change="onSelected()">
+                    <option value="1">1月</option>
+                    <option value="2">2月</option>
+                    <option value="3">3月</option>
+                    <option value="4" selected>4月</option>
+                    <option value="5">5月</option>
+                    <option value="6">6月</option>
+                    <option value="7">7月</option>
+                    <option value="8">8月</option>
+                    <option value="9">9月</option>
+                    <option value="10">10月</option>
+                    <option value="11">11月</option>
+                    <option value="12">12月</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12">
+                <div class="card rv-card">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>單位名稱</th>
+                                <th>主管姓名</th>
+                                <th>職位</th>
+                                <th>考評狀態</th>
+                                <th>執行動作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>架構發展事業部</td>
+                                <td>蘇穎珊</td>
+                                <td>經理</td>
+                                <td>送審中</td>
+                                <td>
+                                    <a href="#" class="btn waves-effect waves-teal lighten-1 orange">送審</a>
+                                    <a href="#" class="btn waves-effect waves-teal lighten-1 red">退回核准</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+var $settingAdmin = $('#SettingAdmin').generalController(function() {
+    var ts = this
+    var vm = new Vue({
+        el: '#SettingAdmin',
+        data: {
+            year: ts.q("#getYear").find("option:selected").val(),
+            month: ts.q("#getMonth").find("option:selected").val()
+        },
+        created: function() {
+            this.onSelected()
+        },
+        methods: {
+            onSelected: function() {
+                var data = {
+                    year: this.year,
+                    month: this.month
+                }
+            }
+        }
+    })
+})
+</script>

@@ -1,0 +1,157 @@
+<div id="Absence" class="absence-record">
+    <div class="had-container">
+        <h1 class="rv-title"><span class="dtime"></span>出缺席記錄</h1>
+        <!-- 無資料時顯示 -->
+        <div class="no-data">
+            <div class="message">
+                <h2>查無資料</h2>
+                <p>請重新查詢</p>
+            </div>
+        </div>
+        <!-- 有資料時顯示 -->
+        <div class="data-block">
+            <a class="waves-effect waves-light btn teal darken-1" @click="downloadExcel">Download Excel</a>
+            <table class="absence-table">
+                <thead>
+                    <tr>
+                        <td rowspan='2' colspan='2'>日期</td>
+                        <td v-for="val in date" colspan='3'>{{val.mDate}}</td>
+                    </tr>
+                    <tr>
+                        <td v-for="val in date" colspan='3'>{{val.day}}</td>
+                    </tr>
+                    <tr>
+                        <td>單位</td>
+                        <td>姓名 / 上下班狀態</td>
+                        <template v-for="item in date">
+                        <td>上班</td>
+                        <td>下班</td>
+                        <td>備註</td>
+                        </template>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="val in staff">
+                        <td>{{val.unit_name}} {{val.unit_code}}</td>
+                        <td>{{val.name}} {{val.name_en}}</td>
+                        <template v-for="(item,key) in date">
+                        <td>{{(val._attendance_map[key])?val._attendance_map[key].checkin_hours:''}}</td>
+                        <td>{{(val._attendance_map[key])?val._attendance_map[key].checkout_hours:''}}</td>
+                        <td>{{(val._attendance_map[key])?val._attendance_map[key].remark:''}}</td>
+                        </template>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script src="<?=U('/Public/js/vue.2.2.6.js')?>"></script>
+<script>
+var $Absence = $('#Absence').generalController(function() {
+    var ts = this;
+    var dataBlock = ts.q('.data-block');
+    var noData = ts.q('.no-data');
+    var dtime = ts.q('.dtime');
+
+    var year =  getParameterByName('year');
+    var month =  getParameterByName('month');
+    var team =  getParameterByName('team');
+    var staff =  getParameterByName('staff');
+    dtime.append(year + '年' + month + '月');
+
+     // get name function
+    function getParameterByName(name, url) {
+        if (!url) {
+            url = window.location.href;
+        }
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+
+    /*var init = {};
+    window.location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(str, key, value) {
+        init[key] = value;
+    });*/
+
+    //console.log(init);
+    
+    var submit = {year:year,month:month};
+    if(team){submit.team_id=team;}
+    if(staff){submit.staff_id=staff;}
+    
+    API.getAbsence(submit).then(function(data) {
+      var rec = API.format(data).get();
+        if (rec) {
+            console.log(rec);
+            noData.hide();
+            dataBlock.show();
+            
+            //先找到所有日期 與 所有員工
+            var time_1 = new Date();
+            
+            var allDate = {};
+            var allStaff = [];
+            var dayMapping = { 0:'周日',1:'周一',2:'周二',3:'周三',4:'周四',5:'周五',6:'周六',7:'周日', }
+            for(var i in rec){
+              var loc = rec[i];
+              for(var n in loc._staff){
+                var loc2 = loc._staff[n];
+                var attendance = loc2._attendance;
+                loc2.unit_code = i;
+                loc2.unit_name = loc.unit_name;
+                
+                var attendance_map = {};
+                var x = 0;
+                while(attendance[x]){
+                  var date = attendance[x].date;
+                  if(date && !allDate[date]){
+                    allDate[date]={
+                      mDate : date.replace(/^[\d]{3,4}\-/,'').replace('-','/'),
+                      day : dayMapping[ new Date(date).getDay() ]
+                    }
+                  }
+                  attendance_map[date]=attendance[x];
+                  x++;
+                }
+                loc2._attendance_map=attendance_map;
+                allStaff.push(loc2);
+                
+              }
+            }
+            //console.log(allDate);
+            //console.log(allStaff);
+            
+            var time_2 = new Date();
+            console.log(time_2 - time_1);
+            
+            ts.vue = new Vue({
+              el : dataBlock[0],
+              data : {
+                date : allDate,
+                staff : allStaff,
+                submitData : submit
+              },
+              methods : {
+                downloadExcel : function(){
+                  API.downloadAbsence(this.submitData);
+                  
+                }
+              },
+              mounted : function(){
+                var time_3 = new Date();
+                console.log(time_3 - time_1);
+              }
+            });
+
+        } else {
+
+            dataBlock.hide();
+            noData.show();
+        }
+    });
+});
+</script>

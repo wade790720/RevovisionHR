@@ -1,0 +1,209 @@
+$setting-border-bg: #d8d8d8;
+$setting-title-color: rgba(0, 0, 0, 0.88);
+.rv-setting {
+    .container {
+        position: relative;
+    }
+    .filter {
+        input {
+            display: none
+        }
+    }
+    .modal {
+        overflow: initial
+    }
+    .col {
+        &.select-unit {
+            padding: 0;
+            overflow: hidden;
+            max-height: 610px;
+            min-width: 180px;
+            transition-duration: 1s;
+            position: relative;
+            left: 40%;
+            a {
+                cursor: pointer;
+                &.active {
+                    background-color: #ff972c;
+                    color: white;
+                    strong {
+                        color: white;
+                    }
+                }
+            }
+            .content-area {
+                max-height: 360px;
+                overflow-y: auto;
+                min-height: 430px;
+                background: #FFF;
+            }
+            > ul {
+                border: 1px solid $setting-border-bg;
+                border-bottom: 0;
+            }
+            > div {
+                border: 1px solid rgb(216, 216, 216);
+            }
+        }
+        &.setting-unit {
+            padding-right: 0;
+            opacity: 0;
+            transition-duration: 1s;
+            transition-delay: 1s;
+            position: relative;
+            right: 30px;
+            visibility: hidden;
+            .forms-block {
+                border: 1px solid $setting-border-bg;
+                min-height: 480px;
+                .btn-action {
+                    margin-top: 195px;
+                }
+            }
+            .row {
+                padding: 10px;
+                margin: 0;
+            }
+        }
+    }
+    .card-mark {
+        float: left;
+        margin: 10px;
+        padding: 5px;
+        max-height: 70px;
+        min-width: 145px;
+        color: black;
+        vertical-align: bottom;
+        text-align: center;
+        strong {
+            color: black;
+            font-weight: bold;
+            font-size: 24px;
+        }
+        span {
+            color: black;
+        }
+        i {
+            font-size: 24px;
+        }
+    }
+    .title {
+        box-sizing: border-box;
+        padding-left: 16px;
+        width: 100%;
+        color: $setting-title-color;
+        font-weight: 900;
+        font-size: 14px;
+        line-height: 48px;
+        .filter {
+            margin: 10px;
+            margin-top: 0;
+        }
+    }
+    .setting-staff {
+        .staff-list {
+            position: relative;
+            bottom: 60px;
+            overflow: auto;
+            padding: 0;
+            max-height: 490px;
+            min-height: 490px;
+            border: 1px solid $setting-border-bg;
+            opacity: 0;
+            transition-delay: 1s;
+            transition-duration: 1s;
+            .wrapper {
+                padding: 0px 0px 8px;
+            }
+            .add-staff {
+                @extend .black-text;
+                height: 25px;
+                margin-top: 11px;
+                line-height: 15px;
+                padding: 5px;
+                border-radius: 2px;
+                &:hover {
+                    background-color: $setting-border-bg;
+                }
+            }
+        }
+        .staff-forms {
+            padding-right: 0;
+            opacity: 0;
+            transition-duration: 1s;
+            .forms-block {
+                border: 1px solid #d9d9d9;
+                overflow: hidden;
+                max-height: 610px;
+                .row:last-child {
+                    margin-right: 20px;
+                }
+            }
+        }
+    }
+    .btn-update {
+        @extend .yellow;
+        @extend .darken-2;
+    }
+    .btn-delete {
+        @extend .red;
+    }
+}
+
+.rv-item {
+    position: relative;
+    margin-left: 0px;
+    padding: 20px 56px 20px 72px;
+    line-height: 16px;
+    cursor: pointer;
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.098);
+    }
+    .rv-img {
+        @include size(40px, 40px);
+        @extend .white-text;
+        position: absolute;
+        top: 8px;
+        left: 16px;
+        display: inline-flex;
+        border-radius: 50%;
+        background-color: rgb(188, 188, 188);
+        font-size: 20px;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+#SettingOrganization .rv-setting.zoom .select-unit {
+    left: 0px;
+}
+
+#SettingOrganization .rv-setting.zoom .setting-unit {
+    opacity: 1;
+    right: 0px;
+    visibility: visible;
+}
+
+#SettingOrganization .rv-setting.zoom .staff-list {
+    opacity: 1;
+    bottom: 0px;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0
+    }
+    100% {
+        opacity: 1
+    }
+}
+
+#StaffList .rv-item {
+    -webkit-animation: fadeIn 0.5s linear forwards;
+    animation: fadeIn 0.5s linear forwards;
+}
+
+#StaffList .rv-item.active {
+    background-color: #ff972c;
+    color: #FFF;
+}

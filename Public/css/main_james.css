@@ -1,0 +1,691 @@
+/*James Chan Annual Assessment*/
+
+html {
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+
+@media screen and (min-width: 992px) {
+    #form_general .col-md-6,
+    #form_boss01 .col-md-6,
+    #form_boss02 .col-md-6,
+    #form_boss03 .col-md-6,
+    #form_general .col-md-5,
+    #form_boss01 .col-md-5,
+    #form_boss02 .col-md-5,
+    #form_boss03 .col-md-5,
+    #form_general .col-md-7,
+    #form_boss01 .col-md-7,
+    #form_boss02 .col-md-7,
+    #form_boss03 .col-md-7 {
+        width: 992px;
+        margin: 0 auto;
+        float: none;
+    }
+    #annualSummary .col-md-5 {
+        width: 100%;
+        margin: 0 auto;
+        float: none;
+    }
+}
+
+.panel-default > .myheader_orange {
+    border-bottom: 0;
+    background-color: #fff;
+    border-color: #fff;
+    border-left: 5px solid #fb7844;
+}
+
+#annualSummary .ui-select:after {
+    color: #000;
+}
+
+
+/*#insert {
+    float: right;
+    margin-left: 100%;
+}*/
+
+#annualSummary .table_cell {
+    height: 41px;
+    width: 150px;
+}
+
+#annualUser {
+    z-index: 99;
+    display: block;
+    position: relative;
+    padding: 10px 15px 10px 10px;
+    min-width: 200px;
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: 400;
+    text-indent: 0.01px;
+    text-overflow: '';
+    cursor: pointer;
+    /*-webkit-appearance: none;*/
+    /*-moz-appearance: none;*/
+}
+
+#annualSummary .table_th {
+    width: 150px;
+}
+
+.data_wrapper {
+    /* float: left; */
+    position: relative;
+    /* margin-right: 50; */
+    left: 90%;
+    width: 100px;
+}
+
+.data_name {
+    float: left;
+}
+
+.clear {
+    clear: both;
+}
+
+.data-length,
+.data_name {
+    font-size: 18px;
+}
+
+#annualStatusEditor .f_e_name,
+#annualStatusEditor .f_e_department,
+#annualStatusEditor .f_e_id {
+    cursor: default;
+}
+
+#annualTable {
+    overflow-y: scroll;
+    max-height: 570px;
+}
+
+.department_id {
+    display: none;
+}
+
+.area_04 .staff_list label {
+    width: 130px;
+}
+
+#WhatUnitList {
+    height: 155px;
+    overflow-y: scroll;
+}
+
+.table_cell {
+    word-break: break-word;
+    vertical-align: middle;
+}
+
+.table_headerGroup_leader {
+    margin-bottom: 10px;
+    position :relative;
+}
+.table_headerGroup{position :relative;}
+.table_header_lock  .table_locked{
+  display : block;
+}
+
+.table_headerGroup_leader .table_th {
+    padding: 10px;
+    background: #61BBA1;
+    width: 103px;
+    color: #FFF;
+    font-size: 14px;
+    vertical-align: middle;
+}
+
+.cell_total label,
+.cell_leader_total label {
+    line-height: 30px;
+    display: block;
+}
+
+.area_02 .btn-w-md {
+    min-width: 100px;
+    margin-bottom: 20px;
+}
+
+
+/*#form_general,
+#form_boss01,
+#form_boss02,
+#form_boss03,
+#feedback {
+    display: none !important;
+}*/
+
+.importanthide {
+    display: none !important;
+}
+
+#MyUnitTabsPage01 .form_download {
+    /*width: 20%;*/
+    width: auto;
+}
+
+#MyUnitTabsPage01 #btn-download {
+    display: none;
+    padding: 5px 12px;
+}
+
+#MyUnitTabsPage01 #btn-download__leader {
+    display: none;
+    padding: 5px 12px;
+}
+
+#MyUnitTabsPage01 #btn-download__staff {
+    display: none;
+    padding: 5px 12px;
+}
+
+.download_select {
+    margin: 0;
+}
+
+#downYear,
+#downMonth {
+    padding: 7px 15px 7px 10px;
+    min-width: 100px;
+    z-index: 10;
+}
+
+.downloadExcel_wrapper {
+    width: 50%;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #999;
+    text-align: center;
+}
+
+#mylocked {
+    z-index: 99;
+}
+
+.download_title {
+    vertical-align: middle;
+    padding: 7px 15px 7px 10px;
+    display: -ms-inline-grid;
+}
+
+.area_03 .panel-title {
+    display: inline-block;
+}
+
+.resigned {
+    color: #999;
+    cursor: pointer;
+}
+
+.hide {
+    display: none;
+}
+
+#decription-content {
+    /*position: fixed;*/
+    /*top: 1%;*/
+    /*left: 20%;*/
+    width: 1200px;
+    margin: 0 auto;
+    /*z-index: 99999;*/
+    /*display: block;*/
+    background: #fff;
+    /*visibility: hidden;*/
+    /*opacity: 0;*/
+    /*transition: visibility 0.3s, opacity 0.5s ease-in-out;*/
+}
+
+
+/*.visibility {
+    visibility: visible!important;
+    opacity: 1!important;
+}*/
+
+.group_name_list {
+    min-height: 550px;
+}
+
+.decription-content__wrapper {
+    /*position: fixed;*/
+    width: 100%;
+    height: 100%;
+    /*z-index: 9999;*/
+    background: rgba(0, 0, 0, 0.4);
+    /*visibility: hidden;*/
+    /*opacity: 0;*/
+    /*transition: visibility 0.3s, opacity 0.5s ease-in-out;*/
+}
+
+#monthly_summary_content .col-md-5 {
+    width: 100%;
+    margin: 0 auto;
+    float: none;
+}
+
+#mothly_main_leader >.table_cell {
+    width: 890px;
+}
+
+#monthly_summary_content #mothly_main_employee >.table_cell {
+    width: 120px;
+}
+
+#monthly_summary_content .cell_remark {
+    width: 585px;
+}
+
+#monthly_summary_content .cell_staff_no {
+    width: 336px;
+}
+
+#mothly_main_employee {
+    height: 750px;
+    overflow-y: scroll;
+}
+
+#mothly_main_employee::-webkit-scrollbar {
+    display: none;
+}
+
+html::-webkit-scrollbar {
+    display: none;
+}
+
+#leader_monthly_table .table_headerGroup_leader {
+    margin: 0;
+}
+
+#leader_monthly_table .cell_leader_no {
+    width: 200px;
+}
+
+#leader_monthly_table .cell_leader_unit {
+    width: 579px;
+}
+
+#leader_monthly_table .cell_leader_name {}
+
+.checkbox {
+    width: auto;
+    height: auto;
+}
+.chkbx {
+    display: none;
+}
+
+.cell_leader_bonus label {
+    display: block;
+    width: 71%;
+    z-index: 1;
+    margin: 0 auto;
+    border-radius: 5px;
+    position: relative;
+    
+}
+
+.cell_bonus label {
+    display: block;
+    width: 71%;
+    z-index: 1;
+    margin: 0 auto;
+    border-radius: 5px;
+    position: relative;
+   
+}
+
+.chkbx:checked ~ .switch:before {
+    content: "";
+}
+
+#thumb {
+    content: '';
+    width: 25px;
+    height: 25px;
+    display: block;
+    border-radius: 5px;
+    padding: 0px;
+    margin: 0px 0px 0px 70%;
+    background: #fff;
+    position: absolute;
+    top: -3px;
+    z-index: 100;
+    padding: bottom: 59px;
+    cursor: pointer;
+    box-shadow: 0 5px 10px -3px rgba(0, 0, 0, 0.3);
+    transition: background 0.5s;
+}
+
+#thumb:hover {
+    background: #f3f3f3;
+}
+
+#thumb div {
+    width: 70%;
+    height: 2px;
+    background: rgba(0, 0, 0, 0.3);
+    margin: 12px auto 14px;
+    position: relative;
+}
+
+#thumb div:after {
+    content: "";
+    width: 100%;
+    height: 2px;
+    background: rgba(0, 0, 0, 0.3);
+    position: absolute;
+    top: 6px;
+    left: 0;
+}
+
+#thumb div:before {
+    content: "";
+    width: 100%;
+    height: 2px;
+    background: rgba(0, 0, 0, 0.3);
+    position: absolute;
+    top: -6px;
+    left: 0;
+}
+
+.chkbx:checked ~ .switch #thumb {
+    margin: 0;
+}
+
+label:before,
+#thumb,
+.chkbx:checked ~ .switch:before {
+    transition: all .2s;
+}
+
+.night span {}
+
+.night span:after {
+    left: -2px;
+    top: 28px;
+}
+
+.day {
+    margin-right: 15px;
+    float: left;
+}
+
+.night {
+    float: right;
+}
+
+.black_overlay {
+    display: none;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    z-index: 1001;
+    -moz-opacity: 0.8;
+    opacity: .80;
+    filter: alpha(opacity=80);
+}
+#fade.black_overlay{
+  position : fixed;
+}
+
+.white_content {
+    position: fixed;
+    left: 25%;
+    top: 20%;
+    width: 50%;
+    height: auto;
+    border: 1px solid #9a9a9a;
+    box-shadow: 2px 1px 10px 0px rgba(255, 255, 255, 1);
+    border-radius: 5px;
+    background-color: white;
+    z-index: 1002;
+    overflow: auto;
+    padding-bottom: 15px;
+}
+
+.white_content .edit_text {
+    width: 80%;
+    height: 30px;
+    margin: 0 auto;
+    text-align: left;
+    margin-top: 20px;
+    border-left: 5px solid #fb7844;
+}
+
+.white_content .edit_text h4 {
+    margin-left: 10px;
+    line-height: 27px;
+}
+
+
+}
+.white_content textarea {
+    margin-top: 40px;
+}
+#leader_remark {
+    height: 285px;
+}
+.download_popup {
+    position: absolute;
+    left: 25%;
+    top: 25%;
+    width: 56%;
+    height: 0;
+    opacity: 0;
+    visibility: none;
+    border: 1px solid #9a9a9a;
+    box-shadow: 2px 1px 10px 0px rgb(0, 0, 0);
+    border-radius: 5px;
+    background-color: white;
+    z-index: 1002;
+    overflow: auto;
+    
+}
+#closePopup {
+    width: 30px;
+    cursor: pointer;
+    margin: 20px;
+    margin-left: 50%;
+    transform: translateX(-50%);
+}
+#MyUnitTabsPage01 #formDownLoadPopup {
+    width: auto;
+    padding: 17px;
+    cursor: pointer;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+#MyUnitTabsPage01 #formDownLoadPopup:hover {
+    text-decoration: underline;
+    color: #444;
+    background-color: #ececec;
+}
+#monthly_summary_content .ui-select {
+    margin: 0;
+    margin-top: 10px;
+}
+#annualSummary .myyear>span {
+    margin-top: 10px;
+    margin-left: 15px;
+    width: auto;
+    height: auto;
+    border: 1px solid #CBD5DD;
+}
+#annualSummary .myyear>span>select {
+    width: 100%;
+    min-width: 118px;
+    font-size: 14px;
+    font-weight: 500;
+}
+#monthly_summary_content .ui-select:after {
+    color: #000;
+}
+#MyUnitTabsPage01 .form_update {
+    margin-top: 10px;
+}
+.mytabcontent_top {
+    /*height: 400px;*/
+}
+#MyUnitTabsPage01 .mybtn_absence_monthly {
+    margin-top: 12px;
+    margin-left: 10px;
+    padding: 15px;
+}
+#MyUnitTabsPage01 .mybtn_absence_monthly a {
+    color: #FFF;
+}
+.max_number_100 {
+    border: 0;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+}
+
+textarea[name=remark_staff] {
+    min-height: 150px;
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: block;
+}
+textarea[readonly]{
+  cursor : not-allowed;
+}
+#MyUnitTabsPage01 .download_popup form {
+    width: 70%;
+    margin-left: 15%;
+}
+.annual_select {
+    margin: 0;
+}
+.cursor_pointer {
+    cursor: pointer;
+}
+.monthly_table_title {
+    height: 50px;
+    background: #61BBA1;
+    line-height: 50px;
+    color: white;
+    font-size: 18px;
+    border-bottom: 1px solid #fff;
+    cursor: pointer;
+}
+.monthly_table_append {
+    overflow: hidden;
+    visibility: none;
+    opacity: 0;
+    height: 0;
+    text-align: center;
+}
+.monthly_table_append th{
+  background: #61BBA1;
+  color: white;
+  font-size: 14px;
+  border-bottom: 1px solid #fff;
+  padding: 12px 10px;
+  font-weight: 300;
+  text-align: center;
+}
+.monthly_table_append td{
+  font-size: 14px;
+  text-align: center;
+}
+.monthly_table_append textarea{
+  resize: none;
+  min-width:140px;
+  min-height:68px;
+  cursor:auto;
+  border-width:0px;
+  overflow-y: auto !important;
+  max-height: 98px;
+}
+.monthly_table_append.open {
+    visibility: visible;
+    opacity: 1;
+    height: auto;
+    transition-property: all;
+    transition-duration: .9s;
+    transition-timing-function: ease-in-out;
+    transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+    
+}
+.background {
+    background: rgba(254, 146, 104, 0.3);
+    position : relative;
+    z-index : 10;
+}
+.modal-dialog {
+    top: 140px;
+}
+#add-ParentUnitMenuTeamLeader {
+    height: 200px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+#fade_background {
+    width: 100%;
+    height: 0;
+    position: fixed;
+    background: rgba(0, 0, 0, 0.5);
+    top: 0;
+    left: 0;
+    z-index: 9;
+    opacity: 0;
+    visibility: none;
+}
+#fade_background.showFade {
+    height: 100%;
+    opacity: 1;
+    visibility: visible;
+}
+.download_popup.showPopup {
+    padding-bottom: 15px;
+    height: auto;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.5s ease-in-out;
+    -webkit-transition: opacity 0.4s ease-in-out;
+    -moz-transition: opacity 0.4s ease-in-out;
+    -ms-transition: opacity 0.4s ease-in-out;
+    -o-transition: opacity 0.4s ease-in-out;
+}
+
+.no_employee {
+    font-size: 18px;
+    margin-top: 50px;
+}
+.dropdown-menu {
+    max-height: 260px;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+#AddNewStaff-dialog .modal-body{
+  max-height : 420px;
+  overflow-y : auto;
+}
+#AddNewStaff-dialog .modal-body .glyphicon-star{
+  display:none;
+}
+#AddNewStaff-dialog .modal-body .dropdown-toggle{
+  width:100%;
+  text-align:left;
+}
+#AddNewStaff-dialog .modal-body .dropdown-menu{
+  margin : 0px 12px;
+  width:92%;
+}
+#AddNewStaff-dialog  .modal-body .caret{
+  position: absolute;
+  top: 15px;
+  right: 35px;
+}

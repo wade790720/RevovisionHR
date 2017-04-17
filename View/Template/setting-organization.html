@@ -1,0 +1,503 @@
+<link href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css">
+<!-- <link href='https://ripjar.github.io/material-datetime-picker/picker/css/datepicker.css' rel="stylesheet" type="text/css"> -->
+<div id="SettingOrganization">
+    <div class="had-container rv-setting">
+        <h1 class="rv-title">組織管理</h1>
+        <div class="container">
+            <div class="row" style=" height: 480px; ">
+                <!-- DepartmentMenu -->
+                <div id="DepartmentMenu" class="col s4 select-unit">
+                    <ul class="tabs tabs-fixed-width">
+                        <li class="tab"><a href="#DepartmentUnit-2">部單位</a></li>
+                        <li class="tab"><a href="#DepartmentUnit-3">處單位</a></li>
+                        <li class="tab"><a href="#DepartmentUnit-4">組單位</a></li>
+                        <div class="indicator"></div>
+                    </ul>
+                    <div :id="'DepartmentUnit-'+key" class="col s12 content-area" v-for="(value,key,index) in devLv">
+                        <a v-for="dd in value" v-on:click="openDepartment(dd)" :class="'card card-mark waves-effect waves-orange department_id_'+dd.id">
+                            <strong>{{dd.unit_id}}</strong>
+                            <div>{{dd.name}}</div>
+                        </a>
+                        <a href="#CreateUnit" class="card card-mark waves-effect waves-orange" v-on:click="addDepartmentButton(key)">
+                            <i class="ion-ios-plus-outline"></i>
+                            <div>新增單位</div>
+                        </a>
+                    </div>
+                    <div id="CreateUnit" class="modal">
+                        <div class="modal-content">
+                            <h1 class="rv-title">新增單位 - <span v-if="createUnitData.lv==2">部單位</span><span v-if="createUnitData.lv==3">處單位</span><span v-if="createUnitData.lv==4">組單位</span></h1>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="form-group">
+                                        <label class="col s2 control-label">單位代號</label>
+                                        <div class="col s10">
+                                            <input type="text" class="form-control" placeholder="單位代號" :value="createUnitData.unit_id" v-model="createUnitData.unit_id">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <label class="col s2 control-label">單位名稱</label>
+                                        <div class="col s10">
+                                            <input type="text" class="form-control" placeholder="單位名稱" :value="createUnitData.name" v-model="createUnitData.name">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <label class="col s2 control-label">隸屬於</label>
+                                        <div class="col s10">
+                                            <div class="dropdown">
+                                                <a class="btn dropdown-button" type="button" data-activates="Of"><span>{{createUnitData.upper.name}}</span><span class="caret"></span>
+                                            </a>
+                                                <ul id="Of" class="dropdown-content">
+                                                    <li v-for="(value,key,index) in upper_array"><a v-on:click="changOfUnitData(value)">{{value.name}}</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="button-group center">
+                                        <button class="waves-effect waves-light btn" v-on:click="addDepartment">送出</button>
+                                        <button class="waves-effect waves-darken btn white black-text modal-close">取消</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- DepartmentMenu -->
+                <!-- DepartmentDetail -->
+                <div id="DepartmentDetail" class="col s8 setting-unit">
+                    <div class="forms-block">
+                        <div class="title">單位資料管理</div>
+                        <div class="row">
+                            <div class="col s6">
+                                <div class="form-group">
+                                    <label class="col s4 control-label">單位代碼</label>
+                                    <div class="col s8">
+                                        <input type="text" class="form-control" placeholder="單位代碼" :value="now.unit_id" v-model="now.unit_id" v-on:change="submitData.unit_id=now.unit_id" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col s6">
+                                <div class="form-group">
+                                    <label class="col s4 control-label">上層主管</label>
+                                    <div class="col s8">
+                                        <input type="text" class="form-control" placeholder="上層主管" :value="supervisor_name" disabled />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s6">
+                                <div class="form-group">
+                                    <label class="col s4 control-label">單位名稱</label>
+                                    <div class="col s8">
+                                        <input type="text" class="form-control" placeholder="單位名稱" :value="now.name" v-model="now.name" v-on:change="submitData['name']=now.name">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col s6" v-show="upper">
+                                <div class="form-group">
+                                    <label class="col s4 control-label">上層單位</label>
+                                    <div class="col s8">
+                                        <div class="dropdown">
+                                            <a class="btn dropdown-button" type="button" data-activates="OfUpperUnit"><span v-if="upper">{{upper.name}}</span><span class="caret"></span>
+                                        </a>
+                                            <ul id="OfUpperUnit" class="dropdown-content">
+                                                <li v-for="(value,key,index) in upper_array"><a v-on:click="changeUpper(value)">{{value.name}}</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s6">
+                                <div class="form-group">
+                                    <label class="col s4 control-label">單位主管</label>
+                                    <div class="col s8">
+                                        <div class="dropdown">
+                                            <a class="btn dropdown-button" type="button" data-activates="UnitManager">{{manager.name}}<span class="caret"></span></a>
+                                            <ul id="UnitManager" class="dropdown-content">
+                                                <li v-for="(value,key,index) in managers_array"><a v-on:mousedown="changeManager(value)">{{value.name}}</a></li>
+                                                <li><a v-on:mousedown="changeManager(0)">無</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col s6">
+                                <div class="form-group">
+                                    <label class="col s4 control-label">單位狀態</label>
+                                    <div class="col s8">
+                                        <div class="dropdown">
+                                            <a v-if="now.enable==0" class="btn dropdown-button" type="button" data-activates="CloseUnit">關閉<span class="caret"></span></a>
+                                            <a v-if="now.enable==1" class="btn dropdown-button" type="button" data-activates="CloseUnit">開啟<span class="caret"></span></a>
+                                            <ul id="CloseUnit" class="dropdown-content">
+                                                <li v-on:mousedown="submitData.enable=now.enable=1"><a>開啟</a></li>
+                                                <li v-on:mousedown="submitData.enable=now.enable=0"><a>關閉</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row pull-right btn-action">
+                            <a class="waves-effect waves-light btn btn-update" v-on:click="updateDepartment()">更新</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- DepartmentDetail -->
+            </div>
+            <div class="row setting-staff">
+                <!-- StaffList -->
+                <div id="StaffList" class="col s4 staff-list">
+                    <div class="wrapper">
+                        <div class="title">
+                            單位人員清單
+                            <div class="filter pull-right">
+                                <input type="checkbox" class="filled-in" id="test5" v-model="onDuty" v-on:change="refresh()" />
+                                <label for="test5">離職</label>
+                            </div>
+                            <a href="#AddStaff" class="add-staff pull-right" v-on:mousedown="openCreate()">
+                                <i class="ion-plus"></i>
+                                <span>新增</span>
+                            </a>
+                            <div id="AddStaff" class="modal" style="overflow: auto;">
+                                <div class="modal-content" style="position: relative; ">
+                                    <h1 class="rv-title">新增人員</h1>
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="col s3 control-label">所屬單位</label>
+                                                <div class="col s9">
+                                                    <div class="dropdown">
+                                                        <a class="btn dropdown-button" type="button" data-activates="AddOfUnit">
+                                                            <span>{{team.name}}</span><span class="caret"></span>
+                                                        </a>
+                                                        <ul id="AddOfUnit" class="dropdown-content">
+                                                            <li v-for="value in department_list"><a v-on:mousedown="team=value">{{value.name}}</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="col s3 control-label">人員編號</label>
+                                                <div class="col s9">
+                                                    <input type="text" class="form-control" placeholder="代碼" v-model="newStaffData.staff_no">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="col s3 control-label">* 帳號</label>
+                                                <div class="col s9">
+                                                    <input type="text" class="form-control" placeholder="帳號" v-model="newStaffData.account">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="col s3 control-label">* 密碼</label>
+                                                <div class="col s9">
+                                                    <input type="text" class="form-control" placeholder="密碼" v-model="newStaffData.passwd">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="col s3 control-label">* 中文名字</label>
+                                                <div class="col s9">
+                                                    <input type="text" class="form-control" placeholder="中文名字" v-model="newStaffData.name">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="col s3 control-label">* 英文名字</label>
+                                                <div class="col s9">
+                                                    <input type="text" class="form-control" placeholder="英文名字" v-model="newStaffData.name_en">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="col s3 control-label">* 電子郵件</label>
+                                                <div class="col s9">
+                                                    <input type="text" class="form-control" placeholder="電子郵件" v-model="newStaffData.email">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="col s3 control-label" >到職日</label>
+                                                <div class="col s9">
+                                                    <input type="text" class="form-control date-picker" placeholder="到職日" v-model="newStaffData.first_day" @click="onDateChoose('first_day')">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="col s3 control-label">離職日</label>
+                                                <div class="col s9">
+                                                    <input type="text" class="form-control date-picker" placeholder="離職日" v-model="newStaffData.last_day" @click="onDateChoose('last_day')">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="col s3 control-label">換單位日</label>
+                                                <div class="col s9">
+                                                    <input type="text" class="form-control date-picker" placeholder="換單位日" v-model="newStaffData.update_date" @click="onDateChoose('update_date')">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="col s3 control-label">在職狀態</label>
+                                                <div class="col s9">
+                                                    <div class="dropdown">
+                                                        <a class="btn dropdown-button" type="button" data-activates="AddJobStatus">
+                                                            <span>{{newStaffData.status.name}}</span>
+                                                            <span class="caret"></span>
+                                                        </a>
+                                                        <ul id="AddJobStatus" class="dropdown-content">
+                                                            <li v-for="value in staff_status"><a v-on:mousedown="newStaffData.status=value">{{value.name}}</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="col s3 control-label">職務類別</label>
+                                                <div class="col s9">
+                                                    <div class="dropdown">
+                                                        <a class="btn dropdown-button" type="button" data-activates="AddJobType">
+                                                            <span>{{newStaffData.title.name}}</span>
+                                                            <span class="caret"></span>
+                                                        </a>
+                                                        <ul id="AddJobType" class="dropdown-content">
+                                                            <li v-for="value in staff_title"><a v-on:mousedown="newStaffData.title=value">{{value.name}}</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="col s3 control-label">職務</label>
+                                                <div class="col s9">
+                                                    <div class="dropdown">
+                                                        <a class="btn dropdown-button" type="button" data-activates="AddJobTitle">
+                                                            <span>{{newStaffData.post.name}}</span>
+                                                            <span class="caret"></span>
+                                                        </a>
+                                                        <ul id="AddJobTitle" class="dropdown-content">
+                                                            <li v-for="value in staff_post"><a v-on:mousedown="newStaffData.post=value">{{value.name}}</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="col s3 control-label">職等</label>
+                                                <div class="col s9">
+                                                    <input type="number" class="form-control" placeholder="職等" v-model.number="newStaffData.rank">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="button-group center">
+                                                <button class="waves-effect waves-light btn" v-on:click="addStaff">送出</button>
+                                                <button class="waves-effect waves-darken btn white black-text modal-close">取消</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div :class="'rv-item staff_id_'+value.id" v-for="(value,key,index) in staff_list" v-on:click="showDetail(value)">
+                            <div class="rv-img">{{value.head}}</div>
+                            <div>{{value.name_en}} {{value.name}} </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- StaffList -->
+                <!-- StaffDetail -->
+                <div id="StaffDetail" class="col s8 staff-forms">
+                    <div class="forms-block">
+                        <div class="title">
+                            員工資料管理
+                            <div class="filter pull-right">
+                                <input type="checkbox" class="filled-in" id="test6" v-model="isAdmin" v-on:change="updateAdmin" />
+                                <label for="test6">系統管理者</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s6">
+                                <div class="form-group">
+                                    <label class="col s4 control-label">所屬單位</label>
+                                    <div class="col s8">
+                                        <div class="dropdown">
+                                            <a class="btn dropdown-button" type="button" data-activates="OfUnit">{{nowDepartment.name}}<span class="caret"></span></a>
+                                            <ul id="OfUnit" class="dropdown-content">
+                                                <li v-for="(value,key,index) in department" v-on:mousedown="nowDepartment=value"><a>{{value.name}}</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col s6">
+                                <div class="form-group">
+                                    <label class="col s4 control-label">* 人員編號</label>
+                                    <div class="col s8">
+                                        <input type="text" class="form-control" placeholder="人員編號" :value="now.staff_no" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s6">
+                                <div class="form-group">
+                                    <label class="col s4 control-label">* 帳號</label>
+                                    <div class="col s8">
+                                        <input type="text" class="form-control" placeholder="帳號" :value="now.account" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col s6">
+                                <div class="form-group">
+                                    <label class="col s4 control-label">* 密碼</label>
+                                    <div class="col s8">
+                                        <input type="text" class="form-control" placeholder="密碼" v-model="now.passwd">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s6">
+                                <div class="form-group">
+                                    <label class="col s4 control-label">* 中文名字</label>
+                                    <div class="col s8">
+                                        <input type="text" class="form-control" placeholder="中文名字" v-model="now.name">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col s6">
+                                <div class="form-group">
+                                    <label class="col s4 control-label">* 英文名字</label>
+                                    <div class="col s8">
+                                        <input type="text" class="form-control" placeholder="英文名字" v-model="now.name_en">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s6">
+                                <div class="form-group">
+                                    <label class="col s4 control-label">* 電子郵件</label>
+                                    <div class="col s8">
+                                        <input type="text" class="form-control" placeholder="電子郵件" v-model="now.email">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col s6">
+                                <div class="form-group">
+                                    <label class="col s4 control-label">到職日</label>
+                                    <div class="col s8">
+                                        <input type="text" class="form-control date-picker" placeholder="到職日" v-model="now.first_day" @click="onDateChoose('first_day')">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s6">
+                                <div class="form-group">
+                                    <label class="col s4 control-label">離職日</label>
+                                    <div class="col s8">
+                                        <input type="text" class="form-control date-picker" placeholder="離職日" v-model="now.last_day" @click="onDateChoose('last_day')">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col s6">
+                                <div class="form-group">
+                                    <label class="col s4 control-label">換單位日</label>
+                                    <div class="col s8">
+                                        <input type="text" class="form-control date-picker" placeholder="換單位日" v-model="now.update_date" @click="onDateChoose('update_date')">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s6">
+                                <div class="form-group">
+                                    <label class="col s4 control-label">在職狀態</label>
+                                    <div class="col s8">
+                                        <div class="dropdown">
+                                            <a class="btn dropdown-button" type="button" data-activates="JobStatus">{{now.status}}<span class="caret"></span></a>
+                                            <ul id="JobStatus" class="dropdown-content">
+                                                <li v-for="value in staff_status" v-on:mousedown="now.status=value.name;now.status_id=value.id"><a>{{value.name}}</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col s6">
+                                <div class="form-group">
+                                    <label class="col s4 control-label">職務類別</label>
+                                    <div class="col s8">
+                                        <div class="dropdown">
+                                            <a class="btn dropdown-button" type="button" data-activates="JobType">{{now.title}}<span class="caret"></span></a>
+                                            <ul id="JobType" class="dropdown-content">
+                                                <li v-for="value in staff_title" v-on:mousedown="now.title=value.name;now.title_id=value.id"><a>{{value.name}}</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s6">
+                                <div class="form-group">
+                                    <label class="col s4 control-label">職務</label>
+                                    <div class="col s8">
+                                        <div class="dropdown">
+                                            <a class="btn dropdown-button" type="button" data-activates="JobTitle">{{now.post}}<span class="caret"></span></a>
+                                            <ul id="JobTitle" class="dropdown-content">
+                                                <li v-for="value in staff_post" v-on:mousedown="now.post=value.name;now.post_id=value.id"><a>{{value.name}}</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col s6">
+                                <div class="form-group">
+                                    <label class="col s4 control-label">職等</label>
+                                    <div class="col s8">
+                                        <input type="number" class="form-control" placeholder="職等" v-model="now.rank">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row pull-right">
+                            <a class="waves-effect waves-light btn btn-update" v-on:click="updateStaff">更新</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- StaffDetail -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="<?=U('/Public/js/Index/setting-organization.js')?>"></script>
+<script type="text/javascript" src="<?=U('/Public/js/datepicker.js')?>"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js'></script>

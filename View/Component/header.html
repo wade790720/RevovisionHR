@@ -1,0 +1,69 @@
+<header id="Header">
+    <div class="navbar-fixed">
+        <nav>
+            <div class="nav-wapper">
+                <div class="col s12">
+                    <a href="<?=U('/')?>" class="logo">
+                        <img src="<?=U('/Public/img/logo.png')?>" alt="">
+                    </a>
+                    <ul class="right" data-template="header-right">
+
+                      <li class="hide-on-small-and-down headway">
+                          <a>{{name}} {{name_en}}</a>
+                      </li>
+                      <li>
+                          <a href="#" data-toggle="logout">Log Out</a>
+                      </li>
+
+                    </ul>
+                    <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">dehaze</i></a>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <ul id="slide-out" class="side-nav fixed rv-nav-side">
+        <ul class="collapsible collapsible-accordion">
+            <li class="bold active">
+                <a class="collapsible-header waves-effect waves-orange">月份考評</a>
+                <div class="collapsible-body">
+                    <ul>
+                        <li><a href="<?=U('/Template/index')?>">待考評單</a></li>
+                        <li><a href="<?=U('/Template/organization-chart')?>">考評狀態</a></li>
+                        <li><a href="<?=U('/Template/review')?>">工作評語</a></li>
+                        <!-- <li><a href="#">我的績效</a></li>
+                        <li><a href="#">部屬績效</a></li> -->
+                    </ul>
+                </div>
+            </li>
+        </ul>
+        <ul class="collapsible collapsible-accordion" v-if="is_admin==1 || lv<=1">
+            <li class="bold">
+                <a class="collapsible-header waves-effect waves-orange">績效總覽</a>
+                <div class="collapsible-body">
+                    <ul>
+                        <li><a href="<?=U('/Template/overview')?>">各月份績效結果</a></li>
+                        <!-- <li><a href="#">各年度績效結果</a></li> -->
+                    </ul>
+                </div>
+            </li>
+        </ul>
+        <li class="bold" v-if="is_admin==1">
+            <a href="<?=U('/Template/attendance')?>" class="collapsible-header waves-effect waves-orange">出勤管理</a>
+        </li>
+        <ul class="collapsible collapsible-accordion" v-if="is_admin==1">
+            <li class="bold">
+                <a class="collapsible-header waves-effect waves-orange">系統管理</a>
+                <div class="collapsible-body">
+                    <ul>
+                        <li><a href="<?=U('/Template/setting-organization')?>">組織設定</a></li>
+                        <li><a href="<?=U('/Template/setting-admin')?>">超級管理員</a></li>
+                        <li><a href="<?=U('/Template/setting-evaluation')?>">月考評區間設定</a></li>
+                        <li><a href="<?=U('/Template/setting-import')?>">批次匯入員工資料</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </ul>
+    <script src="<?=U('/Public/js/vue.2.2.6.js')?>"></script>
+    <script src="<?=U('/Public/js/Index/header.js')?>"></script>
+</header>

@@ -1,0 +1,84 @@
+<div id="SettingEvaluation">
+    <div class="had-container">
+        <h1 class="rv-title">月考評區間設定</h1>
+        <div class="evaluation-setting container">
+            <div class="row filter-date">
+                <div class="year-select row">
+                    <h3 class="title">請選擇年份</h3>
+                    <div class="dropdown">
+                        <a class="btn dropdown-button" type="button" data-activates="ChartYear">{{now.year}}<span class="caret"></span></a>
+                        <!-- ID命名使用大駝峰命名規則 dropdown-year-select > ChartYear -->
+                        <ul id="ChartYear" class="dropdown-content">
+                            <li v-for="value in yearArray"><a @mousedown="now.year=value">{{value}}</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="month-select">
+                    <h3 class="title">請選擇月份</h3>
+                    <form action="#" class="row month-list">
+                        <span v-for="value in monthArray" >
+                          <input name="month-choose" type="radio" :id="'eva-month-'+value" @change="now.month=value" />
+                          <label :for="'eva-month-'+value">{{value}}月</label>
+                        </span>
+                    </form>
+                </div>
+            </div>
+            <div class="row month-setting">
+                <div class="title"> <span>{{now.year}}</span> 年<span> {{now.month}} </span> 月考評區間設定</div>
+                <div class="forms-block">
+                    <div class="row">
+                        <div class="col s12 m12">
+                            <div class="form-group">
+                                <label class="col s4 control-label">起始/結束日期設定</label>
+                                <div class="process-date col s8">
+                                    <span>  <i>{{now.month -1 || 12}}月</i><input type="text" maxlength="2" class="form-control date" v-model="setting.day_start"></span>
+                                    <span class="icon"><i class="material-icons">keyboard_arrow_right</i></span>
+                                    <span>  <i>{{now.month }}月</i><input type="text" maxlength="2" class="form-control date" v-model="setting.day_end"></span>
+                                    <div class="tip-word col s12">
+                                        <p>請填寫考評的起始日期及結束日期</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12 m12">
+                            <div class="form-group">
+                                <label class="col s4 control-label">設定考評之天數</label>
+                                <div class="rate-days col s8">
+                                    <input type="text" maxlength="2" class="form-control date" v-model="setting.day_cut_addition">
+                                    <div class="tip-word col s12">
+                                        <p>請設定啟動日後，主管要考評的天數</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12 m12">
+                            <div class="form-group eva-start">
+                                <label class="col s4 control-label">啟動考評</label>
+                                <div class="switch col s8">
+                                    <label>
+                                        <input type="checkbox" id="LaunchBtn" v-model="isLaunch" @change="launchBotton">
+                                        <span class="lever"></span>
+                                    </label>
+                                    <div class="eva-end-date">
+                                        <p>{{now.year}}年{{now.month}}月{{finalDay}}日 需完成考評</p>
+                                    </div>
+                                    <div class="tip-word col s12">
+                                        <p>請按上方按鈕啟動/關閉 考評</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row pull-right" v-show="canUpdate">
+                        <a class="waves-effect waves-light btn btn-update" @click="submit">更新</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="<?=U('/Public/js/Index/setting-evaluation.js')?>"></script>
