@@ -1,26 +1,22 @@
 var $Organization = $('#Organization').generalController(function() {
-
-    function init() {
+    var ts = this,
+      current = $.ym.get();
+    var month = ts.q('#ChartMonth');
+    var year = ts.q('#ChartYear');
+    function initYM() {
         var thisyear = new Date().getFullYear();
-        for (i = thisyear; i > thisyear - 2; i--) {
+        for (i = thisyear; i >= API.create.year ; i--) {
             year.append('<option value="' + i + '">' + i + '年</option>');
         }
-        //month
-        var thismonth = new Date().getMonth() + 1;
         for (i = 1; i <= 12; i++) {
             month.append('<option value="' + i + '">' + i + '月</option>');
         }
-        //default current month and year
-        year.val(thisyear).attr('selected');
-        // month.val(thismonth).attr('selected');
     }
+    initYM();
 
     // 組織圖樣版
 
     var cell = this.q('#cell-1').html();
-    var ts = this;
-    var month = ts.q('#ChartMonth');
-    var year = ts.q('#ChartYear');
     var selectMonth = ts.q('#SelectMonth').find('select');
     var historyModal = ts.q('#HistoryModal');
     var cell2 = ts.q('#cell-2').html();
@@ -28,92 +24,30 @@ var $Organization = $('#Organization').generalController(function() {
 
     // member 的資料
     ts.onLogin(function(member) {
-      console.log(member);
-        tyear = new Date().getFullYear();
-        tmonth = new Date().getMonth() + 1;
-        var now = {
-            year: tyear,
-            month: tmonth
-        }
 
         setTimeout(function() {
-           month.val(tmonth).trigger('change');
+          year.val( current.year );
+          month.val( current.month ).trigger('change');
         }, 50);
 
         ts.on('click', '*[data-process-id]', function() {
             // get btn process id number
             var $this_btn = ts.q(this);
             var pid = $this_btn.data('process-id');
-            //console.log(pid);
-            var record = $this_btn.data('record');
-            //console.log(record);
-            var unitname = record.name; // 組織名稱
-            var man_name = record.manager_name;
-            var man_name_en = record.manager_name_en;
-
-
-            var createblock = ts.q('[data-process=create_date]');
-            var unitblock = ts.q('[data-process=unit_name]');
-            var timeinfo = ts.q('[data-process=time_info]');
-            var process_info = ts.q('[data-process=info]');
-
-
-
-            API.getMonthlyProcessHistory({processing_id: pid}).then(function(json) {
-                //loading
-                var rec = API.format(json);
-
-                if (rec.is) {
-                    var recordArray = rec.res();
-                    // .res() 資料限制是array；.get() 資料為原始資料
-                    createblock.empty();
-                    unitblock.empty();
-                    timeinfo.empty();
-                    unitblock.append('主管:' + man_name_en + man_name + ' : 【' + unitname + ' 】考評單');
-
-                    for (var a in recordArray) {
-                        var list = recordArray[a];
-                        var timecell = cell2.replace(/\{([\w\d]+?)\}/ig, function(match, param2) {
-                            var k = param2;
-                            return list[k];
-                        });
-                        var p_cell = $(timecell);
-                        var process_info = p_cell.q('[data-process=info]');
-                        var defalt_info = '考評單尚未產生';
-                        var create_info = '考評單產生日期 : ' + list.update_date;
-                        var commit_info ='【' + list._operating_name_en + list._operating_name + '】 已<b>送審</b>考評單至 【' + list._target_name_en + list._target_name +'】';
-                        var return_info ='【' +  list._operating_name_en + list._operating_name + '】 已<i>退回</i>此考評單給【' + list._target_name_en + list._target_name + '】<br> <i>退回原因：</i>' + list.reason;
-                        var done_info = '此考評單已<em>考評完成</em>';
-
-                        if (list.action == 'create') {
-                            process_info.html(create_info);
-                        }
-
-                        if (list.action == 'commit') {
-                            process_info.html(commit_info);
-                        }
-
-                        if (list.action == 'return') {
-                            process_info.html(return_info);
-                        }
-
-                        if (list.action == 'done') {
-                            process_info.html(done_info);
-                        }
-                        timeinfo.append(p_cell);
-                    }
-                } else {
-                    //console.log(rec.get());
-                }
-            });
+            _vue_modal.monthly_history.show(pid);
         });
 
         // 當使用者選擇月份
-        selectMonth.on('change', loadMap);
+        selectMonth.on('change', function(){
+          current.year = year.val();
+          current.month = month.val();
+          $.ym.save();
+          loadMap(); 
+        });
 
-        function loadMap(param) {
-            var mon = month.val();
-            var yn = year.val();
+        function loadMap() {
+            var mon = current.month;
+            var yn = current.year;
             var param = "year=" + yn + "&month=" + mon;
 
             var rvChart = ts.q('#RvChart');
@@ -121,12 +55,6 @@ var $Organization = $('#Organization').generalController(function() {
             // add a loading
             rvChart.empty();
 
-                ts.q('.rv-chart-map').addClass('rv-loading');
-
-
-            // 資料庫只有4月可以看
-            //var data = 'year=2017&month=4';
-            //var data = param;
             API.getDepartmentList(param).then(function(json) {
                 // 解析資料
                 var collect = API.format(json);
@@ -152,13 +80,20 @@ var $Organization = $('#Organization').generalController(function() {
                             lvArray[loc['lv']] = [loc];
                         }
 
+                    }//for unit_array..
+
+                    if(unitArray){
+                      ts.q('.no-data').hide();
+                      ts.q('.rv-chart-info').fadeIn('slow');
                     }
 
+
+
+                    var sort_id_array = [];
                     for (var a in lvArray) {
                         var loc = lvArray[a];
                         for (var b in loc) {
                             var loc2 = loc[b];
-                            //console.log(loc2);
                             var $root = ts.q('[data-department-id=' + loc2['upper_id'] + ']');
                             var newCell = cell.replace(/\{([\w\d]+?)\}/ig, function(match, param1) {
                                 var key = param1;
@@ -168,97 +103,147 @@ var $Organization = $('#Organization').generalController(function() {
 
                             // 這太浪費 by snow
                             var j_cell = $(newCell);
-                            var key = j_cell.q('[rv-if]').attr('rv-if');
+                            //var key = j_cell.q('[rv-if]').attr('rv-if');
                             var ablock = j_cell.q('[data-unitid]');
+                            var scoreBTN = j_cell.q('.score-history');
                             var pidBtn = j_cell.q('[data-created-id]');
-                            // 如果不是user的下屬則不出現紀錄欄位
-                            if (!loc2[key]) {
-                                j_cell.q('[rv-if=' + key + ']').remove();
-                            }
-                            //如果沒主管不出現紀錄欄位？
-                            // if (!loc2['_manager']) {
-                            //     j_cell.q('[rv-if=' + key + ']').remove();
-                            // }
-
-
                             if (!loc2['_manager']) {
                                 ablock.addClass('noleader')
                             }
+                            // 無考評單也要顯示白色
+                            if (!loc2['_processing']) {
+                                ablock.addClass('noleader')
+                            }
+                             if (loc2['lv'] == 3) {
+                                  j_cell.addClass('nav-row');
+                              }
+                              if (loc2['manager_staff_id'] == member.id) {
+                                    j_cell.addClass('active');
+                                }
 
-                            if (loc2[key]) {
-                                //依考評單狀態顯示顏色
-                                for (var id in loc2._processing) {
-                                    //console.log(loc2._processing[id].status_code);
-                                    //console.log(loc2._processing[id].length);
-                                    //console.log(loc2._processing[id].created_department_id);
+                              $root.append(j_cell);
+                              sort_id_array.push(loc2);
+                            if( !loc2.record_if  && member.is_admin != 1 ){ continue; }
+
+                            // 考評單按鈕
+                            btnHis_1_non_score = '<button data-target="HistoryModal" class="score-history waves-effect waves-light btn non-score" data-process-id="{id}"">主管紀錄</button>';
+                            btnHis_1_reviewing = '<button data-target="HistoryModal" class="score-history waves-effect waves-light btn reviewing" data-process-id="{id}">主管紀錄</button>';
+                            btnHis_1_return = '<button data-target="HistoryModal" class="score-history waves-effect waves-light btn return" data-process-id="{id}">主管紀錄</button>';
+                            btnHis_1_rated = '<button data-target="HistoryModal" class="score-history waves-effect waves-light btn rated" data-process-id="{id}">主管紀錄</button>';
+
+                            btnHis_2_non_score = '<button data-target="HistoryModal" class="score-history waves-effect waves-light btn non-score" data-process-id="{id}">紀錄</button>';
+                            btnHis_2_reviewing = '<button data-target="HistoryModal" class="score-history waves-effect waves-light btn reviewing" data-process-id="{id}">紀錄</button>';
+                            btnHis_2_return = '<button data-target="HistoryModal" class="score-history waves-effect waves-light btn return" data-process-id="{id}">紀錄</button>';
+                            btnHis_2_rated = '<button data-target="HistoryModal" class="score-history waves-effect waves-light btn rated" data-process-id="{id}">紀錄</button>';
+                              for (var id in loc2._processing) {
+                                    var template;
                                     switch (loc2._processing[id].status_code) {
                                         // 草稿
                                         case 1:
+                                            template ='';
                                             break;
                                             //初評
                                         case 2:
+                                            if (loc2._processing[id] && loc2._processing[id].type == 1) {
+                                              template = btnHis_1_non_score;
+                                            }
+                                            if (loc2._processing[id] && loc2._processing[id].type == 2) {
+                                               template = btnHis_2_non_score;
+                                            }
                                             ablock.addClass('non-score');
                                             break;
                                             // 審核
                                         case 3:
+                                            if (loc2._processing[id] && loc2._processing[id].type == 1) {
+                                               template = btnHis_1_reviewing;
+                                            }
+                                            if (loc2._processing[id] && loc2._processing[id].type == 2) {
+                                               template = btnHis_2_reviewing;
+                                            }
+
                                             ablock.addClass('reviewing');
                                             break;
                                             // 核準
                                         case 4:
+                                            if (loc2._processing[id] && loc2._processing[id].type == 1) {
+                                              template = btnHis_1_return;
+                                            }
+                                            if (loc2._processing[id] && loc2._processing[id].type == 2) {
+                                               template = btnHis_2_return;
+                                            }
+
+
                                             ablock.addClass('return');
                                             break;
                                             // 退回
                                         case 5:
-
+                                            if (loc2._processing[id] && loc2._processing[id].type == 1) {
+                                               template = btnHis_1_rated;
+                                            }
+                                            if (loc2._processing[id] && loc2._processing[id].type == 2) {
+                                               template = btnHis_2_rated;
+                                            }
                                             ablock.addClass('rated');
                                             break;
-                                            defalt:
+                                      defalt:
+                                            template ='';
                                                 break;
                                     }
 
-                                    // 顯示區塊中有的考評單按鈕 ，部份主管有二個單，則一個顯示主管紀錄，一個顯示紀錄
-                                    if (loc2._processing[id] && loc2._processing[id].type == 1) {
-                                        var btnHistory1 = '<button data-target="HistoryModal" class="score-history waves-effect waves-light btn" data-process-id=' +
-                                            id + '>主管紀錄</button>';
-                                        var btn_1 = j_cell.q('[rv-if]').append(btnHistory1);
-                                        btn_1.q('[data-process-id]').data('record', loc2);
-                                    }
+                                     var btn_1_non = j_cell.q('[rv-if]').append(template.replace('{id}',id));
+                                    btn_1_non.q('[data-process-id]').data('record', loc2);
 
-                                    if (loc2._processing[id] && loc2._processing[id].type == 2) {
-                                        var btnHistory2 = '<button data-target="HistoryModal" class="score-history waves-effect waves-light btn" data-process-id=' +
-                                            id + '>紀錄</button>';
-                                        var btn_2 = j_cell.q('[rv-if]').append(btnHistory2);
-                                        btn_2.q('[data-process-id]').data('record', loc2);
-                                    }
+                                }//for.. lloc2.processing..
 
-                                }
-                            }
-                            if (loc2['manager_staff_id'] == member.id) {
-                                j_cell.addClass('active');
-                            }
-                            // 系統管理員可以看到全部
-                            if(member.is_admin == 1) {
-                              loc2.id = 1;
-                              ts.q('#RvChart').children('li').addClass('active');
-                            }
+                        }// for ivarray.loc..  lv
 
-                            // 最下層 lv4 加上直行顯示的css
-                            if (loc2['lv'] == 3) {
-                                j_cell.addClass('nav-row');
-                            }
-                             $root.append(j_cell);
-                             ts.q('.no-data').hide();
-                             ts.q('.rv-chart-info').fadeIn('slow');
+                    }// for lvarray..
 
-                            ts.q('.rv-chart-map').removeClass('rv-loading');
-                        }
+                    if( member.is_admin == 1){
+                      rvChart.children().addClass('active');
                     }
+
+                    for(var sia in sort_id_array){
+                      var id_sa = sort_id_array[sia];
+                      department_sort(id_sa);
+                    }
+                    // 排序功能：改為依部門id來排序
+                    function department_sort(deparment){
+                      // return console.log(deparment);
+                      var self = ts.q('[data-department-id='+deparment.id+']');
+                      var li = self.children();
+                      if(li.length==0){return;}
+
+                      switch( deparment.lv ){
+                        case 1:case 2:
+                          li.sort(sort_lib).appendTo(self);
+                        break;
+                        case 3:
+                          li.sort(sort_lia).appendTo(self);
+                        break;
+                      }
+
+                    }
+
+                    // 正向排序
+                    function sort_lia(a, b) {
+                        return ($(b).data('unitid')) < ($(a).data('unitid')) ? 1 : -1;
+                    }
+
+                    // 反向排序
+                    function sort_lib(a, b) {
+                        return ($(b).data('unitid')) > ($(a).data('unitid')) ? 1 : -1;
+                    }
+
                 } else {
 
                     ts.q('.no-data').show();
-                     ts.q('.rv-chart-info').hide();
-                    ts.q('.rv-chart-map').removeClass('rv-loading');
-                    // add a fail run down
+                    ts.q('.rv-chart-info').hide();
+                    // setTimeout(function() {
+                    // ts.q('.rv-chart-map').removeClass('rv-loading');
+                    // }, 200);
+
+                    // endLoading();
 
                 }
 
@@ -268,13 +253,4 @@ var $Organization = $('#Organization').generalController(function() {
         }
     });
 
-
-
-    init();
-
-    // use materializecss modal
-    ts.q('.rv-chart-map').find('.modal').modal({
-        inDuration: 100,
-        outDuration: 100,
-    });
 })

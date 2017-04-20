@@ -47,6 +47,7 @@ if( $api->SC->isLogin() ){
       $created_staff = $sd_map[ $val['created_staff_id'] ];
       
       $val['created_unit_name'] = $team_map[ $val['created_department_id'] ][ 'unit_name' ];
+      $val['created_unit_id'] = $team_map[ $val['created_department_id'] ][ 'unit_id' ];
       $val['created_name'] = $created_staff['name'];
       $val['created_name_en'] = $created_staff['name_en'];
       $val['owner_name'] = $owner['name'];

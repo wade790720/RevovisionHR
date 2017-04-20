@@ -17,6 +17,7 @@ if($api->checkPost(array("year","month")) || $api->checkPost(array("check"))){
   $year      = $api->post('year');
   $month     = $api->post('month');
   $check     = $api->post('check');
+  $del       = $api->post('del');
   
   if($check){
     if(!$year){ $year=(int)date('Y'); }
@@ -26,8 +27,7 @@ if($api->checkPost(array("year","month")) || $api->checkPost(array("check"))){
   //取得該月的設定值
   $cyc_config = new ConfigCyclical( $year,$month );
   $config = $cyc_config->data;
-  
-  if($check && $api->isPast( $config['RangeEnd'] ) ){
+  if($check && $api->isPast( $config['RangeEnd'] ) && !$api->isToday( $config['RangeEnd'] ) ){
     if($month==12){
       $year+=1;
       $month=1;
@@ -36,17 +36,30 @@ if($api->checkPost(array("year","month")) || $api->checkPost(array("check"))){
     }
     $config = $cyc_config->getConfigWithDate( $year, $month );
   }
-  // LG($config);
+      
   
   if( $api->isPast( $config['RangeStart'] ) ){
+    
+    $isInRange = $api->isFuture( $config['RangeEnd'] ) || $api->isToday( $config['RangeEnd'] );
     
     $ds = new DepartmentStaff();
     
     $pr = new ProcessReport($year,$month);
     
-    //過濾還再職的員工
-    $ds->staff->read( array('id','staff_no','name','name_en','lv','status_id','first_day','last_day','department_id') ,'')->filterOnDuty( $config['RangeStart'] );
+    //月考評單全部重做
+    if($del && $check && $api->SC->isAdmin()){
+      
+      $ym=array('year'=>$year,'month'=>$month);
+      
+      $pr->process->delete($ym);
+      $pr->general->delete($ym);
+      $pr->leader->delete($ym);
+      
+      $pr->initRead($ym);
+    }
     
+    //過濾還再職的員工
+    $ds->staff->read( array('id','staff_no','name','name_en','lv','status_id','first_day','last_day','department_id') ,'')->filterOnDuty( $config['RangeStart'],$config['RangeEnd'] );
     $teamsData = $ds->collect();
     
     $staffMaps = $ds->staff->map();
@@ -56,7 +69,7 @@ if($api->checkPost(array("year","month")) || $api->checkPost(array("check"))){
     
     
     // if( $api->isFuture( $config['RangeEnd'] ) || IS_DEBUG_MODE==1 ){
-    if( $api->isFuture( $config['RangeEnd'] ) && $api->SC->isAdmin() ){
+    if( $isInRange && $api->SC->isAdmin() ){
       
 	  $emptyTeams = array();
 	  //檢查 未產生的月績效考評單
@@ -106,15 +119,16 @@ if($api->checkPost(array("year","month")) || $api->checkPost(array("check"))){
       // LG($times);
       //檢查 績效表的流程單
       if($times>0 || $check){
-		  
-		  if(count($emptyTeams)>0){
-			  $empty_teams_id = join(',',$emptyTeams);
-			  $pr->process->delete("where created_department_id in ($empty_teams_id)");
-		  }
-		  
-		  $pr->updateGeneralProcessing();
-		  
-		}
+        
+        $pr->updateGeneralProcessing();
+        
+      }
+      //把留言加到重新建立的單子上
+      if($check && $del){
+        include_once BASE_PATH.'/Model/dbBusiness/RecordPersonalComment.php';
+        $comment = new Model\Business\RecordPersonalComment();
+        $comment->refresh();
+      }
     }
     
     if($check){
@@ -128,14 +142,18 @@ if($api->checkPost(array("year","month")) || $api->checkPost(array("check"))){
         $created_dev = $val['created_department_id'];
         $id = $val['id'];
         $teamsData[$created_dev]['_processing'][$id]= $val;
+        if( isset($staffMaps[ $val['created_staff_id'] ]) ){
+          $teamsData[$created_dev]['_manager'] = $staffMaps[ $val['created_staff_id'] ];
+        }else{
+          $api->denied('Error For The Leader ID '.$val['created_staff_id'].' Is Not Exist.');exit;
+        }
       }
       $api->setArray($teamsData);
     }
     
   }else{
     //選擇時間還沒到
-    $api->denied();
-    $api->setMsg("Is Not Yet On Arrival Date.");
+    $api->denied("Is Not Yet On Arrival Date.");
     
   }
   

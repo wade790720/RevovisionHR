@@ -55,6 +55,10 @@ class DepartmentAttendance extends MultipleSets{
     // LG($staff_ids);
     // LG($this->attendance);
     $this->data =  $this->attendance->DB->doSQL($sql);
+    foreach($this->data as &$v){
+      $v['checkin_hours'] = $this->coverTime($v['checkin_hours']);
+      $v['checkout_hours'] = $this->coverTime($v['checkout_hours']);
+    }
     return $this->data;
   }
   
@@ -99,7 +103,9 @@ class DepartmentAttendance extends MultipleSets{
     return $res;
   }
   
-  
+  private function coverTime($time){
+     return (preg_match('/[1-9]+/',$time))?$time:''; 
+  }
   
   protected function get_team(){
     return $this->team;

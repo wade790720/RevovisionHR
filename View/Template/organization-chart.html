@@ -34,28 +34,6 @@
                         <li><span class="info-color no-leader"></span> <span>暫無主管: 此單位暫無主管與員工，故無考評單</span></li>
                     </ul>
                 </div>
-                <!-- Modal Structure -->
-                <div id="HistoryModal" class="modal">
-                    <div class="modal-content">
-                        <h1 class="rv-title" data-process="unit_name"> </h1>
-                        <div class="widget-timeline" data-process="history">
-                            <div class="widget-timeline-section widget-timeline-first">考評單歷程</div>
-                            <div data-process="time_info">
-                                <!--                                 <div class="widget-timeline-item">
-                                    <div class="widget-timeline-info">
-                                        <div class="widget-timeline-bullet bg-primary"></div>
-                                        <div class="widget-timeline-time bg-primary" data-process="create_date"></div>
-                                    </div>
-                                    <div class="panel">
-                                        <div class="panel-body">
-                                            考評單產生日期
-                                        </div>
-                                    </div>
-                                </div> -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
                 <div class="no-data">
                   <p>查無資料</p>
@@ -64,11 +42,11 @@
         </div>
     </div>
     <div id="cell-1" style="display:none;">
-        <li>
+        <li data-unitid="{unit_id}">
             <a class="team-block" data-unitid="{unit_id}">
                 <div class="team-leader">{manager_name_en} {manager_name}</div>
                 <div class="team-name">{name}</div>
-                <div class="score-block" rv-if="record_if">
+                <div class="score-block" rv-if="{record_if}">
                     <!-- <button  class="score-history waves-effect waves-light btn">紀錄</button> -->
                 </div>
             </a>
@@ -92,3 +70,4 @@
     </div>
 </div>
 <script type="text/javascript" src="<?=U('/Public/js/Index/organization-chart.js')?>"></script>
+<?=V('Component/monthly_history.html')?>

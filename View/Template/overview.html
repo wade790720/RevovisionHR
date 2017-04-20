@@ -1,16 +1,22 @@
+<style>
+#Overview table td:last-child >a {
+    max-width: 5.5em;
+    overflow: visible;
+    white-space: nowrap;
+}
+</style>
 <div id="Overview">
     <div class="had-container rv-overview">
         <h1 class="rv-title">各月份績效結果總覽</h1>
         <div class="filter-date row">
             <h3 class="title">請選擇日期</h3>
             <div class="dropdown">
-                <select id="getYear" class="btn dropdown-button" type="button" v-model="year" v-on:change="onSelected()">
+                <select id="getYear" class="btn dropdown-button" type="button" v-model="year" v-on:change="Selected()">
                     <option value="2017">2017年</option>
-                    <option value="2016">2016年</option>
                 </select>
             </div>
             <div class="dropdown">
-                <select id="getMonth" class="btn dropdown-button" type="button" v-model="month" v-on:change="onSelected()">
+                <select id="getMonth" class="btn dropdown-button" type="button" v-model="month" v-on:change="Selected()">
                     <option value="1">1月</option>
                     <option value="2">2月</option>
                     <option value="3">3月</option>
@@ -26,8 +32,8 @@
                 </select>
             </div>
             <div class="dropdown">
-                <select id="getPassReports" class="btn dropdown-button" type="button" v-model="passReports" v-on:change="onSelected()">
-                    <option value="1">顯示所有核准</option>
+                <select id="getPassReports" class="btn dropdown-button" type="button" v-model="passReports" v-on:change="Selected()">
+                    <option value="1">僅顯示已核准名單</option>
                     <option value="0">顯示全部資料</option>
                 </select>
             </div>
@@ -36,7 +42,7 @@
                 <a class="waves-effect waves-light btn teal darken-1" v-on:click="downloadExcel()">匯出 Excel</a>
             </div>
         </div>
-        <div class="row" v-if="viewData.leader">
+        <div class="row" v-if="viewData.leader.length > 0">
             <h5>單位主管</h5>
             <div class="col s12">
                 <div class="card rv-card">
@@ -44,7 +50,7 @@
                         <thead>
                             <tr>
                                 <th>員工編號</th>
-                                <th>職位</th>
+                                <th>職務</th>
                                 <th>員工姓名</th>
                                 <th>目標達成率</th>
                                 <th>工作品質</th>
@@ -59,13 +65,14 @@
                                 <th>重大缺失</th>
                                 <th>總分</th>
                                 <th>到職日</th>
+                                <th>離職日</th>
                                 <th>考核天數</th>
                                 <th>獎金發放</th>
                                 <th>備註</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="(leader,index) in viewData.leader">
+                            <tr v-for="(leader,index) in viewData.leader" :class="{'is-release':leader.releaseFlag=='Y'}">
                                 <td>{{leader.staff_no}}</td>
                                 <td>{{leader.post}}</td>
                                 <td>{{leader.name}} {{leader.name_en}}</td>
@@ -82,6 +89,7 @@
                                 <td>{{leader.mistake}}</td>
                                 <td>{{leader._total_score}}</td>
                                 <td>{{leader.first_day}}</td>
+                                <td>{{leader.last_day}}</td>
                                 <td>{{leader._work_day}}</td>
                                 <td>
                                     <p v-if="leader.bonus">是</p>
@@ -89,16 +97,22 @@
                                 </td>
                                 <td>
                                     <a class="waves-effect waves-light btn" :href="'#CommentLeaderModal-'+(index+1)" v-on:click="comment(leader.staff_id)">{{leader._comment_count}}筆</a>
-                                    <div :id="'CommentLeaderModal-'+(index+1)" class="modal commCard">
+                                    <div :id="'CommentLeaderModal-'+(index+1)" class="modal comment-record">
                                         <div class="modal-content">
                                             <div class="rv-page-title">
-                                                <h1 class="rv-title">評論紀錄</h1>
+                                                <h1 class="rv-title">評論紀錄<button class="modal-action modal-close btn-flat"><i class="material-icons md-18">close</i></button></h1>
                                             </div>
                                             <div class="row">
                                                 <div class="card-panel" v-for="comment in comments">
-                                                    <div class="comm-name">{{comment._created_staff_name}} 評語: </div>
-                                                    <div class="comment-content">{{comment.content}}</div>
-                                                    <div class="pull-right comm-time">{{comment.create_time}}</div>
+                                                    <div class="rv-item">
+                                                        <div class="rv-img">{{comment.name_head}}</div>
+                                                        <div class="comment_user">
+                                                            <span class="tw">{{comment._created_staff_name}}</span>
+                                                            <span class="en">{{comment._created_staff_name_en}}</span>
+                                                        </div>
+                                                        <div class="comment-content">{{comment.content}}</div>
+                                                        <div class="comm-time">{{comment.create_time}}</div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -118,7 +132,7 @@
                         <thead>
                             <tr>
                                 <th>員工編號</th>
-                                <th>職位</th>
+                                <th>職務</th>
                                 <th>員工姓名</th>
                                 <th>工作品質</th>
                                 <th>工作績效</th>
@@ -129,12 +143,14 @@
                                 <th>重大缺失</th>
                                 <th>總分</th>
                                 <th>到職日</th>
+                                <th>離職日</th>
+                                <th>考核天數</th>
                                 <th>獎金發放</th>
                                 <th>備註</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="(staff,index) in viewData.staff">
+                            <tr v-for="(staff,index) in viewData.staff" :class="{'is-release':staff.releaseFlag=='Y'}">
                                 <td>{{staff.staff_no}}</td>
                                 <td>{{staff.post}}</td>
                                 <td>{{staff.name}} {{staff.name_en}}</td>
@@ -147,22 +163,30 @@
                                 <td>{{staff.mistake}}</td>
                                 <td>{{staff._total_score}}</td>
                                 <td>{{staff.first_day}}</td>
+                                <td>{{staff.last_day}}</td>
+                                <td>{{staff._work_day}}</td>
                                 <td>
                                     <p v-if="staff.bonus">是</p>
                                     <p v-else>否</p>
                                 </td>
                                 <td>
-                                    <a class="btn waves-effect waves-teal lighten-1" :href="'#CommentStaffModal-'+(index+1)" v-on:click="comment(staff.id)">{{staff._comment_count}}筆</a>
-                                    <div :id="'CommentStaffModal-'+(index+1)" class="modal commCard">
+                                    <a class="btn waves-effect waves-teal lighten-1" :href="'#CommentStaffModal-'+(index+1)" v-on:click="comment(staff.staff_id)">{{staff._comment_count}}筆</a>
+                                    <div :id="'CommentStaffModal-'+(index+1)" class="modal comment-record">
                                         <div class="modal-content">
                                             <div class="rv-page-title">
-                                                <h1 class="rv-title">評論紀錄</h1>
+                                                <h1 class="rv-title">評論紀錄<button class="modal-action modal-close btn-flat"><i class="material-icons md-18">close</i></button></h1>
                                             </div>
                                             <div class="row">
                                                 <div class="card-panel" v-for="comment in comments">
-                                                    <div class="comm-name">{{comment._created_staff_name}} 評語: </div>
-                                                    <div class="comment-content">{{comment.content}}</div>
-                                                    <div class="pull-right comm-time">{{comment.create_time}}</div>
+                                                    <div class="rv-item">
+                                                        <div class="rv-img">{{comment.name_head}}</div>
+                                                        <div class="comment_user">
+                                                            <span class="tw">{{comment._created_staff_name}}</span>
+                                                            <span class="en">{{comment._created_staff_name_en}}</span>
+                                                        </div>
+                                                        <div class="comment-content">{{comment.content}}</div>
+                                                        <div class="comm-time">{{comment.create_time}}</div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -176,33 +200,60 @@
         </div>
     </div>
 </div>
+<style>
+#Overview .is-release:nth-child(even) {
+    background-color: #f2fffd;
+}
+
+#Overview .is-release:nth-child(odd) {
+    background-color: #ecffea;
+}
+</style>
 <script type="text/javascript">
 var $overView = $('#Overview').generalController(function() {
-    var ts = this
-    var currentYear = new Date().getFullYear()
-    var currentMonth = new Date().getMonth() + 1
-    ts.q("#getYear").val(currentYear)
-    ts.q("#getMonth").val(currentMonth)
+    var ts = this,
+      current = $.ym.get();
+    //var currentYear = new Date().getFullYear()
+    //var currentMonth = new Date().getMonth() + 1
+    var year = ts.q("#getYear").empty();
+    var month = ts.q("#getMonth").empty();
+    function initYM() {
+        var thisyear = new Date().getFullYear();
+        for (i = thisyear; i >= API.create.year ; i--) {
+            year.append('<option value="' + i + '">' + i + '年</option>');
+        }
+        for (i = 1; i <= 12; i++) {
+            month.append('<option value="' + i + '">' + i + '月</option>');
+        }
+        //
+        year.val(current.year);
+        month.val(current.month);
+    }
+    initYM();
 
     var vm = new Vue({
         el: '.rv-overview',
         data: {
-            viewData: {},
-            year: ts.q("#getYear").find("option:selected").val(),
-            month: ts.q("#getMonth").find("option:selected").val(),
+            viewData: {
+                leader: [],
+                staff: []
+            },
+            year: current.year,
+            month: current.month,
             passReports: ts.q("#getPassReports").find("option:selected").val(),
             comments: []
         },
         created: function() {
-            this.onSelected()
+            this.Selected()
         },
         methods: {
-            onSelected: function() {
+            Selected: function() {
                 var data = {
                     year: this.year,
                     month: this.month,
                     release: this.passReports
                 }
+                $.ym.save(data);
                 var vuethis = this;
                 API.getMonthlyReportWhenRelease(data).then(function(e) {
                     var result = API.format(e);
@@ -231,9 +282,11 @@ var $overView = $('#Overview').generalController(function() {
                     var result = API.format(e);
                     if (result.is) {
                         var comment = result.res()
+                        for (var loc in comment) {
+                            comment[loc]["name_head"] = comment[loc]._created_staff_name.charAt(0);
+                        }
                         vuethis.comments = comment
                         console.log(comment)
-
                     }
                 })
 
@@ -243,8 +296,8 @@ var $overView = $('#Overview').generalController(function() {
                     year: this.year,
                     month: this.month
                 }
-                if(ts.q("#getPassReports").find("option:selected").val()==1){
-                  data['release'] = 1;
+                if (ts.q("#getPassReports").find("option:selected").val() == 1) {
+                    data['release'] = 1;
                 }
                 API.downloadMonthlyReportWhenRelease(data)
                 Materialize.toast('月份績效開始下載中...', 2000)

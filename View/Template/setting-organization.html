@@ -1,5 +1,4 @@
 <link href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css">
-<!-- <link href='https://ripjar.github.io/material-datetime-picker/picker/css/datepicker.css' rel="stylesheet" type="text/css"> -->
 <div id="SettingOrganization">
     <div class="had-container rv-setting">
         <h1 class="rv-title">組織管理</h1>
@@ -48,10 +47,10 @@
                                         <label class="col s2 control-label">隸屬於</label>
                                         <div class="col s10">
                                             <div class="dropdown">
-                                                <a class="btn dropdown-button" type="button" data-activates="Of"><span>{{createUnitData.upper.name}}</span><span class="caret"></span>
+                                                <a class="btn dropdown-button" type="button" data-activates="Of"><span>{{createUnitData.upper.unit_id}} {{createUnitData.upper.name}}</span><span class="caret"></span>
                                             </a>
                                                 <ul id="Of" class="dropdown-content">
-                                                    <li v-for="(value,key,index) in upper_array"><a v-on:click="changOfUnitData(value)">{{value.name}}</a></li>
+                                                    <li v-for="(value,key,index) in upper_array"><a v-on:click="changOfUnitData(value)">{{value.unit_id}} {{value.name}}</a></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -104,10 +103,10 @@
                                     <label class="col s4 control-label">上層單位</label>
                                     <div class="col s8">
                                         <div class="dropdown">
-                                            <a class="btn dropdown-button" type="button" data-activates="OfUpperUnit"><span v-if="upper">{{upper.name}}</span><span class="caret"></span>
+                                            <a class="btn dropdown-button" type="button" data-activates="OfUpperUnit"><span v-if="upper">{{upper.unit_id}} {{upper.name}}</span><span class="caret"></span>
                                         </a>
                                             <ul id="OfUpperUnit" class="dropdown-content">
-                                                <li v-for="(value,key,index) in upper_array"><a v-on:click="changeUpper(value)">{{value.name}}</a></li>
+                                                <li v-for="(value,key,index) in upper_array"><a v-on:click="changeUpper(value)">{{value.unit_id}} {{value.name}}</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -123,7 +122,7 @@
                                             <a class="btn dropdown-button" type="button" data-activates="UnitManager">{{manager.name}}<span class="caret"></span></a>
                                             <ul id="UnitManager" class="dropdown-content">
                                                 <li v-for="(value,key,index) in managers_array"><a v-on:mousedown="changeManager(value)">{{value.name}}</a></li>
-                                                <li><a v-on:mousedown="changeManager(0)">無</a></li>
+                                                <li v-if="upper"><a v-on:mousedown="changeManager(0)">無</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -145,7 +144,24 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row pull-right btn-action">
+                        <div class="row">
+                          <div class="col s6">
+                                <div class="form-group">
+                                    <label class="col s4 control-label">輪班單位</label>
+                                    <div class="col s8">
+                                        <div class="dropdown">
+                                            <a v-if="now.duty_shift==0" class="btn dropdown-button" type="button" data-activates="DutyShift">否<span class="caret"></span></a>
+                                            <a v-if="now.duty_shift==1" class="btn dropdown-button" type="button" data-activates="DutyShift">是<span class="caret"></span></a>
+                                            <ul id="DutyShift" class="dropdown-content">
+                                                <li v-on:mousedown="submitData.duty_shift=now.duty_shift=1"><a>是</a></li>
+                                                <li v-on:mousedown="submitData.duty_shift=now.duty_shift=0"><a>否</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row pull-right btn-action" style="margin-top:148px;">
                             <a class="waves-effect waves-light btn btn-update" v-on:click="updateDepartment()">更新</a>
                         </div>
                     </div>
@@ -176,10 +192,10 @@
                                                 <div class="col s9">
                                                     <div class="dropdown">
                                                         <a class="btn dropdown-button" type="button" data-activates="AddOfUnit">
-                                                            <span>{{team.name}}</span><span class="caret"></span>
+                                                            <span>{{team.unit_id}} {{team.name}}</span><span class="caret"></span>
                                                         </a>
                                                         <ul id="AddOfUnit" class="dropdown-content">
-                                                            <li v-for="value in department_list"><a v-on:mousedown="team=value">{{value.name}}</a></li>
+                                                            <li v-for="value in department_list"><a v-on:mousedown="team=value">{{value.unit_id}} {{value.name}}</a></li>
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -237,7 +253,7 @@
                                             <div class="form-group">
                                                 <label class="col s3 control-label" >到職日</label>
                                                 <div class="col s9">
-                                                    <input type="text" class="form-control date-picker" placeholder="到職日" v-model="newStaffData.first_day" @click="onDateChoose('first_day')">
+                                                    <input type="text" class="form-control rv-ui-datepicker" placeholder="到職日" v-model="newStaffData.first_day">
                                                 </div>
                                             </div>
                                         </div>
@@ -245,7 +261,7 @@
                                             <div class="form-group">
                                                 <label class="col s3 control-label">離職日</label>
                                                 <div class="col s9">
-                                                    <input type="text" class="form-control date-picker" placeholder="離職日" v-model="newStaffData.last_day" @click="onDateChoose('last_day')">
+                                                    <input type="text" class="form-control rv-ui-datepicker" placeholder="離職日" v-model="newStaffData.last_day">
                                                 </div>
                                             </div>
                                         </div>
@@ -253,7 +269,7 @@
                                             <div class="form-group">
                                                 <label class="col s3 control-label">換單位日</label>
                                                 <div class="col s9">
-                                                    <input type="text" class="form-control date-picker" placeholder="換單位日" v-model="newStaffData.update_date" @click="onDateChoose('update_date')">
+                                                    <input type="text" class="form-control rv-ui-datepicker" placeholder="換單位日" v-model="newStaffData.update_date">
                                                 </div>
                                             </div>
                                         </div>
@@ -323,8 +339,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div :class="'rv-item staff_id_'+value.id" v-for="(value,key,index) in staff_list" v-on:click="showDetail(value)">
-                            <div class="rv-img">{{value.head}}</div>
+                        <div :class="'rv-item staff_id_'+value.id+' status_'+value.status_id" v-for="(value,key,index) in staff_list" v-on:click="showDetail(value)">
+                            <div class="rv-img">{{value.staff_no}}</div>
                             <div>{{value.name_en}} {{value.name}} </div>
                         </div>
                     </div>
@@ -346,9 +362,9 @@
                                     <label class="col s4 control-label">所屬單位</label>
                                     <div class="col s8">
                                         <div class="dropdown">
-                                            <a class="btn dropdown-button" type="button" data-activates="OfUnit">{{nowDepartment.name}}<span class="caret"></span></a>
+                                            <a class="btn dropdown-button" type="button" data-activates="OfUnit">{{nowDepartment.unit_id}} {{nowDepartment.name}}<span class="caret"></span></a>
                                             <ul id="OfUnit" class="dropdown-content">
-                                                <li v-for="(value,key,index) in department" v-on:mousedown="nowDepartment=value"><a>{{value.name}}</a></li>
+                                                <li v-for="(value,key,index) in department" v-on:mousedown="nowDepartment=value"><a>{{value.unit_id}} {{value.name}}</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -412,7 +428,7 @@
                                 <div class="form-group">
                                     <label class="col s4 control-label">到職日</label>
                                     <div class="col s8">
-                                        <input type="text" class="form-control date-picker" placeholder="到職日" v-model="now.first_day" @click="onDateChoose('first_day')">
+                                        <input type="text" class="form-control rv-ui-datepicker" placeholder="到職日" v-model="now.first_day">
                                     </div>
                                 </div>
                             </div>
@@ -422,7 +438,7 @@
                                 <div class="form-group">
                                     <label class="col s4 control-label">離職日</label>
                                     <div class="col s8">
-                                        <input type="text" class="form-control date-picker" placeholder="離職日" v-model="now.last_day" @click="onDateChoose('last_day')">
+                                        <input type="text" class="form-control rv-ui-datepicker" placeholder="離職日" v-model="now.last_day">
                                     </div>
                                 </div>
                             </div>
@@ -430,7 +446,7 @@
                                 <div class="form-group">
                                     <label class="col s4 control-label">換單位日</label>
                                     <div class="col s8">
-                                        <input type="text" class="form-control date-picker" placeholder="換單位日" v-model="now.update_date" @click="onDateChoose('update_date')">
+                                        <input type="text" class="form-control rv-ui-datepicker" placeholder="換單位日" v-model="now.update_date">
                                     </div>
                                 </div>
                             </div>
@@ -497,7 +513,21 @@
     </div>
 </div>
 
+<style>
+#StaffList .rv-item .rv-img{
+  font-size : 15px;
+}
+#StaffList .status_4{
+  background-color : #ffecec;
+  color : #919191;
+}
+#StaffList .status_4 .rv-img{
+  background-color : #d67f7f;
+  color : #919191;
+}
+.dropdown-button{
+  white-space: nowrap;
+}
+</style>
 
 <script type="text/javascript" src="<?=U('/Public/js/Index/setting-organization.js')?>"></script>
-<script type="text/javascript" src="<?=U('/Public/js/datepicker.js')?>"></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js'></script>

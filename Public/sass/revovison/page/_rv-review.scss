@@ -1,231 +1,201 @@
-.comment-title {
-    text-align: center;
-    &:after {
-        content: "";
-        display: block;
-        clear: both;
-    }
-    .icon-group {
-        margin-left: -53px;
-        position: relative;
-        display: inline-block;
-        i {
-            vertical-align: text-top;
-            font-size: 60px;
-            padding-bottom: 18px;
-        }
-        .icon-text {
-            position: absolute;
-            top: 48px;
-            left: 8px;
-            width: 110px;
-            font-size: 16px;
-        }
-    }
-    .border-hr {
-        display: block;
-        background: #CCC;
-        width: 20px;
-        height: 1px;
-        margin: 5px auto;
-    }
-    .title-text {
-        span {
-            display: block;
-            font-size: 28px;
-        }
-    }
-}
-
-.search-area {
-    position: relative;
-    top: 250px;
-    transition-duration: 1s;
-    .col {
-        float: none;
-        margin: 0 auto;
-    }
-    .search-input-article {
-        position: relative;
-        i {
-            position: absolute;
-            top: 5px;
-            left: 3px;
-        }
-        input {
-            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
-            border: none;
-            height: 50px;
-            &:focus,
-            &:hover {
-                box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.08);
-            }
-        }
-    }
-}
-
-.comment-area {
-    opacity: 0;
-    position: relative;
-    top: 250px;
-    transition-delay: 0.5s;
-    transition-duration: 1s;
-    .col {
-        float: none;
-        margin: 0 auto;
-    }
-    span.badge {
-        margin-top: 5px;
-    }
-    span.badge.new:after {
-        content: ''
-    }
-}
-
-.comment-card-area {
-    .card-content {
-        .card-title {
-            padding-bottom: 10px;
-            border-bottom: 1px solid rgba(160, 160, 160, 0.2);
-        }
-    }
-    .card-action {
-        padding-bottom: 10px;
+.rv-review {
+    .comment-title {
+        text-align: center;
         &:after {
             content: "";
             display: block;
             clear: both;
         }
-        textarea {
-            border: none;
-            padding: 10px;
-            line-height: 18px;
-            height: 36px;
-            outline: none;
-            resize: none;
-            width: 100%;
-            overflow-y: hidden;
-        }
-        button {
-            float: right;
-            margin: 5px 0px;
-        }
     }
-}
-
-.comment-content-area {
-    overflow-y: auto;
-    overflow-x: hidden;
-    height: 450px;
-    .comment-content-list {
-        margin-right: 25px;
-        width: 100%;
-        overflow: visible;
-        box-sizing: border-box;
-        >li {
-            padding-top: 12px;
+    .search-area {
+        position: relative;
+        top: 250px;
+        transition-duration: 1s;
+        .col {
+            float: none;
+            margin: 0 auto;
+        }
+        .search-input-article {
             position: relative;
-            border: 1px solid #fff;
-            .rv-item {
-                padding-top: 18px;
-                padding-right: 10px;
-                cursor: default;
-                .rv-img {
-                    background-color: #333333;
-                }
-                &:after {
-                    content: "";
-                    display: block;
-                    clear: both;
-                }
-                &:hover {
-                    background-color: #fafafa;
-                }
-            }
-            .edit {
-                display: none;
-                input {
-                    border: none;
-                    width: 75%;
-                    margin: 10px;
-                    display: inline-block;
-                }
-            }
-            .comment_user {
-                font-weight: bolder;
-                padding-bottom: 8px;
-                line-height: 22px;
-                position: relative;
-                .en {
-                    font-size: 14px;
-                }
-                .tw {
-                    font-size: 16px;
-                }
-            }
-            .commen-tool {
+            i {
                 position: absolute;
-                top: 10px;
-                right: 15px;
-                a {
-                    display: inline-block;
-                    width: 25px;
-                    height: 25px;
-                    margin: 2px;
-                    color: #a9a9a9;
-                    cursor: pointer;
-                }
+                top: 5px;
+                left: 3px;
             }
-            .comment-content {
-                margin: 5px;
-                input {
-                    position: absolute;
-                }
-            }
-            .dropdown-button {
+            input {
+                box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
                 border: none;
-                width: 100px;
-                position: absolute;
-                top: 0;
-                right: 10px;
-                background-color: rgba(255, 255, 255, 0.01) !important;
-            }
-            .edit-area {
-                width: 120px;
-                padding: 5px 0px;
-                position: absolute;
-                right: 5px;
-                top: 12px;
-                .tool {
-                    font-size: 15px;
-                    padding: 5px 15px;
+                height: 50px;
+                &:focus,
+                &:hover {
+                    box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.08);
                 }
             }
         }
     }
-}
-
-
-/* Autocomplete */
-
-.autocomplete-content {
-    margin-top: -15px;
-    display: block;
-    opacity: 1;
-    position: absolute;
-    width: 100%;
-    li {
-        .highlight {
-            color: #444;
+    .comment-area {
+        opacity: 0;
+        position: relative;
+        top: 250px;
+        transition-delay: 0.5s;
+        transition-duration: 1s;
+        .col {
+            float: none;
+            margin: 0 auto;
         }
-        img {
-            height: $dropdown-item-height - 10;
-            width: $dropdown-item-height - 10;
-            margin: 5px 15px;
+        span.badge {
+            margin-top: 5px;
+            &.new:after {
+                content: "";
+            }
         }
     }
-}
-
-.autocomplete-content {
-    margin-top: 0;
+    .comment-card-area {
+        .card-content {
+            .card-title {
+                padding-bottom: 10px;
+                border-bottom: 1px solid rgba(160, 160, 160, 0.2);
+            }
+        }
+        .card-action {
+            padding-bottom: 10px;
+            &:after {
+                content: "";
+                display: block;
+                clear: both;
+            }
+            textarea {
+                border: none;
+                padding: 10px;
+                line-height: 18px;
+                height: 36px;
+                outline: none;
+                resize: none;
+                width: 100%;
+                overflow-y: hidden;
+            }
+            button {
+                display: none;
+                float: right;
+                margin: 5px 0px;
+            }
+        }
+    }
+    .comment-content-area {
+        overflow-y: auto;
+        overflow-x: hidden;
+        max-height: 450px;
+        .comment-content-list {
+            margin-right: 25px;
+            width: 100%;
+            overflow: visible;
+            box-sizing: border-box;
+            >li {
+                position: relative;
+                >div {
+                    border: 1px solid #000;
+                    margin: 5px;
+                }
+                .rv-item {
+                    padding-top: 18px;
+                    padding-right: 10px;
+                    cursor: default;
+                    .rv-img {
+                        background-color: #333333;
+                        top: 12px;
+                    }
+                    &:after {
+                        content: "";
+                        display: block;
+                        clear: both;
+                    }
+                    &:hover {
+                        background-color: #fafafa;
+                    }
+                }
+                .edit {
+                    display: none;
+                    input {
+                        width: 75%;
+                        margin: 10px;
+                        display: inline-block;
+                    }
+                }
+                .comment_user {
+                    font-weight: bolder;
+                    line-height: 22px;
+                    position: relative;
+                    .en {
+                        font-size: 14px;
+                    }
+                    .tw {
+                        font-size: 16px;
+                    }
+                }
+                .commen-tool {
+                    position: absolute;
+                    top: 10px;
+                    right: 15px;
+                    a {
+                        display: inline-block;
+                        width: 25px;
+                        height: 25px;
+                        margin: 2px;
+                        color: #a9a9a9;
+                        cursor: pointer;
+                    }
+                }
+                .comment-content {
+                    margin-top: 5px;
+                    input {
+                        position: absolute;
+                    }
+                    .content {
+                        margin: 5px;
+                        margin-left: 0;
+                    }
+                }
+                .dropdown-button {
+                    border: none;
+                    width: 100px;
+                    position: absolute;
+                    top: 0;
+                    right: 10px;
+                    background-color: rgba(255, 255, 255, 0.01) !important;
+                }
+                .edit-area {
+                    width: 120px;
+                    padding: 5px 0px;
+                    position: absolute;
+                    right: 5px;
+                    top: 12px;
+                    .tool {
+                        font-size: 15px;
+                        padding: 5px 15px;
+                    }
+                }
+            }
+        }
+    }
+    /* Autocomplete */
+    .autocomplete-content {
+        margin-top: -15px;
+        display: block;
+        opacity: 1;
+        position: absolute;
+        width: 100%;
+        li {
+            .highlight {
+                color: #444;
+            }
+            img {
+                height: $dropdown-item-height - 10;
+                width: $dropdown-item-height - 10;
+                margin: 5px 15px;
+            }
+        }
+    }
+    .autocomplete-content {
+        margin-top: 0;
+    }
 }

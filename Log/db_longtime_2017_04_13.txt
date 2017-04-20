@@ -1,0 +1,49 @@
+[13/Apr/2017:10:21:43] (addComment) 
+----------------------------------- Command_START -----------------------------------
+ update rv_monthly_report set comment_id = concat(comment_id,',17') where id=76
+ - Spend Time : ( 0.16500902175903 )
+-----------------------------------  Command_END  -----------------------------------
+
+[13/Apr/2017:11:07:24] (getMonthlyReport) 
+----------------------------------- Command_START -----------------------------------
+ select a.*, b.name as created_department_name , b.unit_id as created_department_code, 
+    c.name as created_staff_name, c.name_en as created_staff_name_en, c.staff_no as created_staff_no, c.post as created_staff_post, 
+    d.day_start, d.day_end 
+    from rv_monthly_processing as a 
+    left join rv_department as b on a.created_department_id = b.id 
+    left join rv_staff as c on a.created_staff_id = c.id 
+    left join rv_config_cyclical as d on a.year = d.year and a.month = d.month 
+    where a.id  in (5)
+ - Spend Time : ( 0.14100790023804 )
+-----------------------------------  Command_END  -----------------------------------
+
+[13/Apr/2017:12:00:54] (rejectMonthly) 
+----------------------------------- Command_START -----------------------------------
+ update rv_monthly_processing set owner_staff_id = 1,owner_department_id = 1,status_code = 3  where id = 3
+ - Spend Time : ( 0.15400886535645 )
+-----------------------------------  Command_END  -----------------------------------
+
+[13/Apr/2017:12:01:06] (commitMonthly) 
+----------------------------------- Command_START -----------------------------------
+ update rv_monthly_report set releaseFlag = 'Y'  where processing_id = 7
+ - Spend Time : ( 0.16100907325745 )
+-----------------------------------  Command_END  -----------------------------------
+
+[13/Apr/2017:14:30:33] (commitMonthly) 
+----------------------------------- Command_START -----------------------------------
+ update rv_monthly_processing set owner_staff_id = 1,owner_department_id = 1,commited = 1,status_code = 5  where id = 7
+ - Spend Time : ( 0.13700819015503 )
+-----------------------------------  Command_END  -----------------------------------
+
+[13/Apr/2017:14:30:33] (commitMonthly) 
+----------------------------------- Command_START -----------------------------------
+ update rv_monthly_report set releaseFlag = 'Y'  where processing_id = 7
+ - Spend Time : ( 0.11400604248047 )
+-----------------------------------  Command_END  -----------------------------------
+
+[13/Apr/2017:14:49:30] (rejectMonthly) 
+----------------------------------- Command_START -----------------------------------
+ update rv_monthly_processing set owner_staff_id = 1,owner_department_id = 1,status_code = 3  where id = 3
+ - Spend Time : ( 0.12000608444214 )
+-----------------------------------  Command_END  -----------------------------------
+

@@ -44,23 +44,26 @@ if( $api->SC->isLogin() && $api->SC->isSuperUser() && $api->checkPost(array('yea
     
     foreach($process_data as $key=>&$val){
       
-      if((int)$val['status_code']==5){continue;}
+      // if((int)$val['status_code']==5){continue;}
       
       $owner = $sd_map[ $val['owner_staff_id'] ];
       $created_staff = $sd_map[ $val['created_staff_id'] ];
       
       $val['created_unit_name'] = $team_map[ $val['created_department_id'] ][ 'unit_name' ];
+      $val['created_unit_id'] = $team_map[ $val['created_department_id'] ][ 'unit_id' ];
       $val['created_name'] = $created_staff['name'];
       $val['created_name_en'] = $created_staff['name_en'];
       $val['owner_name'] = $owner['name'];
       $val['owner_name_en'] = $owner['name_en'];
       $val['staff_count'] = $sd->getStaffCounts( $val['created_department_id'] );
       // stamp_log(__FILE__.' * LINE = '.__LINE__);
-      $result[] = $val;
+      $result[ $val['created_unit_id'] ][ $val['type'] ] = $val;
       
     }
     
   }
+  
+  ksort($result);
   
   $api->setArray( $result );
 }else{

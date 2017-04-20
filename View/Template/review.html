@@ -5,13 +5,12 @@
         <div class="filter-date row">
             <h3 class="title">請選擇日期</h3>
             <div class="dropdown">
-                <select id="getYear" class="btn dropdown-button" type="button" v-model="year">
+                <select id="getYear" class="btn dropdown-button" type="button" v-model="year" v-on:change="selected()">
                     <option value="2017">2017年</option>
-                    <option value="2016">2016年</option>
                 </select>
             </div>
             <div class="dropdown">
-                <select id="getMonth" class="btn dropdown-button" type="button" v-model="month">
+                <select id="getMonth" class="btn dropdown-button" type="button" v-model="month" v-on:change="selected()">
                     <option value="1">1月</option>
                     <option value="2">2月</option>
                     <option value="3">3月</option>
@@ -27,8 +26,7 @@
                 </select>
             </div>
         </div>
-        <div class="container comment-block">
-            <!-- <div class="divider"></div> -->
+        <div class="container">
             <!-- 工作評與語區塊 -->
             <div class="section">
                 <div class="row search-area">
@@ -47,32 +45,46 @@
                                 </div>
                                 <div class="comment-content-area">
                                     <ul class="comment-content-list">
-                                        <li :id="'record-'+(index+1)" class="grey lighten-5 comment-item" v-for="(record,index) in commentRecord">
-                                            <div class="rv-item">
-                                                <div class="rv-img">{{record.name_head}}</div>
-                                                <div class="comment_user">
-                                                    <span class="tw">{{record._created_staff_name}}</span>
-                                                    <span class="en">{{record._created_staff_name_en}}</span>
+                                        <li class="comment-item" v-if="!commentRecord.length == 0">
+                                            <div :id="'record-'+(index+1)" v-for="(record,index) in commentRecord">
+                                                <div class="rv-item">
+                                                    <div class="rv-img">{{record.name_head}}</div>
+                                                    <div class="comment_user">
+                                                        <span class="tw">{{record._created_staff_name}}</span>
+                                                        <span class="en">{{record._created_staff_name_en}}</span>
+                                                    </div>
+                                                    <div class="comment-content">
+                                                        <p class="content">{{record.content}}</p>
+                                                        <span class="new badge grey lighten-1">{{record.create_time}}</span>
+                                                    </div>
+                                                    <div class="commen-tool">
+                                                        <a v-on:click="editOpen(index)"><i class="material-icons pull-right teal-text">mode_edit</i></a>
+                                                        <a v-on:click="deleteComment(record.id,index,record)"><i class="material-icons pull-right black-text">close</i></a>
+                                                    </div>
                                                 </div>
-                                                <div class="comment-content">
-                                                    {{record.content}} <span class="new badge grey lighten-1">{{record.create_time}}</span>
-                                                </div>
-                                                <div class="commen-tool">
-                                                    <a v-on:click="editOpen(index,record.content)"><i class="material-icons pull-right teal-text">mode_edit</i></a>
-                                                    <a v-on:click="deleteComment(record.id,index)"><i class="material-icons pull-right black-text">close</i></a>
+                                                <div class="edit edit-input">
+                                                    <input type="text" class="form-control">
+                                                    <button type="submit" class="waves-effect waves-light btn blue accent-2" v-on:click="editComment(index,record.id)">編輯</button>
                                                 </div>
                                             </div>
-                                            <div class="edit edit-input">
-                                                <input type="text" class="form-control">
-                                                <button type="submit" class="waves-effect waves-light btn blue accent-2" v-on:click="editComment(index,record.id)">編輯</button>
+                                        </li>
+                                        <li class="comment-item" v-else>
+                                            <div class="rv-item">
+                                                <div class="rv-img">無</div>
+                                                <div class="comment_user">
+                                                    <span>無評論</span>
+                                                </div>
+                                                <div class="comment-content">
+                                                    請於下方的欄位輸入評語..
+                                                </div>
                                             </div>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
                             <div class="card-action">
-                                <textarea id="CommentText" placeholder="請輸入對當前員工的評論"></textarea>
-                                <button type="submit" class="waves-effect waves-light btn" v-on:click="addComment()">送出</button>
+                                <textarea id="CommentText" placeholder="請輸入對當前員工的評論.."></textarea>
+                                <button type="submit" class="waves-effect waves-light btn" v-on:click="addComment()">新增評語</button>
                             </div>
                         </div>
                     </div>
@@ -81,143 +93,4 @@
         </div>
     </div>
 </div>
-<script type="text/javascript">
-var $Review = $('#Review').generalController(function() {
-    var ts = this
-    var currentMonth = new Date().getMonth() + 1
-    ts.q("#getMonth").val(currentMonth);
-    ts.onLogin(function(member) {
-
-        API.getUnderStaff().then(function(e) {
-            var result = API.format(e);
-            if (result.is) {
-                var list = ts.staff_list = result.res();
-                // ts.staff_map = result.map();
-                ts.staff_account_map = {}
-
-                console.log(list)
-
-                var staffArray = [];
-                var staffObj = {}
-                for (var i in list) {
-                    var loc = list[i].account + ' ' + list[i].name;
-                    staffArray.push(loc);
-                    ts.staff_account_map[loc] = list[i];
-                }
-                // console.log(staffArray)
-                for (var staff in staffArray) {
-                    var key = staffArray[staff]
-                    staffObj[key] = null
-                }
-
-                var vm = new Vue({
-                    el: '#Review .rv-review',
-                    data: {
-                        inputData: ts.q('#autocomplete-input').val(),
-                        year: ts.q("#getYear").find("option:selected").val(),
-                        month: ts.q("#getMonth").find("option:selected").val(),
-                        staffObj: staffObj,
-                        currentStaff: {},
-                        commentRecord: []
-                    },
-                    methods: {
-                        addComment: function() {
-                            var txt = ts.q("#CommentText").val()
-                            var target = {
-                                staff_id: this.currentStaff.id,
-                                year: this.year,
-                                month: this.month,
-                                content: txt
-                            }
-                            if (txt != "") {
-                                var vss = this;
-                                API.addComment(target).then(function(e) {
-                                    if (!API.format(e).is) {
-                                        return alert('無法輸入');
-                                    }
-                                    Materialize.toast('已新增一筆評論', 2000);
-                                    vss.getComment(target);
-                                    ts.q("#CommentText").val('')
-                                })
-                            } else {
-                                alert('您尚未輸入任何評論');
-                            }
-                        },
-                        editOpen: function(index, txt) {
-                            var list = ts.q("#record-" + (index + 1))
-                            list.find(".edit-input").show()
-                            list.find("input").val(txt)
-                        },
-                        editComment: function(index, id) {
-                            var list = ts.q("#record-" + (index + 1))
-                            var content = ts.q("#record-" + (index + 1)).find("input").val()
-                            var editParam = {
-                                comment_id: id,
-                                do: "upd",
-                                content: content
-                            }
-                            API.updateComment(editParam).then(function(e) {
-                                var success = API.format(e);
-                                if (!success.is) {
-                                    list.find(".edit-input").hide()
-                                    return alert('無法編輯');
-                                } else {
-                                    Materialize.toast('已更新一筆評論', 2000)
-                                    list.find(".edit-input").hide()
-                                    list.find(".comment-content").text(editParam.content)
-                                }
-                            })
-                        },
-                        deleteComment: function(id, index) {
-                            var deleteParam = {
-                                comment_id: id,
-                                do: "del"
-                            }
-                            API.updateComment(deleteParam).then(function(e) {
-                                Materialize.toast('已刪除一筆評論', 2000)
-                                ts.q("#record-" + (index + 1)).remove()
-                            })
-                        },
-                        getComment: function(staff) {
-                            var vss = this;
-                            API.getComment(staff).then(function(e) {
-                                var result = API.format(e);
-                                var comment = result.res();
-
-                                for (var loc in comment) {
-                                    comment[loc]["name_head"] = comment[loc]._created_staff_name.charAt(0);
-                                }
-                                vss.commentRecord = comment;
-                                // console.log(comment);
-                            })
-                        }
-                    },
-                    mounted: function() {
-                        var vss = this;
-                        ts.q('input.autocomplete').autocomplete({
-                            data: vss.staffObj,
-                            onAutocomplete: function(value) {
-                                var targetStaff = ts.staff_account_map[value];
-                                vss.currentStaff = targetStaff
-                                    // console.log(targetStaff);
-                                    // console.log(targetStaff.id);
-
-                                var staff = {
-                                    staff_id: targetStaff.id,
-                                    year: vss.year,
-                                    month: vss.month
-                                }
-                                vss.getComment(staff);
-                                ts.q(".comment-area").css("opacity", "1")
-                                ts.q(".comment-area").css("top", "0px")
-                                ts.q(".search-area").css("top", "0px")
-                                ts.q('#autocomplete-input').val('')
-                            }
-                        })
-                    }
-                })
-            }
-        });
-    });
-});
-</script>
+<script src="<?=U('/Public/js/Index/review.js')?>"></script>

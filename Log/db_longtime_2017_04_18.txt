@@ -1,0 +1,54 @@
+[18/Apr/2017:09:43:41] (getComment) 
+----------------------------------- Command_START -----------------------------------
+ select  id,staff_id,comment_id,processing_id  from rv_monthly_report_leader  where staff_id = 3 and year = 2017 and month = 4   limit 5000
+ - Spend Time : ( 0.81104683876038 )
+-----------------------------------  Command_END  -----------------------------------
+
+[18/Apr/2017:09:43:41] (getComment) 
+----------------------------------- Command_START -----------------------------------
+ select  id,staff_id,comment_id,processing_id  from rv_monthly_report  where staff_id = 3 and year = 2017 and month = 4   limit 5000
+ - Spend Time : ( 0.14000821113586 )
+-----------------------------------  Command_END  -----------------------------------
+
+[18/Apr/2017:10:14:40] (commitMonthly) 
+----------------------------------- Command_START -----------------------------------
+ update rv_monthly_processing set owner_staff_id = 1,owner_department_id = 1,commited = 1,status_code = 5  where id = 1
+ - Spend Time : ( 0.20501208305359 )
+-----------------------------------  Command_END  -----------------------------------
+
+[18/Apr/2017:10:14:49] (commitMonthly) 
+----------------------------------- Command_START -----------------------------------
+ update rv_monthly_processing set owner_staff_id = 1,owner_department_id = 1,commited = 1,status_code = 3  where id = 6
+ - Spend Time : ( 0.1640088558197 )
+-----------------------------------  Command_END  -----------------------------------
+
+[18/Apr/2017:10:14:54] (commitMonthly) 
+----------------------------------- Command_START -----------------------------------
+ update rv_monthly_processing set owner_staff_id = 1,owner_department_id = 1,commited = 1,status_code = 3  where id = 8
+ - Spend Time : ( 0.15600895881653 )
+-----------------------------------  Command_END  -----------------------------------
+
+[18/Apr/2017:10:14:56] (commitMonthly) 
+----------------------------------- Command_START -----------------------------------
+ update rv_monthly_processing set owner_staff_id = 1,owner_department_id = 1,commited = 1,status_code = 5  where id = 9
+ - Spend Time : ( 0.21101212501526 )
+-----------------------------------  Command_END  -----------------------------------
+
+[18/Apr/2017:10:15:07] (commitMonthly) 
+----------------------------------- Command_START -----------------------------------
+ update rv_monthly_report set releaseFlag = 'Y'  where processing_id = 17
+ - Spend Time : ( 0.10600614547729 )
+-----------------------------------  Command_END  -----------------------------------
+
+[18/Apr/2017:10:15:08] (commitMonthly) 
+----------------------------------- Command_START -----------------------------------
+ insert into rv_record_monthly_processing (operating_staff_id,target_staff_id,processing_id,action,changed_json) value (2,1,17,'done','{"owner_staff_id":1,"owner_department_id":1,"commited":1,"status_code":5}');
+ - Spend Time : ( 0.14500904083252 )
+-----------------------------------  Command_END  -----------------------------------
+
+[18/Apr/2017:10:15:10] (rejectMonthly) 
+----------------------------------- Command_START -----------------------------------
+ update rv_monthly_processing set owner_staff_id = 1,owner_department_id = 1,status_code = 3  where id = 17
+ - Spend Time : ( 0.34402012825012 )
+-----------------------------------  Command_END  -----------------------------------
+

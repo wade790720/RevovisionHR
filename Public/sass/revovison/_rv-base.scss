@@ -2,30 +2,10 @@ body {
     font-family: 'Microsoft JhengHei', "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 13px;
     line-height: 1.61539;
+    height: 100vh;
 }
 
-*::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-}
-
-*::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-    border-radius: 10px;
-    background: rgba(0, 0, 0, 0.05);
-}
-
-*::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    background: linear-gradient(left, #999, #888);
-    -webkit-box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.8);
-}
-
-*::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(left, #888, #777);
-}
-
-h1, h2, h3, h4, h5, h6 {
+h1,h2,h3,h4,h5,h6 {
     margin-top: 50px;
     margin-bottom: 25px;
     outline: none;
@@ -37,7 +17,7 @@ h1, h2, h3, h4, h5, h6 {
     color: inherit;
 }
 
-th, td {
+th,td {
     text-align: center;
     outline: 0;
 }
@@ -69,6 +49,32 @@ main {
 .modal {
     background: #FFF;
     overflow: auto;
+    z-index:99999!important;
+    .modal-footer {
+        height: 0;
+        padding: 0;
+        .btn-flat {
+            margin: 6px;
+            padding: 0 1rem !important;
+        }
+    }
+    .modal-close {
+        font-weight: 700;
+        vertical-align: middle;
+        margin-right: 10px;
+        border: 1px solid #dddddd!important;
+        border-radius: 5px!important;
+        box-shadow: 0 0 0 0 !important;
+        i {
+            height: 36px;
+            font-weight: 700;
+        }
+        span {
+            display: inline-block;
+            height: 36px;
+            float: left;
+        }
+    }
 }
 
 .material-icons {
@@ -108,6 +114,16 @@ main {
     text-align: left;
     border-bottom: 2px solid #ffa726;
     padding: 11px 0 10px 0;
+    position: relative;
+    button {
+        &.modal-close {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            margin: 0;
+            border: none !important;
+        }
+    }
 }
 
 .rv-page-title {
@@ -128,31 +144,32 @@ main {
 .rv-loading {
     overflow: hidden;
     position: relative;
-    z-index: 100;
+    z-index: 1001;
     &:before {
         content: '';
         position: absolute;
         display: block;
         width: 100%;
         height: 100%;
-        z-index: 101;
+        height: 100vh;
+        z-index: 1001;
         left: 0%;
         top: 0%;
-        background: rgba(0, 0, 0, 0.5);
+        background: rgba(204, 204, 204, 0.78);
     }
     &:after {
         content: '';
         position: absolute;
         display: block;
-        z-index: 102;
+        z-index: 9999;
         text-align: center;
-        top: 50%;
+        top: 20%;
         left: 50%;
         margin-top: -15px;
         margin-left: -15px;
         width: 60px;
         height: 60px;
-        border-color: #FFF;
+        border-color: #f57c00;
         border-width: 3px;
         border-radius: 30px;
         border-right: transparent !important;
@@ -163,21 +180,6 @@ main {
     }
 }
 
-.no-data{
-  width:90%;
-  display: none;
-  margin:10px auto;
-  border:1px dashed #999;
-  min-width:300px;
-  min-height: 60px;
-  text-align: center;
-  vertical-align: middle;
-  p{
-    color:#000;
-    font-size: 15px;
-    font-weight: 700;
-  }
-}
 // toast
 #toast-container {
     top: auto !important;
@@ -185,19 +187,23 @@ main {
     right: 1%;
 }
 
-//media queries setting
-@mixin rwd-to($media) {
-    @if $media==small-screens {
-        @media only screen and (max-width: 1280px) {
-            @content;
-        }
-    }
+*::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
 }
 
-@mixin transition($transition) {
-    -webkit-transition: $transition;
-    -moz-transition: $transition;
-    -o-transition: $transition;
-    -ms-transition: $transition;
-    transition: $transition;
+*::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.05);
+}
+
+*::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: linear-gradient(left, #999, #888);
+    -webkit-box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.8);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(left, #888, #777);
 }

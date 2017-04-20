@@ -6,6 +6,7 @@ include_once __DIR__.'/../Staff.php';
 include_once __DIR__.'/../RecordPersonalComment.php';
 include_once __DIR__.'/../RecordPersonalCommentChanged.php';
 include_once __DIR__.'/../MonthlyReport.php';
+include_once __DIR__.'/../MonthlyProcessing.php';
 include_once __DIR__.'/../MonthlyReportLeader.php';
 include_once __DIR__.'/../ConfigCyclical.php';
 
@@ -22,6 +23,7 @@ class CommentCenter extends MultipleSets{
   protected $comment_changed;
   
   protected $general;
+  protected $process;
   
   protected $leader;
   
@@ -33,6 +35,7 @@ class CommentCenter extends MultipleSets{
     $this->comment_changed = new \Model\Business\RecordPersonalCommentChanged();
     $this->general = new \Model\Business\MonthlyReport();
     $this->leader = new \Model\Business\MonthlyReportLeader();
+    $this->process = new \Model\Business\MonthlyProcessing();
     $this->config = new \Model\Business\ConfigCyclical();
   }
   
@@ -41,7 +44,9 @@ class CommentCenter extends MultipleSets{
     $report = $this->whichReport($ary,true);
     if(!$report){return false;}
     // $date = $this->config->getNowConfig();
-    // LG($date);
+    $report_data = $report->data[0];
+    // LG($report_data);
+    if( !$this->checkDo( $ary['self_id'], $report_data['processing_id'] ) ){return false;};
     
     $cid = $this->comment->create(array(
       'create_staff_id' => $ary['self_id'],
@@ -55,6 +60,19 @@ class CommentCenter extends MultipleSets{
     
     return true;
     
+  }
+  
+  private function checkDo($self_id,$pid){
+    $pdata = $this->process->select(array('owner_staff_id','path_staff_id'),$pid);
+    //不是對應的單子
+    if( count($pdata)==0 ){return false;}
+    $path = $pdata[0]['path_staff_id'];
+    $self_position = array_search( $self_id , $path);
+    $owner_position = array_search( $pdata[0]['owner_staff_id'] , $path);
+    
+    //送出去了
+    if($owner_position > $self_position){ return false; }
+    return true;
   }
   
   public function getComment($ary){
@@ -79,22 +97,60 @@ class CommentCenter extends MultipleSets{
   }
   
   public function deleteComment($id,$operating){
+    //沒這留言
+    $comment = $this->comment->select($id);
+    if( count($comment)==0 ){return false;}
+    $comment = $comment[0];
+    
+    if($comment['report_type']==1){
+      $report = $this->leader;
+    }else{
+      $report = $this->general;
+    }
+    
+    $report_id = $comment['report_id'];
+    $pid = $report->select(array('processing_id'),$report_id);
+    //沒這考評表
+    if( count($pid)==0){return false;}
+    //考評表交出去了
+    if( !$this->checkDo( $operating, $pid[0]['processing_id'] ) ){return false;};
+    
     $res = $this->comment->update(array('status'=>0), array('id'=>$id,'create_staff_id'=>$operating));
     if($res){ 
-      $comment = $this->comment->select($id)[0];
-      if($comment['report_type']==1){
-        $report = $this->leader;
-      }else{
-        $report = $this->general;
-      }
+    
       $report_id = $comment['report_id'];
-      $report->sql("update {table} set comment_id = REPLACE(comment_id,'$id','') where id = $report_id");
+      $comments_id = $this->comment->select(array('id'),array('report_id'=>$report_id,'report_type'=>$comment['report_type'],'status'=>1));
+      $comment_update_str=',';
+      if(count($comments_id)!=0){
+        foreach($comments_id as $val){
+          $comment_update_str.=$val['id'].',';
+        }
+      }
+      $report->sql("update {table} set comment_id = '$comment_update_str' where id = $report_id");
     }
     return $res;
   }
   
   public function updateComment($id,$operating,$content){
-    $upd = $this->comment->update(array('content'=>$content),array('id'=>$id,'status'=>1,'create_staff_id'=>$operating));
+    //沒這留言
+    $comment = $this->comment->select($id);
+    if( count($comment)==0 ){return false;}
+    $comment = $comment[0];
+    
+    if($comment['report_type']==1){
+      $report = $this->leader;
+    }else{
+      $report = $this->general;
+    }
+    
+    $report_id = $comment['report_id'];
+    $pid = $report->select(array('processing_id'),$report_id);
+    //沒這考評表
+    if( count($pid)==0){return false;}
+    //考評表交出去了
+    if( !$this->checkDo( $operating, $pid[0]['processing_id'] ) ){return false;};
+    
+    $upd = $this->comment->update(array('content'=>$content,'create_time'=>date('Y-m-d h:i:s')),array('id'=>$id,'status'=>1,'create_staff_id'=>$operating));
     if($upd){
       $comment_table = $this->comment->table_name;
       $this->comment_changed->sql(" insert into {table} (comment_id,create_staff_id,target_staff_id,content) 
@@ -104,7 +160,7 @@ class CommentCenter extends MultipleSets{
   }
   
   private function whichReport(&$w,$release=false){
-    $col = array('id','staff_id','comment_id');
+    $col = array('id','staff_id','comment_id','processing_id');
     if($w['mode']==1){
       
       $condi = array('staff_id'=>$w['target_staff_id'], 'year'=>$w['year'], 'month'=>$w['month'] );

@@ -19,15 +19,33 @@ if( $process_id ){
   
   $self_id = $api->SC->getId();
   
+  
   if($routing->isFinally()){
     $routing->done( $self_id );
     //成功結果
     $api->setArray("Already Done.");
   }else{
+    
     $ok = $routing->processToSupervisor( $self_id, $api->SC->isAdmin() );
     if(!$ok){$api->denied('You Are Not Onwer.');}
-    //成功結果
-    $api->setArray("ok");
+    $staff_id = $routing->supervisor;
+    $team = $routing->team->map('manager_staff_id')[$staff_id];
+    //mail
+    include BASE_PATH.'/Model/MailCenter.php';
+    $mail = new Model\MailCenter;
+    $mail->addAddress($staff_id);
+    $res = $mail->sendTemplate('monthly_arrive',array(
+      'unit_name' => $team['name'],
+      'unit_id' => $team['unit_id'],
+      'year' => date('Y'),
+      'month' => date('m')
+    ));
+    
+    if($res===true){
+      $api->setArray('ok');
+    }else{
+      $api->setArray($res);
+    }
   }
   
   

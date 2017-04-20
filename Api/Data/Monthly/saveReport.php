@@ -20,7 +20,7 @@ if( $report && $all>0 && $api->SC->isLogin()){
   }
   //檢查是不是每張表都是自己的
   $staff = $api->SC->getId();
-  $pr_process = $pr->process->read( array('id','owner_staff_id','created_staff_id','type'), 'where id in ('.join(',',$process_id).') and owner_staff_id = '.$staff )->map();
+  $pr_process = $pr->process->read( array('id','owner_staff_id','created_staff_id','type','status_code'), 'where id in ('.join(',',$process_id).') and owner_staff_id = '.$staff )->map();
   // $pr_process = $pr->process->read( array('id','owner_staff_id','created_staff_id','type'), 'where id in ('.join(',',$process_id).') ' )->map();
   // LG($pr_process);
   if(!(count($pr_process)==count($process_id))){

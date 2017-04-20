@@ -1,3 +1,57 @@
+<style>
+body{
+  overflow-x : hidden;
+}
+.absence-record .rv-title{
+  margin: 0px auto;
+}
+.absence-record table{
+  width : auto;
+  min-width : 60%;
+}
+.absence-record .data-block td{
+    white-space: nowrap;
+    padding : 5px;
+}
+.absence-record .data-block tbody td{
+    /*max-width : 112px;*/
+    min-width : 56px;
+    overflow : hidden;
+    text-overflow : ellipsis;
+}
+.absence-record .data-block .absence-table .late{
+  color : #fff;
+  background : #ff003b;
+}
+.absence-record .data-block .absence-table .early{
+  color : #fff;
+  background : #ff003b;
+}
+.absence-record .data-block .absence-table .nocard{
+  background : #9f9f9f;
+  color : #fff;
+}
+
+.absence-record .scroll-x{
+  width : 100%;
+  height : 10px;
+  background : #cacaca;
+  position : relative;
+  cursor : not-allowed;
+  border-radius : 6px;
+}
+.absence-record .scroll-x span{
+  width : 5%;
+  height : 12px;
+  display: inline-block;
+  position : absolute;
+  background : #00897b;
+  border-radius : 6px;
+  left : 0%;
+  transition : left 0.3s ease;
+}
+</style>
+
 <div id="Absence" class="absence-record">
     <div class="had-container">
         <h1 class="rv-title"><span class="dtime"></span>出缺席記錄</h1>
@@ -10,38 +64,49 @@
         </div>
         <!-- 有資料時顯示 -->
         <div class="data-block">
+          <div :class="'data-block'">
             <a class="waves-effect waves-light btn teal darken-1" @click="downloadExcel">Download Excel</a>
             <table class="absence-table">
                 <thead>
                     <tr>
-                        <td rowspan='2' colspan='2'>日期</td>
-                        <td v-for="val in date" colspan='3'>{{val.mDate}}</td>
+                        <td colspan='2'>部門</td>
+                        <td v-for="(val,ix) in staff" colspan='3' :pos="ix">{{val.unit_code}} {{val.unit_name}}</td>
                     </tr>
                     <tr>
-                        <td v-for="val in date" colspan='3'>{{val.day}}</td>
+                        <td colspan='2'>姓名</td>
+                        <td v-for="(val,ix) in staff" colspan='3' :pos="ix">{{val.name}} {{val.name_en}}</td>
                     </tr>
                     <tr>
-                        <td>單位</td>
-                        <td>姓名 / 上下班狀態</td>
-                        <template v-for="item in date">
-                        <td>上班</td>
-                        <td>下班</td>
-                        <td>備註</td>
-                        </template>
+                        <td colspan='2'>日期</td>
+                        <td class="template" v-for="(item,ix) in staff">
+                        <td :pos="ix">上班</td>
+                        <td :pos="ix">下班</td>
+                        <td :pos="ix">備註</td>
+                        <td class="/template">
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="val in staff">
-                        <td>{{val.unit_name}} {{val.unit_code}}</td>
-                        <td>{{val.name}} {{val.name_en}}</td>
-                        <template v-for="(item,key) in date">
-                        <td>{{(val._attendance_map[key])?val._attendance_map[key].checkin_hours:''}}</td>
-                        <td>{{(val._attendance_map[key])?val._attendance_map[key].checkout_hours:''}}</td>
-                        <td>{{(val._attendance_map[key])?val._attendance_map[key].remark:''}}</td>
-                        </template>
+                    <tr v-for="(val,key) in date">
+                        <td>{{val.mDate}}</td>
+                        <td>{{val.day}}</td>
+                        <td class="template" v-for="(item,ix) in staff">
+                        <td :pos="ix" :class="item._attendance_map[key]? {late:item._attendance_map[key].late>0,nocard:item._attendance_map[key].nocard>0} :false">{{(item._attendance_map[key])?item._attendance_map[key].checkin_hours:''}}</td>
+                        <td :pos="ix" :class="item._attendance_map[key]? {early:item._attendance_map[key].early>0,nocard:item._attendance_map[key].nocard>0} :false">{{(item._attendance_map[key])?item._attendance_map[key].checkout_hours:''}}</td>
+                        <td :pos="ix" v-if="item._attendance_map[key]">
+                          <span v-if="item._attendance_map[key].remark">{{item._attendance_map[key].remark}}</span>
+                          <span v-else>
+                          {{item._attendance_map[key].late>0?'遲到,':''}}
+                          {{item._attendance_map[key].early>0?'早退,':''}}
+                          {{item._attendance_map[key].nocard>0?'忘卡,':''}}
+                          </span>
+                        </td>
+                        <td :pos="ix" v-else></td>
+                        <td class="/template">
                     </tr>
                 </tbody>
             </table>
+            <div class="scroll-x" style="display:none;"><span></span></div>
+          </div>
         </div>
     </div>
 </div>
@@ -71,13 +136,68 @@ var $Absence = $('#Absence').generalController(function() {
         if (!results[2]) return '';
         return decodeURIComponent(results[2].replace(/\+/g, " "));
     }
-
-    /*var init = {};
-    window.location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(str, key, value) {
-        init[key] = value;
-    });*/
-
-    //console.log(init);
+    
+    var $window = $(window), bind = true;
+    
+    function gogo(table){
+      var pos = {x:0,y:0,moveX:0,now:0};
+      var can = false;
+      var scroll = $('.scroll-x');
+      
+      var tw = table.width();
+      var sw = scroll.width();
+      pos.max = table.find('tr:first td[pos]').length - Math.floor(sw / 300);
+      
+      var rTimer;
+      
+      
+      $window.on('resize',function(){
+        if(rTimer){clearTimeout(rTimer);}
+        rTimer = setTimeout(function(){
+          $window.off('resize');
+          gogo(table);
+        },150);
+      });
+      
+      if(tw<=sw){return;}
+      
+      var barWidth = Math.floor((sw/tw)*100);
+      var scrollWidth = 100-barWidth;
+      var sbar = scroll.show().find('span').width( barWidth+"%" );
+      
+      var carry = 35;
+      
+      bind && table.find('tbody').on('mousedown',function(e){
+        can = true;
+        pos.x = e.pageX;
+        pos.y = e.pageY;
+        e.preventDefault();
+      })
+      .on('mouseup',function(e){
+        can = false;
+        console.log(pos);
+      })
+      .on('mousemove',function(e){
+        if(!can){return;}
+        pos.moveX = e.pageX - pos.x;
+        if(pos.moveX< -(carry)){
+          pos.x = e.pageX;
+          if(pos.now>=pos.max){return;}
+          table.find('td[pos='+pos.now+']').hide();
+          pos.now++;
+          sbar.css('left', ((pos.now / pos.max)*scrollWidth)+'%' );
+        }else if(pos.moveX> carry){
+          pos.x = e.pageX;
+          if(pos.now<=0){return;}
+          table.find('td[pos='+(pos.now-1)+']').show();
+          pos.now--;
+          sbar.css('left', ((pos.now / pos.max)*scrollWidth)+'%' );
+        }
+      }).css({'cursor':'e-resize'});
+      table.css({'min-width':'100%'});
+      bind =false;
+      
+    }
     
     var submit = {year:year,month:month};
     if(team){submit.team_id=team;}
@@ -122,14 +242,20 @@ var $Absence = $('#Absence').generalController(function() {
                 
               }
             }
-            //console.log(allDate);
-            //console.log(allStaff);
+            console.log(allDate);
+            console.log(allStaff);
             
             var time_2 = new Date();
             console.log(time_2 - time_1);
+            var html = dataBlock.html();
+            dataBlock.empty();
+            
+            html = html.replace(/\<.+?class\=\"(.?template)\"/gi,function($m,$a){return '<'+$a;});
+            //return console.log(html);
             
             ts.vue = new Vue({
               el : dataBlock[0],
+              template : html,
               data : {
                 date : allDate,
                 staff : allStaff,
@@ -144,6 +270,9 @@ var $Absence = $('#Absence').generalController(function() {
               mounted : function(){
                 var time_3 = new Date();
                 console.log(time_3 - time_1);
+                this.table = $(this.$el).find('table');
+                //this.table.css('min-width',this.table.width());
+                gogo(this.table);
               }
             });
 

@@ -51,15 +51,22 @@ class Staff extends DBPropertyObject{
     return parent::select($a,$b,$order);
   }
   
-  public function filterOnDuty($date){
-    $date = $this->DateTime($date,true); $tmp=array();
+  public function filterOnDuty($date1,$date2=''){
+    $date = $this->DateTime($date1,true);
+    $date2 = $this->DateTime($date2,true);
+    $tmp=array();
     foreach($this->data as $i => $val){
-      if($val["status_id"]==4){continue;}
+      // if($val["status_id"]==4){continue;}
       $first = $this->DateTime($val["first_day"],true);
       $last = $this->DateTime($val["last_day"],true);
-      if(!($last < $date && $first > $date && $last!=0)){
-        array_push($tmp,$val);
+      if($last){
+        if($last < $date){ continue; }
+      }else if($val["status_id"]==4){
+        continue;
+      }else if($date2 && $first && $first >= $date2){
+        continue;
       }
+      array_push($tmp,$val);
     }
     $this->data = $tmp;
     return $this;

@@ -110,6 +110,11 @@
       return $now < $date;
     }
     
+    public function isToday($d){
+      $today = date('Y-m-d');
+      return strtotime($d)==strtotime($today);
+    }
+    
     public function condition($ary){
       $tmp = array();
       foreach($ary as $k => $v){

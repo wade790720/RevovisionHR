@@ -65,6 +65,7 @@ if( $api->checkPost(array('id')) && $api->SC->isAdmin() ){
   //舊的
   $old_team = $all_team[$id];
   $old_leader = $old_team['manager_staff_id'];
+  $old_upper_id = $old_team['upper_id'];
   
   //是否換新主管
   if( isset($codi['manager_staff_id'])){
@@ -182,11 +183,15 @@ if( $api->checkPost(array('id')) && $api->SC->isAdmin() ){
 	//下層的部門
     $sub_department = $team->getLowerIdArray( $id );
     $sub_department[] = $id;
+    $sub_department[] = $old_upper_id;
     
     $string_sub_team = join(',',$sub_department);
     
-    //直接移除 自動生成
+    //直接移除 自動生成 關聯部門的 月考評
     $process->delete(" where created_department_id in ($string_sub_team) and year = $year and month = $month ");
+    //更新部門關係
+    $team->refreshRelation();
+    
   }
   
   

@@ -38,7 +38,7 @@
 .materialize-red.darken-1, .team-block.non-score .score-sheet button.materialize-red {
   background-color: #d0181e !important; }
 
-.materialize-red-text.text-darken-1, .commCard .card-panel .materialize-red-text.comm-name, .materialize-red-text.navbar-brand.rv-brand, .rv-notifications a.materialize-red-text, .absence-record .materialize-red-text.dtime {
+.materialize-red-text.text-darken-1, .materialize-red-text.navbar-brand.rv-brand, .rv-notifications a.materialize-red-text, .rv-assess .comment-record .card-panel .materialize-red-text.comm-name, .absence-record .materialize-red-text.dtime, .rv-overview .comment-record .card-panel .materialize-red-text.comm-name {
   color: #d0181e !important; }
 
 .materialize-red.darken-2, .rv-setting .materialize-red.btn-update {
@@ -53,7 +53,7 @@
 .materialize-red-text.text-darken-3 {
   color: #a21318 !important; }
 
-.materialize-red.darken-4 {
+.materialize-red.darken-4, .staff-table .table-fixed thead.materialize-red, .staff-table .table-fixed thead th.materialize-red {
   background-color: #8b1014 !important; }
 
 .materialize-red-text.text-darken-4 {
@@ -98,7 +98,7 @@
 .red.darken-1, .team-block.non-score .score-sheet button.red, .team-block.non-score .score-sheet .rv-setting button.btn-delete, .rv-setting .team-block.non-score .score-sheet button.btn-delete, .rv-setting .darken-1.btn-delete {
   background-color: #E53935 !important; }
 
-.red-text.text-darken-1, .commCard .card-panel .red-text.comm-name, .red-text.navbar-brand.rv-brand, .rv-notifications a.red-text, .absence-record .red-text.dtime {
+.red-text.text-darken-1, .red-text.navbar-brand.rv-brand, .rv-notifications a.red-text, .rv-assess .comment-record .card-panel .red-text.comm-name, .absence-record .red-text.dtime, .rv-overview .comment-record .card-panel .red-text.comm-name {
   color: #E53935 !important; }
 
 .red.darken-2, .rv-setting .red.btn-update, .rv-setting .btn-update.btn-delete, .rv-setting .darken-2.btn-delete {
@@ -113,7 +113,7 @@
 .red-text.text-darken-3 {
   color: #C62828 !important; }
 
-.red.darken-4, .rv-setting .darken-4.btn-delete {
+.red.darken-4, .staff-table .table-fixed thead.red, .staff-table .table-fixed .rv-setting thead.btn-delete, .rv-setting .staff-table .table-fixed thead.btn-delete, .staff-table .table-fixed thead th.red, .staff-table .table-fixed thead .rv-setting th.btn-delete, .rv-setting .staff-table .table-fixed thead th.btn-delete, .rv-setting .darken-4.btn-delete {
   background-color: #B71C1C !important; }
 
 .red-text.text-darken-4 {
@@ -182,7 +182,7 @@
 .pink.darken-1, .team-block.non-score .score-sheet button.pink {
   background-color: #d81b60 !important; }
 
-.pink-text.text-darken-1, .commCard .card-panel .pink-text.comm-name, .pink-text.navbar-brand.rv-brand, .rv-notifications a.pink-text, .absence-record .pink-text.dtime {
+.pink-text.text-darken-1, .pink-text.navbar-brand.rv-brand, .rv-notifications a.pink-text, .rv-assess .comment-record .card-panel .pink-text.comm-name, .absence-record .pink-text.dtime, .rv-overview .comment-record .card-panel .pink-text.comm-name {
   color: #d81b60 !important; }
 
 .pink.darken-2, .rv-setting .pink.btn-update {
@@ -197,7 +197,7 @@
 .pink-text.text-darken-3 {
   color: #ad1457 !important; }
 
-.pink.darken-4 {
+.pink.darken-4, .staff-table .table-fixed thead.pink, .staff-table .table-fixed thead th.pink {
   background-color: #880e4f !important; }
 
 .pink-text.text-darken-4 {
@@ -266,7 +266,7 @@
 .purple.darken-1, .team-block.non-score .score-sheet button.purple {
   background-color: #8e24aa !important; }
 
-.purple-text.text-darken-1, .commCard .card-panel .purple-text.comm-name, .purple-text.navbar-brand.rv-brand, .rv-notifications a.purple-text, .absence-record .purple-text.dtime {
+.purple-text.text-darken-1, .purple-text.navbar-brand.rv-brand, .rv-notifications a.purple-text, .rv-assess .comment-record .card-panel .purple-text.comm-name, .absence-record .purple-text.dtime, .rv-overview .comment-record .card-panel .purple-text.comm-name {
   color: #8e24aa !important; }
 
 .purple.darken-2, .rv-setting .purple.btn-update {
@@ -281,7 +281,7 @@
 .purple-text.text-darken-3 {
   color: #6a1b9a !important; }
 
-.purple.darken-4 {
+.purple.darken-4, .staff-table .table-fixed thead.purple, .staff-table .table-fixed thead th.purple {
   background-color: #4a148c !important; }
 
 .purple-text.text-darken-4 {
@@ -350,7 +350,7 @@
 .deep-purple.darken-1, .team-block.non-score .score-sheet button.deep-purple {
   background-color: #5e35b1 !important; }
 
-.deep-purple-text.text-darken-1, .commCard .card-panel .deep-purple-text.comm-name, .deep-purple-text.navbar-brand.rv-brand, .rv-notifications a.deep-purple-text, .absence-record .deep-purple-text.dtime {
+.deep-purple-text.text-darken-1, .deep-purple-text.navbar-brand.rv-brand, .rv-notifications a.deep-purple-text, .rv-assess .comment-record .card-panel .deep-purple-text.comm-name, .absence-record .deep-purple-text.dtime, .rv-overview .comment-record .card-panel .deep-purple-text.comm-name {
   color: #5e35b1 !important; }
 
 .deep-purple.darken-2, .rv-setting .deep-purple.btn-update {
@@ -365,7 +365,7 @@
 .deep-purple-text.text-darken-3 {
   color: #4527a0 !important; }
 
-.deep-purple.darken-4 {
+.deep-purple.darken-4, .staff-table .table-fixed thead.deep-purple, .staff-table .table-fixed thead th.deep-purple {
   background-color: #311b92 !important; }
 
 .deep-purple-text.text-darken-4 {
@@ -434,7 +434,7 @@
 .indigo.darken-1, .team-block.non-score .score-sheet button.indigo {
   background-color: #3949ab !important; }
 
-.indigo-text.text-darken-1, .commCard .card-panel .indigo-text.comm-name, .indigo-text.navbar-brand.rv-brand, .rv-notifications a.indigo-text, .absence-record .indigo-text.dtime {
+.indigo-text.text-darken-1, .indigo-text.navbar-brand.rv-brand, .rv-notifications a.indigo-text, .rv-assess .comment-record .card-panel .indigo-text.comm-name, .absence-record .indigo-text.dtime, .rv-overview .comment-record .card-panel .indigo-text.comm-name {
   color: #3949ab !important; }
 
 .indigo.darken-2, .rv-setting .indigo.btn-update {
@@ -449,7 +449,7 @@
 .indigo-text.text-darken-3 {
   color: #283593 !important; }
 
-.indigo.darken-4 {
+.indigo.darken-4, .staff-table .table-fixed thead.indigo, .staff-table .table-fixed thead th.indigo {
   background-color: #1a237e !important; }
 
 .indigo-text.text-darken-4 {
@@ -518,7 +518,7 @@
 .blue.darken-1, .team-block.non-score .score-sheet button.blue {
   background-color: #1E88E5 !important; }
 
-.blue-text.text-darken-1, .commCard .card-panel .blue-text.comm-name, .blue-text.navbar-brand.rv-brand, .rv-notifications a.blue-text, .absence-record .blue-text.dtime {
+.blue-text.text-darken-1, .blue-text.navbar-brand.rv-brand, .rv-notifications a.blue-text, .rv-assess .comment-record .card-panel .blue-text.comm-name, .absence-record .blue-text.dtime, .rv-overview .comment-record .card-panel .blue-text.comm-name {
   color: #1E88E5 !important; }
 
 .blue.darken-2, .rv-setting .blue.btn-update {
@@ -533,7 +533,7 @@
 .blue-text.text-darken-3 {
   color: #1565C0 !important; }
 
-.blue.darken-4 {
+.blue.darken-4, .staff-table .table-fixed thead.blue, .staff-table .table-fixed thead th.blue {
   background-color: #0D47A1 !important; }
 
 .blue-text.text-darken-4 {
@@ -602,7 +602,7 @@
 .light-blue.darken-1, .team-block.non-score .score-sheet button.light-blue {
   background-color: #039be5 !important; }
 
-.light-blue-text.text-darken-1, .commCard .card-panel .light-blue-text.comm-name, .light-blue-text.navbar-brand.rv-brand, .rv-notifications a.light-blue-text, .absence-record .light-blue-text.dtime {
+.light-blue-text.text-darken-1, .light-blue-text.navbar-brand.rv-brand, .rv-notifications a.light-blue-text, .rv-assess .comment-record .card-panel .light-blue-text.comm-name, .absence-record .light-blue-text.dtime, .rv-overview .comment-record .card-panel .light-blue-text.comm-name {
   color: #039be5 !important; }
 
 .light-blue.darken-2, .rv-setting .light-blue.btn-update {
@@ -617,7 +617,7 @@
 .light-blue-text.text-darken-3 {
   color: #0277bd !important; }
 
-.light-blue.darken-4 {
+.light-blue.darken-4, .staff-table .table-fixed thead.light-blue, .staff-table .table-fixed thead th.light-blue {
   background-color: #01579b !important; }
 
 .light-blue-text.text-darken-4 {
@@ -686,7 +686,7 @@
 .cyan.darken-1, .team-block.non-score .score-sheet button.cyan {
   background-color: #00acc1 !important; }
 
-.cyan-text.text-darken-1, .commCard .card-panel .cyan-text.comm-name, .cyan-text.navbar-brand.rv-brand, .rv-notifications a.cyan-text, .absence-record .cyan-text.dtime {
+.cyan-text.text-darken-1, .cyan-text.navbar-brand.rv-brand, .rv-notifications a.cyan-text, .rv-assess .comment-record .card-panel .cyan-text.comm-name, .absence-record .cyan-text.dtime, .rv-overview .comment-record .card-panel .cyan-text.comm-name {
   color: #00acc1 !important; }
 
 .cyan.darken-2, .rv-setting .cyan.btn-update {
@@ -701,7 +701,7 @@
 .cyan-text.text-darken-3 {
   color: #00838f !important; }
 
-.cyan.darken-4 {
+.cyan.darken-4, .staff-table .table-fixed thead.cyan, .staff-table .table-fixed thead th.cyan {
   background-color: #006064 !important; }
 
 .cyan-text.text-darken-4 {
@@ -770,7 +770,7 @@
 .teal.darken-1, .team-block.non-score .score-sheet button.teal {
   background-color: #00897b !important; }
 
-.teal-text.text-darken-1, .commCard .card-panel .teal-text.comm-name, .teal-text.navbar-brand.rv-brand, .rv-notifications a.teal-text, .absence-record .teal-text.dtime {
+.teal-text.text-darken-1, .teal-text.navbar-brand.rv-brand, .rv-notifications a.teal-text, .rv-assess .comment-record .card-panel .teal-text.comm-name, .absence-record .teal-text.dtime, .rv-overview .comment-record .card-panel .teal-text.comm-name {
   color: #00897b !important; }
 
 .teal.darken-2, .rv-setting .teal.btn-update {
@@ -785,7 +785,7 @@
 .teal-text.text-darken-3 {
   color: #00695c !important; }
 
-.teal.darken-4 {
+.teal.darken-4, .staff-table .table-fixed thead.teal, .staff-table .table-fixed thead th.teal {
   background-color: #004d40 !important; }
 
 .teal-text.text-darken-4 {
@@ -854,7 +854,7 @@
 .green.darken-1, .team-block.non-score .score-sheet button.green {
   background-color: #43A047 !important; }
 
-.green-text.text-darken-1, .commCard .card-panel .green-text.comm-name, .green-text.navbar-brand.rv-brand, .rv-notifications a.green-text, .absence-record .green-text.dtime {
+.green-text.text-darken-1, .green-text.navbar-brand.rv-brand, .rv-notifications a.green-text, .rv-assess .comment-record .card-panel .green-text.comm-name, .absence-record .green-text.dtime, .rv-overview .comment-record .card-panel .green-text.comm-name {
   color: #43A047 !important; }
 
 .green.darken-2, .rv-setting .green.btn-update {
@@ -869,7 +869,7 @@
 .green-text.text-darken-3 {
   color: #2E7D32 !important; }
 
-.green.darken-4 {
+.green.darken-4, .staff-table .table-fixed thead.green, .staff-table .table-fixed thead th.green {
   background-color: #1B5E20 !important; }
 
 .green-text.text-darken-4 {
@@ -938,7 +938,7 @@
 .light-green.darken-1, .team-block.non-score .score-sheet button.light-green {
   background-color: #7cb342 !important; }
 
-.light-green-text.text-darken-1, .commCard .card-panel .light-green-text.comm-name, .light-green-text.navbar-brand.rv-brand, .rv-notifications a.light-green-text, .absence-record .light-green-text.dtime {
+.light-green-text.text-darken-1, .light-green-text.navbar-brand.rv-brand, .rv-notifications a.light-green-text, .rv-assess .comment-record .card-panel .light-green-text.comm-name, .absence-record .light-green-text.dtime, .rv-overview .comment-record .card-panel .light-green-text.comm-name {
   color: #7cb342 !important; }
 
 .light-green.darken-2, .rv-setting .light-green.btn-update {
@@ -953,7 +953,7 @@
 .light-green-text.text-darken-3 {
   color: #558b2f !important; }
 
-.light-green.darken-4 {
+.light-green.darken-4, .staff-table .table-fixed thead.light-green, .staff-table .table-fixed thead th.light-green {
   background-color: #33691e !important; }
 
 .light-green-text.text-darken-4 {
@@ -1022,7 +1022,7 @@
 .lime.darken-1, .team-block.non-score .score-sheet button.lime {
   background-color: #c0ca33 !important; }
 
-.lime-text.text-darken-1, .commCard .card-panel .lime-text.comm-name, .lime-text.navbar-brand.rv-brand, .rv-notifications a.lime-text, .absence-record .lime-text.dtime {
+.lime-text.text-darken-1, .lime-text.navbar-brand.rv-brand, .rv-notifications a.lime-text, .rv-assess .comment-record .card-panel .lime-text.comm-name, .absence-record .lime-text.dtime, .rv-overview .comment-record .card-panel .lime-text.comm-name {
   color: #c0ca33 !important; }
 
 .lime.darken-2, .rv-setting .lime.btn-update {
@@ -1037,7 +1037,7 @@
 .lime-text.text-darken-3 {
   color: #9e9d24 !important; }
 
-.lime.darken-4 {
+.lime.darken-4, .staff-table .table-fixed thead.lime, .staff-table .table-fixed thead th.lime {
   background-color: #827717 !important; }
 
 .lime-text.text-darken-4 {
@@ -1106,7 +1106,7 @@
 .yellow.darken-1, .team-block.non-score .score-sheet button.yellow, .team-block.non-score .score-sheet .rv-setting button.btn-update, .rv-setting .team-block.non-score .score-sheet button.btn-update, .rv-setting .darken-1.btn-update {
   background-color: #fdd835 !important; }
 
-.yellow-text.text-darken-1, .commCard .card-panel .yellow-text.comm-name, .yellow-text.navbar-brand.rv-brand, .rv-notifications a.yellow-text, .absence-record .yellow-text.dtime {
+.yellow-text.text-darken-1, .yellow-text.navbar-brand.rv-brand, .rv-notifications a.yellow-text, .rv-assess .comment-record .card-panel .yellow-text.comm-name, .absence-record .yellow-text.dtime, .rv-overview .comment-record .card-panel .yellow-text.comm-name {
   color: #fdd835 !important; }
 
 .yellow.darken-2, .rv-setting .btn-update {
@@ -1121,7 +1121,7 @@
 .yellow-text.text-darken-3 {
   color: #f9a825 !important; }
 
-.yellow.darken-4, .rv-setting .darken-4.btn-update {
+.yellow.darken-4, .staff-table .table-fixed thead.yellow, .staff-table .table-fixed .rv-setting thead.btn-update, .rv-setting .staff-table .table-fixed thead.btn-update, .staff-table .table-fixed thead th.yellow, .staff-table .table-fixed thead .rv-setting th.btn-update, .rv-setting .staff-table .table-fixed thead th.btn-update, .rv-setting .darken-4.btn-update {
   background-color: #f57f17 !important; }
 
 .yellow-text.text-darken-4 {
@@ -1190,7 +1190,7 @@
 .amber.darken-1, .team-block.non-score .score-sheet button.amber {
   background-color: #ffb300 !important; }
 
-.amber-text.text-darken-1, .commCard .card-panel .amber-text.comm-name, .amber-text.navbar-brand.rv-brand, .rv-notifications a.amber-text, .absence-record .amber-text.dtime {
+.amber-text.text-darken-1, .amber-text.navbar-brand.rv-brand, .rv-notifications a.amber-text, .rv-assess .comment-record .card-panel .amber-text.comm-name, .absence-record .amber-text.dtime, .rv-overview .comment-record .card-panel .amber-text.comm-name {
   color: #ffb300 !important; }
 
 .amber.darken-2, .rv-setting .amber.btn-update {
@@ -1205,7 +1205,7 @@
 .amber-text.text-darken-3 {
   color: #ff8f00 !important; }
 
-.amber.darken-4 {
+.amber.darken-4, .staff-table .table-fixed thead.amber, .staff-table .table-fixed thead th.amber {
   background-color: #ff6f00 !important; }
 
 .amber-text.text-darken-4 {
@@ -1238,85 +1238,85 @@
 .orange, .team-block.non-score .score-sheet button {
   background-color: #ff9800 !important; }
 
-.orange-text, .commCard .card-panel .comm-name, .absence-record .dtime {
+.orange-text, .rv-assess .comment-record .card-panel .comm-name, .absence-record .dtime, .rv-overview .comment-record .card-panel .comm-name {
   color: #ff9800 !important; }
 
 .orange.lighten-5, .team-block.non-score .score-sheet button.lighten-5 {
   background-color: #fff3e0 !important; }
 
-.orange-text.text-lighten-5, .commCard .card-panel .text-lighten-5.comm-name, .absence-record .text-lighten-5.dtime {
+.orange-text.text-lighten-5, .rv-assess .comment-record .card-panel .text-lighten-5.comm-name, .absence-record .text-lighten-5.dtime, .rv-overview .comment-record .card-panel .text-lighten-5.comm-name {
   color: #fff3e0 !important; }
 
 .orange.lighten-4, .team-block.non-score .score-sheet button.lighten-4 {
   background-color: #ffe0b2 !important; }
 
-.orange-text.text-lighten-4, .commCard .card-panel .text-lighten-4.comm-name, .absence-record .text-lighten-4.dtime {
+.orange-text.text-lighten-4, .rv-assess .comment-record .card-panel .text-lighten-4.comm-name, .absence-record .text-lighten-4.dtime, .rv-overview .comment-record .card-panel .text-lighten-4.comm-name {
   color: #ffe0b2 !important; }
 
 .orange.lighten-3, .team-block.non-score .score-sheet button.lighten-3, .team-block.non-score .score-sheet .attendance-block button.upload-block, .attendance-block .team-block.non-score .score-sheet button.upload-block, .attendance-block .orange.upload-block {
   background-color: #ffcc80 !important; }
 
-.orange-text.text-lighten-3, .commCard .card-panel .text-lighten-3.comm-name, .absence-record .text-lighten-3.dtime {
+.orange-text.text-lighten-3, .rv-assess .comment-record .card-panel .text-lighten-3.comm-name, .absence-record .text-lighten-3.dtime, .rv-overview .comment-record .card-panel .text-lighten-3.comm-name {
   color: #ffcc80 !important; }
 
 .orange.lighten-2, .team-block.non-score .score-sheet button.lighten-2 {
   background-color: #ffb74d !important; }
 
-.orange-text.text-lighten-2, .commCard .card-panel .text-lighten-2.comm-name, .absence-record .text-lighten-2.dtime {
+.orange-text.text-lighten-2, .rv-assess .comment-record .card-panel .text-lighten-2.comm-name, .absence-record .text-lighten-2.dtime, .rv-overview .comment-record .card-panel .text-lighten-2.comm-name {
   color: #ffb74d !important; }
 
 .orange.lighten-1, .team-block.non-score .score-sheet button.lighten-1 {
   background-color: #ffa726 !important; }
 
-.orange-text.text-lighten-1, .commCard .card-panel .text-lighten-1.comm-name, .absence-record .text-lighten-1.dtime {
+.orange-text.text-lighten-1, .rv-assess .comment-record .card-panel .text-lighten-1.comm-name, .absence-record .text-lighten-1.dtime, .rv-overview .comment-record .card-panel .text-lighten-1.comm-name {
   color: #ffa726 !important; }
 
 .orange.darken-1, .team-block.non-score .score-sheet button {
   background-color: #fb8c00 !important; }
 
-.orange-text.text-darken-1, .commCard .card-panel .comm-name, .orange-text.navbar-brand.rv-brand, .rv-notifications a.orange-text, .absence-record .dtime {
+.orange-text.text-darken-1, .orange-text.navbar-brand.rv-brand, .rv-notifications a.orange-text, .rv-assess .comment-record .card-panel .comm-name, .absence-record .dtime, .rv-overview .comment-record .card-panel .comm-name {
   color: #fb8c00 !important; }
 
 .orange.darken-2, .team-block.non-score .score-sheet button.darken-2, .team-block.non-score .score-sheet .rv-setting button.btn-update, .rv-setting .team-block.non-score .score-sheet button.btn-update, .rv-setting .orange.btn-update {
   background-color: #f57c00 !important; }
 
-.orange-text.text-darken-2, .commCard .card-panel .text-darken-2.comm-name, .absence-record .text-darken-2.dtime {
+.orange-text.text-darken-2, .rv-assess .comment-record .card-panel .text-darken-2.comm-name, .absence-record .text-darken-2.dtime, .rv-overview .comment-record .card-panel .text-darken-2.comm-name {
   color: #f57c00 !important; }
 
 .orange.darken-3, .team-block.non-score .score-sheet button.darken-3 {
   background-color: #ef6c00 !important; }
 
-.orange-text.text-darken-3, .commCard .card-panel .text-darken-3.comm-name, .absence-record .text-darken-3.dtime {
+.orange-text.text-darken-3, .rv-assess .comment-record .card-panel .text-darken-3.comm-name, .absence-record .text-darken-3.dtime, .rv-overview .comment-record .card-panel .text-darken-3.comm-name {
   color: #ef6c00 !important; }
 
-.orange.darken-4, .team-block.non-score .score-sheet button.darken-4 {
+.orange.darken-4, .staff-table .table-fixed thead.orange, .staff-table .table-fixed thead th.orange, .team-block.non-score .score-sheet button.darken-4 {
   background-color: #e65100 !important; }
 
-.orange-text.text-darken-4, .commCard .card-panel .text-darken-4.comm-name, .absence-record .text-darken-4.dtime {
+.orange-text.text-darken-4, .rv-assess .comment-record .card-panel .text-darken-4.comm-name, .absence-record .text-darken-4.dtime, .rv-overview .comment-record .card-panel .text-darken-4.comm-name {
   color: #e65100 !important; }
 
 .orange.accent-1, .team-block.non-score .score-sheet button.accent-1 {
   background-color: #ffd180 !important; }
 
-.orange-text.text-accent-1, .commCard .card-panel .text-accent-1.comm-name, .absence-record .text-accent-1.dtime {
+.orange-text.text-accent-1, .rv-assess .comment-record .card-panel .text-accent-1.comm-name, .absence-record .text-accent-1.dtime, .rv-overview .comment-record .card-panel .text-accent-1.comm-name {
   color: #ffd180 !important; }
 
 .orange.accent-2, .team-block.non-score .score-sheet button.accent-2 {
   background-color: #ffab40 !important; }
 
-.orange-text.text-accent-2, .commCard .card-panel .text-accent-2.comm-name, .absence-record .text-accent-2.dtime {
+.orange-text.text-accent-2, .rv-assess .comment-record .card-panel .text-accent-2.comm-name, .absence-record .text-accent-2.dtime, .rv-overview .comment-record .card-panel .text-accent-2.comm-name {
   color: #ffab40 !important; }
 
 .orange.accent-3, .team-block.non-score .score-sheet button.accent-3 {
   background-color: #ff9100 !important; }
 
-.orange-text.text-accent-3, .commCard .card-panel .text-accent-3.comm-name, .absence-record .text-accent-3.dtime {
+.orange-text.text-accent-3, .rv-assess .comment-record .card-panel .text-accent-3.comm-name, .absence-record .text-accent-3.dtime, .rv-overview .comment-record .card-panel .text-accent-3.comm-name {
   color: #ff9100 !important; }
 
 .orange.accent-4, .team-block.non-score .score-sheet button.accent-4 {
   background-color: #ff6d00 !important; }
 
-.orange-text.text-accent-4, .commCard .card-panel .text-accent-4.comm-name, .absence-record .text-accent-4.dtime {
+.orange-text.text-accent-4, .rv-assess .comment-record .card-panel .text-accent-4.comm-name, .absence-record .text-accent-4.dtime, .rv-overview .comment-record .card-panel .text-accent-4.comm-name {
   color: #ff6d00 !important; }
 
 .deep-orange {
@@ -1358,7 +1358,7 @@
 .deep-orange.darken-1, .team-block.non-score .score-sheet button.deep-orange {
   background-color: #f4511e !important; }
 
-.deep-orange-text.text-darken-1, .commCard .card-panel .deep-orange-text.comm-name, .deep-orange-text.navbar-brand.rv-brand, .rv-notifications a.deep-orange-text, .absence-record .deep-orange-text.dtime {
+.deep-orange-text.text-darken-1, .deep-orange-text.navbar-brand.rv-brand, .rv-notifications a.deep-orange-text, .rv-assess .comment-record .card-panel .deep-orange-text.comm-name, .absence-record .deep-orange-text.dtime, .rv-overview .comment-record .card-panel .deep-orange-text.comm-name {
   color: #f4511e !important; }
 
 .deep-orange.darken-2, .rv-setting .deep-orange.btn-update {
@@ -1373,7 +1373,7 @@
 .deep-orange-text.text-darken-3 {
   color: #d84315 !important; }
 
-.deep-orange.darken-4 {
+.deep-orange.darken-4, .staff-table .table-fixed thead.deep-orange, .staff-table .table-fixed thead th.deep-orange {
   background-color: #bf360c !important; }
 
 .deep-orange-text.text-darken-4 {
@@ -1442,7 +1442,7 @@
 .brown.darken-1, .team-block.non-score .score-sheet button.brown {
   background-color: #6d4c41 !important; }
 
-.brown-text.text-darken-1, .commCard .card-panel .brown-text.comm-name, .brown-text.navbar-brand.rv-brand, .rv-notifications a.brown-text, .absence-record .brown-text.dtime {
+.brown-text.text-darken-1, .brown-text.navbar-brand.rv-brand, .rv-notifications a.brown-text, .rv-assess .comment-record .card-panel .brown-text.comm-name, .absence-record .brown-text.dtime, .rv-overview .comment-record .card-panel .brown-text.comm-name {
   color: #6d4c41 !important; }
 
 .brown.darken-2, .rv-setting .brown.btn-update {
@@ -1457,7 +1457,7 @@
 .brown-text.text-darken-3 {
   color: #4e342e !important; }
 
-.brown.darken-4 {
+.brown.darken-4, .staff-table .table-fixed thead.brown, .staff-table .table-fixed thead th.brown {
   background-color: #3e2723 !important; }
 
 .brown-text.text-darken-4 {
@@ -1502,7 +1502,7 @@
 .blue-grey.darken-1, .team-block.non-score .score-sheet button.blue-grey {
   background-color: #546e7a !important; }
 
-.blue-grey-text.text-darken-1, .commCard .card-panel .blue-grey-text.comm-name, .blue-grey-text.navbar-brand.rv-brand, .rv-notifications a.blue-grey-text, .absence-record .blue-grey-text.dtime {
+.blue-grey-text.text-darken-1, .blue-grey-text.navbar-brand.rv-brand, .rv-notifications a.blue-grey-text, .rv-assess .comment-record .card-panel .blue-grey-text.comm-name, .absence-record .blue-grey-text.dtime, .rv-overview .comment-record .card-panel .blue-grey-text.comm-name {
   color: #546e7a !important; }
 
 .blue-grey.darken-2, .rv-setting .blue-grey.btn-update {
@@ -1517,70 +1517,70 @@
 .blue-grey-text.text-darken-3 {
   color: #37474f !important; }
 
-.blue-grey.darken-4 {
+.blue-grey.darken-4, .staff-table .table-fixed thead.blue-grey, .staff-table .table-fixed thead th.blue-grey {
   background-color: #263238 !important; }
 
 .blue-grey-text.text-darken-4 {
   color: #263238 !important; }
 
-.grey, .attendance-block .upload-block {
+.grey, .staff-table .table-fixed thead, .staff-table .table-fixed thead th, .attendance-block .upload-block {
   background-color: #9e9e9e !important; }
 
-.grey-text, .navbar-brand.rv-brand, .rv-notifications a {
+.grey-text, .navbar-brand.rv-brand, .rv-notifications a, .staff-table .table-fixed thead, .staff-table .table-fixed thead th {
   color: #9e9e9e !important; }
 
-.grey.lighten-5, .attendance-block .lighten-5.upload-block {
+.grey.lighten-5, .staff-table .table-fixed thead.lighten-5, .staff-table .table-fixed thead th.lighten-5, .attendance-block .lighten-5.upload-block {
   background-color: #fafafa !important; }
 
-.grey-text.text-lighten-5, .text-lighten-5.navbar-brand.rv-brand, .rv-notifications a.text-lighten-5 {
+.grey-text.text-lighten-5, .text-lighten-5.navbar-brand.rv-brand, .rv-notifications a.text-lighten-5, .staff-table .table-fixed thead.text-lighten-5, .staff-table .table-fixed thead th.text-lighten-5 {
   color: #fafafa !important; }
 
-.grey.lighten-4, .attendance-block .lighten-4.upload-block {
+.grey.lighten-4, .staff-table .table-fixed thead.lighten-4, .staff-table .table-fixed thead th.lighten-4, .attendance-block .lighten-4.upload-block {
   background-color: #f5f5f5 !important; }
 
-.grey-text.text-lighten-4, .text-lighten-4.navbar-brand.rv-brand, .rv-notifications a.text-lighten-4 {
+.grey-text.text-lighten-4, .text-lighten-4.navbar-brand.rv-brand, .rv-notifications a.text-lighten-4, .staff-table .table-fixed thead.text-lighten-4, .staff-table .table-fixed thead th.text-lighten-4 {
   color: #f5f5f5 !important; }
 
-.grey.lighten-3, .attendance-block .upload-block {
+.grey.lighten-3, .staff-table .table-fixed thead.lighten-3, .staff-table .table-fixed .attendance-block thead.upload-block, .attendance-block .staff-table .table-fixed thead.upload-block, .staff-table .table-fixed thead th.lighten-3, .staff-table .table-fixed thead .attendance-block th.upload-block, .attendance-block .staff-table .table-fixed thead th.upload-block, .attendance-block .upload-block {
   background-color: #eeeeee !important; }
 
-.grey-text.text-lighten-3, .text-lighten-3.navbar-brand.rv-brand, .rv-notifications a.text-lighten-3 {
+.grey-text.text-lighten-3, .text-lighten-3.navbar-brand.rv-brand, .rv-notifications a.text-lighten-3, .staff-table .table-fixed thead.text-lighten-3, .staff-table .table-fixed thead th.text-lighten-3 {
   color: #eeeeee !important; }
 
-.grey.lighten-2, .attendance-block .lighten-2.upload-block {
+.grey.lighten-2, .staff-table .table-fixed thead.lighten-2, .staff-table .table-fixed thead th.lighten-2, .attendance-block .lighten-2.upload-block {
   background-color: #e0e0e0 !important; }
 
-.grey-text.text-lighten-2, .text-lighten-2.navbar-brand.rv-brand, .rv-notifications a.text-lighten-2 {
+.grey-text.text-lighten-2, .text-lighten-2.navbar-brand.rv-brand, .rv-notifications a.text-lighten-2, .staff-table .table-fixed thead.text-lighten-2, .staff-table .table-fixed thead th.text-lighten-2 {
   color: #e0e0e0 !important; }
 
-.grey.lighten-1, .attendance-block .lighten-1.upload-block {
+.grey.lighten-1, .staff-table .table-fixed thead.lighten-1, .staff-table .table-fixed thead th.lighten-1, .attendance-block .lighten-1.upload-block {
   background-color: #bdbdbd !important; }
 
-.grey-text.text-lighten-1, .text-lighten-1.navbar-brand.rv-brand, .rv-notifications a.text-lighten-1 {
+.grey-text.text-lighten-1, .text-lighten-1.navbar-brand.rv-brand, .rv-notifications a.text-lighten-1, .staff-table .table-fixed thead.text-lighten-1, .staff-table .table-fixed thead th.text-lighten-1 {
   color: #bdbdbd !important; }
 
-.grey.darken-1, .team-block.non-score .score-sheet button.grey, .team-block.non-score .score-sheet .attendance-block button.upload-block, .attendance-block .team-block.non-score .score-sheet button.upload-block, .attendance-block .darken-1.upload-block {
+.grey.darken-1, .staff-table .table-fixed thead.darken-1, .staff-table .table-fixed thead th.darken-1, .team-block.non-score .score-sheet button.grey, .team-block.non-score .score-sheet .attendance-block button.upload-block, .attendance-block .team-block.non-score .score-sheet button.upload-block, .attendance-block .darken-1.upload-block {
   background-color: #757575 !important; }
 
-.grey-text.text-darken-1, .commCard .card-panel .grey-text.comm-name, .commCard .card-panel .comm-name.navbar-brand.rv-brand, .commCard .card-panel .rv-notifications a.comm-name, .rv-notifications .commCard .card-panel a.comm-name, .navbar-brand.rv-brand, .rv-notifications a, .absence-record .grey-text.dtime, .absence-record .rv-notifications a.dtime, .rv-notifications .absence-record a.dtime {
+.grey-text.text-darken-1, .navbar-brand.rv-brand, .rv-notifications a, .rv-assess .comment-record .card-panel .grey-text.comm-name, .rv-assess .comment-record .card-panel .comm-name.navbar-brand.rv-brand, .rv-assess .comment-record .card-panel .rv-notifications a.comm-name, .rv-notifications .rv-assess .comment-record .card-panel a.comm-name, .rv-assess .comment-record .card-panel .staff-table .table-fixed thead.comm-name, .staff-table .table-fixed .rv-assess .comment-record .card-panel thead.comm-name, .rv-assess .comment-record .card-panel .staff-table .table-fixed thead th.comm-name, .staff-table .table-fixed thead .rv-assess .comment-record .card-panel th.comm-name, .staff-table .table-fixed thead.text-darken-1, .staff-table .table-fixed thead.navbar-brand.rv-brand, .staff-table .table-fixed .absence-record thead.dtime, .absence-record .staff-table .table-fixed thead.dtime, .staff-table .table-fixed .rv-overview .comment-record .card-panel thead.comm-name, .rv-overview .comment-record .card-panel .staff-table .table-fixed thead.comm-name, .staff-table .table-fixed thead th.text-darken-1, .staff-table .table-fixed thead th.navbar-brand.rv-brand, .staff-table .table-fixed thead .absence-record th.dtime, .absence-record .staff-table .table-fixed thead th.dtime, .staff-table .table-fixed thead .rv-overview .comment-record .card-panel th.comm-name, .rv-overview .comment-record .card-panel .staff-table .table-fixed thead th.comm-name, .absence-record .grey-text.dtime, .absence-record .rv-notifications a.dtime, .rv-notifications .absence-record a.dtime, .rv-overview .comment-record .card-panel .grey-text.comm-name, .rv-overview .comment-record .card-panel .comm-name.navbar-brand.rv-brand, .rv-overview .comment-record .card-panel .rv-notifications a.comm-name, .rv-notifications .rv-overview .comment-record .card-panel a.comm-name {
   color: #757575 !important; }
 
-.grey.darken-2, .rv-setting .grey.btn-update, .rv-setting .attendance-block .btn-update.upload-block, .attendance-block .rv-setting .btn-update.upload-block, .attendance-block .darken-2.upload-block {
+.grey.darken-2, .staff-table .table-fixed thead.darken-2, .staff-table .table-fixed .rv-setting thead.btn-update, .rv-setting .staff-table .table-fixed thead.btn-update, .staff-table .table-fixed thead th.darken-2, .staff-table .table-fixed thead .rv-setting th.btn-update, .rv-setting .staff-table .table-fixed thead th.btn-update, .rv-setting .grey.btn-update, .rv-setting .attendance-block .btn-update.upload-block, .attendance-block .rv-setting .btn-update.upload-block, .attendance-block .darken-2.upload-block {
   background-color: #616161 !important; }
 
-.grey-text.text-darken-2, .text-darken-2.navbar-brand.rv-brand, .rv-notifications a.text-darken-2 {
+.grey-text.text-darken-2, .text-darken-2.navbar-brand.rv-brand, .rv-notifications a.text-darken-2, .staff-table .table-fixed thead.text-darken-2, .staff-table .table-fixed thead th.text-darken-2 {
   color: #616161 !important; }
 
-.grey.darken-3, .attendance-block .darken-3.upload-block {
+.grey.darken-3, .staff-table .table-fixed thead.darken-3, .staff-table .table-fixed thead th.darken-3, .attendance-block .darken-3.upload-block {
   background-color: #424242 !important; }
 
-.grey-text.text-darken-3, .text-darken-3.navbar-brand.rv-brand, .rv-notifications a.text-darken-3 {
+.grey-text.text-darken-3, .text-darken-3.navbar-brand.rv-brand, .rv-notifications a.text-darken-3, .staff-table .table-fixed thead.text-darken-3, .staff-table .table-fixed thead th.text-darken-3 {
   color: #424242 !important; }
 
-.grey.darken-4, .attendance-block .darken-4.upload-block {
+.grey.darken-4, .staff-table .table-fixed thead, .staff-table .table-fixed thead th, .attendance-block .darken-4.upload-block {
   background-color: #212121 !important; }
 
-.grey-text.text-darken-4, .text-darken-4.navbar-brand.rv-brand, .rv-notifications a.text-darken-4 {
+.grey-text.text-darken-4, .text-darken-4.navbar-brand.rv-brand, .rv-notifications a.text-darken-4, .staff-table .table-fixed thead.text-darken-4, .staff-table .table-fixed thead th.text-darken-4 {
   color: #212121 !important; }
 
 .black {
@@ -1986,7 +1986,7 @@ a {
 .clearfix {
   clear: both; }
 
-.z-depth-0, .commCard .card-panel {
+.z-depth-0, .rv-assess .comment-record .card-panel, .rv-overview .comment-record .card-panel {
   box-shadow: none !important; }
 
 .z-depth-1, nav, .card-panel, .card, .toast, .btn, .btn-large, .team-block button, .team-block.non-score .score-sheet button, .btn-floating, .dropdown-content, .collapsible, .side-nav {
@@ -5789,24 +5789,8 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
 body {
   font-family: 'Microsoft JhengHei', "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 13px;
-  line-height: 1.61539; }
-
-*::-webkit-scrollbar {
-  width: 8px;
-  height: 8px; }
-
-*::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  border-radius: 10px;
-  background: rgba(0, 0, 0, 0.05); }
-
-*::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  background: linear-gradient(left, #999, #888);
-  -webkit-box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.8); }
-
-*::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(left, #888, #777); }
+  line-height: 1.61539;
+  height: 100vh; }
 
 h1, h2, h3, h4, h5, h6 {
   margin-top: 50px;
@@ -5843,7 +5827,28 @@ main {
 
 .modal {
   background: #FFF;
-  overflow: auto; }
+  overflow: auto;
+  z-index: 99999 !important; }
+  .modal .modal-footer {
+    height: 0;
+    padding: 0; }
+    .modal .modal-footer .btn-flat, .modal .modal-footer .team-block button, .team-block .modal .modal-footer button {
+      margin: 6px;
+      padding: 0 1rem !important; }
+  .modal .modal-close {
+    font-weight: 700;
+    vertical-align: middle;
+    margin-right: 10px;
+    border: 1px solid #dddddd !important;
+    border-radius: 5px !important;
+    box-shadow: 0 0 0 0 !important; }
+    .modal .modal-close i {
+      height: 36px;
+      font-weight: 700; }
+    .modal .modal-close span {
+      display: inline-block;
+      height: 36px;
+      float: left; }
 
 .material-icons {
   font-family: 'Material Icons';
@@ -5878,7 +5883,14 @@ main {
   font-weight: bold;
   text-align: left;
   border-bottom: 2px solid #ffa726;
-  padding: 11px 0 10px 0; }
+  padding: 11px 0 10px 0;
+  position: relative; }
+  .rv-title button.modal-close {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    margin: 0;
+    border: none !important; }
 
 .rv-page-title {
   margin: 0;
@@ -5895,30 +5907,31 @@ main {
 .rv-loading {
   overflow: hidden;
   position: relative;
-  z-index: 100; }
+  z-index: 1001; }
   .rv-loading:before {
     content: '';
     position: absolute;
     display: block;
     width: 100%;
     height: 100%;
-    z-index: 101;
+    height: 100vh;
+    z-index: 1001;
     left: 0%;
     top: 0%;
-    background: rgba(0, 0, 0, 0.5); }
+    background: rgba(204, 204, 204, 0.78); }
   .rv-loading:after {
     content: '';
     position: absolute;
     display: block;
-    z-index: 102;
+    z-index: 9999;
     text-align: center;
-    top: 50%;
+    top: 20%;
     left: 50%;
     margin-top: -15px;
     margin-left: -15px;
     width: 60px;
     height: 60px;
-    border-color: #FFF;
+    border-color: #f57c00;
     border-width: 3px;
     border-radius: 30px;
     border-right: transparent !important;
@@ -5927,286 +5940,27 @@ main {
     animation: spin 1s infinite linear;
     -webkit-animation: spin 1s infinite linear; }
 
-.no-data {
-  width: 90%;
-  display: none;
-  margin: 10px auto;
-  border: 1px dashed #999;
-  min-width: 300px;
-  min-height: 60px;
-  text-align: center;
-  vertical-align: middle; }
-  .no-data p {
-    color: #000;
-    font-size: 15px;
-    font-weight: 700; }
-
 #toast-container {
   top: auto !important;
   bottom: 3%;
   right: 1%; }
 
-.rv-card .info-block {
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -ms-flex-align: center;
-  align-items: center; }
-  .rv-card .info-block p {
-    margin: 0;
-    line-height: 20px; }
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px; }
 
-.rv-card:focus {
-  border: 1px solid #FF9800;
-  outline: 0; }
+*::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.05); }
 
-.card-header {
-  position: relative; }
-  .card-header .area-1 {
-    min-width: 185px;
-    border-right: 1px solid #eee;
-    height: 82px; }
-    .card-header .area-1 .team-info {
-      display: inline-block; }
-      .card-header .area-1 .team-info h1 {
-        margin: 0; }
-      .card-header .area-1 .team-info p {
-        line-height: 20px; }
-  .card-header .area-2 {
-    border-right: 1px solid #eee;
-    height: 82px; }
-    .card-header .area-2 .month {
-      margin-top: 15px; }
-      .card-header .area-2 .month h1 {
-        display: block;
-        margin-top: 0px;
-        margin-right: 5px; }
-      .card-header .area-2 .month p {
-        margin: 0;
-        line-height: 20px; }
-  .card-header .area-3 {
-    border-right: 1px solid #eee;
-    height: 82px; }
-    .card-header .area-3 .arrow {
-      margin: 0 15px;
-      margin-top: 15px; }
-    .card-header .area-3 h1 {
-      display: block;
-      margin: 0px; }
-    .card-header .area-3 .start-date {
-      text-align: center; }
-    .card-header .area-3 .end-date {
-      text-align: center; }
-  .card-header .area-4 {
-    height: 82px; }
-    .card-header .area-4 .arrow {
-      margin: 0 15px;
-      margin-top: 15px; }
-    .card-header .area-4 h1 {
-      display: block;
-      margin: 0px; }
-    .card-header .area-4 .end > p:first-child {
-      visibility: hidden; }
-  .card-header .dots {
-    width: 45px;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-justify-content: space-around;
-    -ms-flex-pack: distribute;
-    justify-content: space-around;
-    padding: 1em;
-    position: absolute;
-    left: -15px;
-    top: -10px; }
-    .card-header .dots .dot {
-      display: inline-block;
-      height: 10px;
-      width: 10px;
-      border-radius: 50%;
-      text-align: center;
-      margin: 0 3px;
-      background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiP…dpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==);
-      background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #dddddd));
-      background: -moz-linear-gradient(top, #ffffff, #dddddd);
-      background: -webkit-linear-gradient(top, #ffffff, #dddddd);
-      background: linear-gradient(to bottom, #ffffff, #ff4e4e);
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), inset 0 0 3px transparent;
-      outline: 0;
-      transition: all 0.2s;
-      cursor: pointer;
-      position: absolute; }
+*::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: linear-gradient(left, #999, #888);
+  -webkit-box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.8); }
 
-.card-body {
-  padding: 0px 0px 0rem 0px;
-  border-bottom: none; }
-  .card-body .brand-actions {
-    float: left;
-    width: 100%; }
-    .card-body .brand-actions a {
-      margin: 12px 8px;
-      cursor: pointer;
-      display: inline-block;
-      padding: 5px;
-      border: 1px solid #dddddd;
-      padding-bottom: 0;
-      border-radius: 5px;
-      box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.18); }
-    .card-body .brand-actions a:active {
-      box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.18); }
-  .card-body .card-table {
-    display: table;
-    width: 100%; }
-  .card-body .card-tr {
-    display: table-row; }
-  .card-body .card-thead {
-    display: table-cell;
-    font-size: 10px;
-    width: 75px;
-    border-right: 0;
-    color: #fff;
-    padding: 10px 10px;
-    height: 45px;
-    border-bottom: 1px solid #d8d8d8; }
-    .card-body .card-thead.staff-info {
-      min-width: 200px;
-      text-align: left; }
-    .card-body .card-thead.unit-info {
-      width: 150px;
-      text-align: left; }
-    .card-body .card-thead.start-date {
-      width: 100px;
-      text-align: left; }
-  .card-body .card-cell {
-    display: table-cell;
-    text-align: center;
-    border-bottom: 1px solid #d8d8d8; }
-    .card-body .card-cell .staff-block {
-      margin-left: 0px;
-      padding: 0px 0px 0px 85px;
-      position: relative; }
-      .card-body .card-cell .staff-block .num {
-        width: 40px;
-        height: 40px;
-        position: absolute;
-        bottom: 5px;
-        left: 20px;
-        border-radius: 50%;
-        background-color: #333333;
-        font-size: 9px;
-        display: -webkit-flex;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-align-items: center;
-        -ms-flex-align: center;
-        align-items: center;
-        -webkit-justify-content: center;
-        -ms-flex-pack: center;
-        justify-content: center; }
-      .card-body .card-cell .staff-block .staff {
-        background-color: #795548;
-        color: #fff; }
-      .card-body .card-cell .staff-block .staff-info {
-        padding: 2px 27px 0px 0px;
-        position: relative;
-        bottom: 7px;
-        text-align: left; }
-        .card-body .card-cell .staff-block .staff-info .name {
-          font-size: 14px; }
-        .card-body .card-cell .staff-block .staff-info .title {
-          font-size: 12px;
-          line-height: 11px;
-          height: 16px;
-          color: rgba(0, 0, 0, 0.541176);
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap; }
-    .card-body .card-cell.little-padding {
-      padding-left: 10px; }
-    .card-body .card-cell.click {
-      cursor: pointer; }
-    .card-body .card-cell .unit-block {
-      padding: 0px 10px;
-      position: static;
-      text-align: left; }
-    .card-body .card-cell .edit-td {
-      margin-bottom: 7px;
-      cursor: pointer; }
-      .card-body .card-cell .edit-td input {
-        border: 0;
-        box-shadow: none;
-        height: 70px;
-        text-align: center; }
-    .card-body .card-cell label {
-      position: relative;
-      top: 21px;
-      left: 8px; }
-    .card-body .card-cell .text {
-      text-align: left; }
-
-@media (min-width: 544px) {
-  .area-1 {
-    display: block; }
-    .area-1 .team-info {
-      display: inline-block; }
-      .area-1 .team-info p {
-        margin: 0;
-        line-height: 20px; } }
-
-.commCard .card-panel {
-  margin: 10px;
-  border: 1px solid #ddd;
-  position: relative;
-  text-align: left; }
-  .commCard .card-panel .comm-name {
-    font-size: 16px;
-    color: #9e5710;
-    font-weight: 700; }
-  .commCard .card-panel .comment-content {
-    display: inline-block; }
-  .commCard .card-panel .comm-time {
-    color: #999;
-    font-size: 12px;
-    position: relative;
-    margin-top: 6px; }
-  .commCard .card-panel .tool {
-    position: absolute;
-    top: 12px;
-    right: 20px; }
-    .commCard .card-panel .tool a {
-      display: inline-block;
-      width: 40px;
-      height: 40px;
-      cursor: pointer;
-      border-radius: 50%;
-      text-align: center;
-      margin: 0px 5px;
-      line-height: 53px; }
-  .commCard .card-panel .edit {
-    display: none; }
-    .commCard .card-panel .edit input {
-      width: 90%;
-      margin: 10px 0;
-      display: inline-block;
-      position: relative;
-      top: 2px; }
-
-.commCard .card-action {
-  margin: 10px; }
-  .commCard .card-action textarea {
-    width: 100%;
-    min-height: 75px;
-    margin: 15px auto;
-    padding: 10px;
-    border: 1px solid #d8d8d8;
-    outline: none;
-    resize: none; }
-  .commCard .card-action .comm-submit {
-    text-align: center; }
+*::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(left, #888, #777); }
 
 .side-nav {
   -webkit-transition: 0.5s;
@@ -6677,7 +6431,8 @@ form p:last-child {
   padding: 2px 6px;
   border-radius: 2px;
   font-size: 11px;
-  background: #e7e7e7; }
+  background: #e7e7e7;
+  text-align: left; }
 
 @media (min-width: 768px) {
   .widget-timeline-centered:before {
@@ -7492,6 +7247,461 @@ c-datepicker__day-body {
       margin-left: 15px;
       line-height: 20px; }
 
+.no-data {
+  width: 90%;
+  display: none;
+  margin: 10px auto;
+  border: 1px dashed #999;
+  min-width: 300px;
+  min-height: 60px;
+  text-align: center;
+  vertical-align: middle; }
+  .no-data p {
+    color: #000;
+    font-weight: 700;
+    font-size: 15px; }
+
+.rv-assess .rv-item {
+  border: 1px solid #212121; }
+  .rv-assess .rv-item .rv-img {
+    top: 20px; }
+  .rv-assess .rv-item .comment_user {
+    display: block;
+    height: 30px; }
+  .rv-assess .rv-item .comm-time {
+    position: relative;
+    bottom: 15px;
+    left: 20px;
+    float: right;
+    margin-top: 0; }
+
+.rv-assess .rv-card .info-block {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center; }
+  .rv-assess .rv-card .info-block p {
+    margin: 0;
+    line-height: 20px; }
+
+.rv-assess .rv-card:focus {
+  border: 1px solid #FF9800;
+  outline: 0; }
+
+.rv-assess .card-header {
+  position: relative; }
+  .rv-assess .card-header .area-1 {
+    min-width: 185px;
+    border-right: 1px solid #eee;
+    height: 82px; }
+    .rv-assess .card-header .area-1 .team-info {
+      display: inline-block; }
+      .rv-assess .card-header .area-1 .team-info h1 {
+        margin: 0; }
+      .rv-assess .card-header .area-1 .team-info p {
+        line-height: 20px; }
+  .rv-assess .card-header .area-2 {
+    border-right: 1px solid #eee;
+    height: 82px; }
+    .rv-assess .card-header .area-2 .month {
+      margin-top: 15px; }
+      .rv-assess .card-header .area-2 .month h1 {
+        display: block;
+        margin-top: 0px;
+        margin-right: 5px; }
+      .rv-assess .card-header .area-2 .month p {
+        margin: 0;
+        line-height: 20px; }
+  .rv-assess .card-header .area-3 {
+    border-right: 1px solid #eee;
+    height: 82px; }
+    .rv-assess .card-header .area-3 .arrow {
+      margin: 0 15px;
+      margin-top: 15px; }
+    .rv-assess .card-header .area-3 h1 {
+      display: block;
+      margin: 0px; }
+    .rv-assess .card-header .area-3 .start-date {
+      text-align: center; }
+    .rv-assess .card-header .area-3 .end-date {
+      text-align: center; }
+  .rv-assess .card-header .area-4 {
+    height: 82px; }
+    .rv-assess .card-header .area-4 .arrow {
+      margin: 0 15px;
+      margin-top: 15px; }
+    .rv-assess .card-header .area-4 h1 {
+      display: block;
+      margin: 0px; }
+    .rv-assess .card-header .area-4 .end > p:first-child {
+      visibility: hidden; }
+  .rv-assess .card-header .dots {
+    width: 45px;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-justify-content: space-around;
+    -ms-flex-pack: distribute;
+    justify-content: space-around;
+    padding: 1em;
+    position: absolute;
+    left: -15px;
+    top: -10px; }
+    .rv-assess .card-header .dots .dot {
+      display: inline-block;
+      height: 10px;
+      width: 10px;
+      border-radius: 50%;
+      text-align: center;
+      margin: 0 3px;
+      background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiP…dpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==);
+      background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #dddddd));
+      background: -moz-linear-gradient(top, #ffffff, #dddddd);
+      background: -webkit-linear-gradient(top, #ffffff, #dddddd);
+      background: linear-gradient(to bottom, #ffffff, #ff4e4e);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), inset 0 0 3px transparent;
+      outline: 0;
+      transition: all 0.2s;
+      cursor: pointer;
+      position: absolute; }
+
+.rv-assess .card-body {
+  padding: 0px 0px 0rem 0px;
+  border-bottom: none; }
+  .rv-assess .card-body .brand-actions {
+    float: left;
+    width: 100%; }
+    .rv-assess .card-body .brand-actions a {
+      margin: 12px 8px;
+      cursor: pointer;
+      display: inline-block;
+      padding: 5px;
+      border: 1px solid #dddddd;
+      padding-bottom: 0;
+      border-radius: 5px;
+      box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.18); }
+    .rv-assess .card-body .brand-actions a:active {
+      box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.18); }
+  .rv-assess .card-body .card-table {
+    display: table;
+    width: 100%; }
+    .rv-assess .card-body .card-table .card-tbody {
+      height: 200px;
+      overflow-y: auto; }
+  .rv-assess .card-body .card-tr {
+    display: table-row; }
+  .rv-assess .card-body .card-thead {
+    display: table-cell;
+    font-size: 10px;
+    width: 70px;
+    border-right: 0;
+    color: #fff;
+    padding: 10px 10px;
+    height: 45px;
+    border-bottom: 1px solid #d8d8d8;
+    text-align: center; }
+    .rv-assess .card-body .card-thead.staff-info {
+      min-width: 200px;
+      text-align: left; }
+    .rv-assess .card-body .card-thead.unit-info {
+      width: 150px;
+      text-align: left; }
+    .rv-assess .card-body .card-thead.start-date {
+      width: 100px;
+      text-align: left; }
+  .rv-assess .card-body .card-cell {
+    display: table-cell;
+    text-align: center;
+    border-bottom: 1px solid #d8d8d8; }
+    .rv-assess .card-body .card-cell .comment-num {
+      white-space: nowrap; }
+    .rv-assess .card-body .card-cell .staff-block {
+      margin-left: 0px;
+      padding: 0px 0px 0px 85px;
+      position: relative; }
+      .rv-assess .card-body .card-cell .staff-block .num {
+        width: 40px;
+        height: 40px;
+        position: absolute;
+        bottom: 5px;
+        left: 20px;
+        border-radius: 50%;
+        background-color: #333333;
+        font-size: 9px;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-align-items: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -webkit-justify-content: center;
+        -ms-flex-pack: center;
+        justify-content: center; }
+      .rv-assess .card-body .card-cell .staff-block .staff {
+        background-color: #795548;
+        color: #fff; }
+      .rv-assess .card-body .card-cell .staff-block .staff-info {
+        padding: 2px 27px 0px 0px;
+        position: relative;
+        bottom: 7px;
+        text-align: left; }
+        .rv-assess .card-body .card-cell .staff-block .staff-info .name {
+          font-size: 14px; }
+        .rv-assess .card-body .card-cell .staff-block .staff-info .title {
+          font-size: 12px;
+          line-height: 16px;
+          height: 16px;
+          color: rgba(0, 0, 0, 0.541176);
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap; }
+    .rv-assess .card-body .card-cell.little-padding {
+      padding-left: 10px; }
+    .rv-assess .card-body .card-cell .unit-block {
+      padding: 0px 10px;
+      position: static;
+      text-align: left; }
+    .rv-assess .card-body .card-cell .edit-td {
+      margin-bottom: 7px;
+      cursor: pointer; }
+      .rv-assess .card-body .card-cell .edit-td input {
+        border: 0;
+        box-shadow: none;
+        height: 70px;
+        text-align: center; }
+    .rv-assess .card-body .card-cell label {
+      position: relative;
+      top: 21px;
+      left: 8px; }
+    .rv-assess .card-body .card-cell .text {
+      text-align: left; }
+  .rv-assess .card-body .myinput.large {
+    width: 22px;
+    height: 15px;
+    cursor: pointer; }
+  .rv-assess .card-body .myinput[type="checkbox"]:before {
+    position: relative;
+    display: block;
+    width: 11px;
+    height: 11px;
+    border: 1px solid #808080;
+    content: "";
+    background: #FFF; }
+  .rv-assess .card-body .myinput[type="checkbox"]:after {
+    position: relative;
+    display: block;
+    left: 2px;
+    top: -11px;
+    width: 7px;
+    height: 7px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #B3B3B3 #dcddde #dcddde #B3B3B3;
+    content: "";
+    background-image: linear-gradient(135deg, #FFF 0%, #FFF 100%);
+    background-repeat: no-repeat;
+    background-position: center; }
+  .rv-assess .card-body .myinput[type="checkbox"]:before {
+    position: relative;
+    display: block;
+    width: 11px;
+    height: 11px;
+    border: 1px solid #808080;
+    content: "";
+    background: #FFF; }
+  .rv-assess .card-body .myinput.large[type="checkbox"]:before {
+    width: 20px;
+    height: 20px; }
+  .rv-assess .card-body .myinput.large[type="checkbox"]:after {
+    top: -18px;
+    width: 16px;
+    height: 16px;
+    left: 2px; }
+  .rv-assess .card-body .myinput.large[type="checkbox"]:checked:after {
+    background: transparent;
+    left: 5px;
+    width: 20px;
+    transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    border-width: 3px;
+    height: .5rem;
+    border-color: #FF9800;
+    border-top: 0;
+    border-right: 0; }
+
+.rv-assess .card-action button {
+  float: right;
+  margin: 5px 0px; }
+
+.rv-assess .comment-record .card-panel {
+  position: relative;
+  text-align: left;
+  padding: 10px;
+  margin: 0; }
+  .rv-assess .comment-record .card-panel .comm-name {
+    font-size: 16px;
+    color: #9e5710;
+    font-weight: 700; }
+  .rv-assess .comment-record .card-panel .comment-content {
+    display: block; }
+    .rv-assess .comment-record .card-panel .comment-content::after {
+      content: '';
+      display: block;
+      clear: both;
+      width: 100%;
+      height: 10px; }
+  .rv-assess .comment-record .card-panel .comm-time {
+    color: #999;
+    font-size: 12px;
+    position: relative;
+    margin-top: 6px; }
+  .rv-assess .comment-record .card-panel .tool {
+    position: absolute;
+    top: 12px;
+    right: 20px; }
+    .rv-assess .comment-record .card-panel .tool a {
+      display: inline-block;
+      margin: 0px 5px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 53px;
+      cursor: pointer; }
+  .rv-assess .comment-record .card-panel .edit {
+    display: none; }
+    .rv-assess .comment-record .card-panel .edit input {
+      position: relative;
+      top: 2px;
+      display: inline-block;
+      margin: 10px 0;
+      width: 90%; }
+
+.rv-assess .comment-record .card-action {
+  margin: 10px; }
+  .rv-assess .comment-record .card-action textarea {
+    margin: 15px auto;
+    padding: 10px;
+    width: 100%;
+    min-height: 75px;
+    outline: none;
+    border: 1px solid #d8d8d8;
+    resize: none; }
+  .rv-assess .comment-record .card-action .comm-submit {
+    text-align: center; }
+
+@media (min-width: 544px) {
+  .area-1 {
+    display: block; }
+    .area-1 .team-info {
+      display: inline-block; }
+      .area-1 .team-info p {
+        margin: 0;
+        line-height: 20px; } }
+
+.fixedTable {
+  position: fixed;
+  top: 63px;
+  width: auto;
+  display: none;
+  border: none;
+  z-index: 9990; }
+
+.staff-table .table-fixed tbody {
+  display: block; }
+
+.staff-table .table-fixed thead,
+.staff-table .table-fixed tbody tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed; }
+
+.staff-table .table-fixed thead {
+  width: 100%; }
+  .staff-table .table-fixed thead .staff-info {
+    width: 200px; }
+  .staff-table .table-fixed thead .unit-info {
+    width: 110px; }
+  .staff-table .table-fixed thead .start-date {
+    width: 115px; }
+
+.staff-table .table-fixed tbody .staff-block {
+  margin-left: 0px;
+  padding: 0px 0px 0px 85px;
+  position: relative;
+  width: 210px;
+  box-sizing: border-box; }
+  .staff-table .table-fixed tbody .staff-block .num {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    left: 20px;
+    border-radius: 50%;
+    background-color: #333333;
+    font-size: 9px;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center; }
+  .staff-table .table-fixed tbody .staff-block .staff {
+    background-color: #795548;
+    color: #fff; }
+  .staff-table .table-fixed tbody .staff-block .staff-info {
+    padding: 2px 27px 0px 0px;
+    position: relative;
+    bottom: 7px;
+    text-align: left; }
+    .staff-table .table-fixed tbody .staff-block .staff-info .name {
+      font-size: 14px; }
+    .staff-table .table-fixed tbody .staff-block .staff-info .title {
+      font-size: 12px;
+      line-height: 16px;
+      height: 16px;
+      color: rgba(0, 0, 0, 0.541176);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap; }
+
+.staff-table .table-fixed tbody .unit-block {
+  width: 110px; }
+
+.staff-table .table-fixed tbody .text {
+  width: 115px; }
+
+.staff-table .table-fixed tbody .edit-td {
+  text-align: center;
+  box-shadow: none; }
+  .staff-table .table-fixed tbody .edit-td input {
+    text-align: center;
+    max-width: 55px;
+    min-width: 35px;
+    margin: 0 auto;
+    padding: 5px 0; }
+  .staff-table .table-fixed tbody .edit-td input {
+    text-align: center;
+    max-width: 55px;
+    min-width: 35px;
+    margin: 0 auto;
+    padding: 5px; }
+
+.staff-table .table-fixed tbody .comment-num {
+  white-space: nowrap;
+  width: 55px;
+  padding: 0 10px; }
+
 /**
 ** RV Organization Chart
 */
@@ -7541,6 +7751,9 @@ c-datepicker__day-body {
     margin: 0 5px 0 5px; }
   .filter-date .input-field select {
     padding: 5px; }
+
+.had-container {
+  position: relative; }
 
 .rv-chart-map {
   -webkit-transition: width 2s cubic-bezier(0.79, -0.07, 0.58, 1);
@@ -7819,14 +8032,16 @@ c-datepicker__day-body {
   .team-block .team-name {
     display: inline-block;
     color: #757575;
-    font-size: 10px; }
+    font-size: 10px;
+    white-space: nowrap; }
   .team-block .team-leader {
     font-weight: bold;
     width: 100%;
     font-size: 12px;
     height: 23px;
     line-height: 23px;
-    position: relative; }
+    position: relative;
+    white-space: nowrap; }
   .team-block .team-no-leader {
     color: #bdbdbd;
     font-weight: normal; }
@@ -7853,6 +8068,30 @@ c-datepicker__day-body {
       -o-transition: 0.5s;
       -ms-transition: 0.5s;
       transition: 0.5s; }
+      .team-block .score-block .score-history.non-score {
+        color: #000;
+        background: #bbdefb;
+        background: #bbdefb;
+        background: -webkit-linear-gradient(legacy-direction(#eff7fe), #bbdefb);
+        background: linear-gradient(#eff7fe, #bbdefb); }
+      .team-block .score-block .score-history.rated {
+        background: #8bc34a;
+        color: #000;
+        background: #8bc34a;
+        background: -webkit-linear-gradient(legacy-direction(#e5f2d6), #8bc34a);
+        background: linear-gradient(#e5f2d6, #8bc34a); }
+      .team-block .score-block .score-history.return {
+        background: #ff5252;
+        background: #ff5252;
+        background: -webkit-linear-gradient(legacy-direction(#ffdcdc), #ff5252);
+        background: linear-gradient(#ffdcdc, #ff5252);
+        color: #000 !important; }
+      .team-block .score-block .score-history.reviewing {
+        background: #ffd54f;
+        color: #000;
+        background: #ffd54f;
+        background: -webkit-linear-gradient(legacy-direction(#fff4d0), #ffd54f);
+        background: linear-gradient(#fff4d0, #ffd54f); }
   .team-block.noleader {
     background: #FFF;
     color: #CCC; }
@@ -7871,12 +8110,16 @@ c-datepicker__day-body {
     background: #8bc34a;
     background: -webkit-linear-gradient(legacy-direction(#e5f2d6), #8bc34a);
     background: linear-gradient(#e5f2d6, #8bc34a); }
+    .team-block.rated div {
+      color: #000 !important; }
   .team-block.return {
     background: #ff5252;
     background: #ff5252;
     background: -webkit-linear-gradient(legacy-direction(#ffdcdc), #ff5252);
     background: linear-gradient(#ffdcdc, #ff5252);
-    color: #FFF !important; }
+    color: #000; }
+    .team-block.return div {
+      color: #000 !important; }
     .team-block.return button {
       color: #000; }
   .team-block.reviewing {
@@ -7939,7 +8182,17 @@ c-datepicker__day-body {
 .rv-admin table td,
 .rv-admin table th {
   width: 20%;
-  text-align: left; }
+  text-align: left;
+  padding-left: 20px;
+  border-bottom: 1px solid #d8d8d8;
+  border-radius: 0; }
+  .rv-admin table td a,
+  .rv-admin table th a {
+    margin-right: 5px; }
+
+.rv-admin table th {
+  background: #212121;
+  color: #FFF; }
 
 .rv-setting .container {
   position: relative; }
@@ -8115,182 +8368,157 @@ c-datepicker__day-body {
   background-color: #ff972c;
   color: #FFF; }
 
-.comment-title {
-  text-align: center; }
-  .comment-title:after {
-    content: "";
-    display: block;
-    clear: both; }
-  .comment-title .icon-group {
-    margin-left: -53px;
+.rv-review {
+  /* Autocomplete */ }
+  .rv-review .comment-title {
+    text-align: center; }
+    .rv-review .comment-title:after {
+      content: "";
+      display: block;
+      clear: both; }
+  .rv-review .search-area {
     position: relative;
-    display: inline-block; }
-    .comment-title .icon-group i {
-      vertical-align: text-top;
-      font-size: 60px;
-      padding-bottom: 18px; }
-    .comment-title .icon-group .icon-text {
-      position: absolute;
-      top: 48px;
-      left: 8px;
-      width: 110px;
-      font-size: 16px; }
-  .comment-title .border-hr {
-    display: block;
-    background: #CCC;
-    width: 20px;
-    height: 1px;
-    margin: 5px auto; }
-  .comment-title .title-text span {
-    display: block;
-    font-size: 28px; }
-
-.search-area {
-  position: relative;
-  top: 250px;
-  transition-duration: 1s; }
-  .search-area .col {
-    float: none;
-    margin: 0 auto; }
-  .search-area .search-input-article {
-    position: relative; }
-    .search-area .search-input-article i {
-      position: absolute;
-      top: 5px;
-      left: 3px; }
-    .search-area .search-input-article input {
-      box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
-      border: none;
-      height: 50px; }
-      .search-area .search-input-article input:focus, .search-area .search-input-article input:hover {
-        box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.08); }
-
-.comment-area {
-  opacity: 0;
-  position: relative;
-  top: 250px;
-  transition-delay: 0.5s;
-  transition-duration: 1s; }
-  .comment-area .col {
-    float: none;
-    margin: 0 auto; }
-  .comment-area span.badge {
-    margin-top: 5px; }
-  .comment-area span.badge.new:after {
-    content: ''; }
-
-.comment-card-area .card-content .card-title {
-  padding-bottom: 10px;
-  border-bottom: 1px solid rgba(160, 160, 160, 0.2); }
-
-.comment-card-area .card-action {
-  padding-bottom: 10px; }
-  .comment-card-area .card-action:after {
-    content: "";
-    display: block;
-    clear: both; }
-  .comment-card-area .card-action textarea {
-    border: none;
-    padding: 10px;
-    line-height: 18px;
-    height: 36px;
-    outline: none;
-    resize: none;
-    width: 100%;
-    overflow-y: hidden; }
-  .comment-card-area .card-action button {
-    float: right;
-    margin: 5px 0px; }
-
-.comment-content-area {
-  overflow-y: auto;
-  overflow-x: hidden;
-  height: 450px; }
-  .comment-content-area .comment-content-list {
-    margin-right: 25px;
-    width: 100%;
-    overflow: visible;
-    box-sizing: border-box; }
-    .comment-content-area .comment-content-list > li {
-      padding-top: 12px;
-      position: relative;
-      border: 1px solid #fff; }
-      .comment-content-area .comment-content-list > li .rv-item {
-        padding-top: 18px;
-        padding-right: 10px;
-        cursor: default; }
-        .comment-content-area .comment-content-list > li .rv-item .rv-img {
-          background-color: #333333; }
-        .comment-content-area .comment-content-list > li .rv-item:after {
-          content: "";
-          display: block;
-          clear: both; }
-        .comment-content-area .comment-content-list > li .rv-item:hover {
-          background-color: #fafafa; }
-      .comment-content-area .comment-content-list > li .edit {
-        display: none; }
-        .comment-content-area .comment-content-list > li .edit input {
-          border: none;
-          width: 75%;
-          margin: 10px;
-          display: inline-block; }
-      .comment-content-area .comment-content-list > li .comment_user {
-        font-weight: bolder;
-        padding-bottom: 8px;
-        line-height: 22px;
-        position: relative; }
-        .comment-content-area .comment-content-list > li .comment_user .en {
-          font-size: 14px; }
-        .comment-content-area .comment-content-list > li .comment_user .tw {
-          font-size: 16px; }
-      .comment-content-area .comment-content-list > li .commen-tool {
+    top: 250px;
+    transition-duration: 1s; }
+    .rv-review .search-area .col {
+      float: none;
+      margin: 0 auto; }
+    .rv-review .search-area .search-input-article {
+      position: relative; }
+      .rv-review .search-area .search-input-article i {
         position: absolute;
-        top: 10px;
-        right: 15px; }
-        .comment-content-area .comment-content-list > li .commen-tool a {
-          display: inline-block;
-          width: 25px;
-          height: 25px;
-          margin: 2px;
-          color: #a9a9a9;
-          cursor: pointer; }
-      .comment-content-area .comment-content-list > li .comment-content {
-        margin: 5px; }
-        .comment-content-area .comment-content-list > li .comment-content input {
-          position: absolute; }
-      .comment-content-area .comment-content-list > li .dropdown-button {
+        top: 5px;
+        left: 3px; }
+      .rv-review .search-area .search-input-article input {
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
         border: none;
-        width: 100px;
-        position: absolute;
-        top: 0;
-        right: 10px;
-        background-color: rgba(255, 255, 255, 0.01) !important; }
-      .comment-content-area .comment-content-list > li .edit-area {
-        width: 120px;
-        padding: 5px 0px;
-        position: absolute;
-        right: 5px;
-        top: 12px; }
-        .comment-content-area .comment-content-list > li .edit-area .tool {
-          font-size: 15px;
-          padding: 5px 15px; }
-
-/* Autocomplete */
-.autocomplete-content {
-  margin-top: -15px;
-  display: block;
-  opacity: 1;
-  position: absolute;
-  width: 100%; }
-  .autocomplete-content li .highlight {
-    color: #444; }
-  .autocomplete-content li img {
-    height: 40px;
-    width: 40px;
-    margin: 5px 15px; }
-
-.autocomplete-content {
-  margin-top: 0; }
+        height: 50px; }
+        .rv-review .search-area .search-input-article input:focus, .rv-review .search-area .search-input-article input:hover {
+          box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.08); }
+  .rv-review .comment-area {
+    opacity: 0;
+    position: relative;
+    top: 250px;
+    transition-delay: 0.5s;
+    transition-duration: 1s; }
+    .rv-review .comment-area .col {
+      float: none;
+      margin: 0 auto; }
+    .rv-review .comment-area span.badge {
+      margin-top: 5px; }
+      .rv-review .comment-area span.badge.new:after {
+        content: ""; }
+  .rv-review .comment-card-area .card-content .card-title {
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(160, 160, 160, 0.2); }
+  .rv-review .comment-card-area .card-action {
+    padding-bottom: 10px; }
+    .rv-review .comment-card-area .card-action:after {
+      content: "";
+      display: block;
+      clear: both; }
+    .rv-review .comment-card-area .card-action textarea {
+      border: none;
+      padding: 10px;
+      line-height: 18px;
+      height: 36px;
+      outline: none;
+      resize: none;
+      width: 100%;
+      overflow-y: hidden; }
+    .rv-review .comment-card-area .card-action button {
+      display: none;
+      float: right;
+      margin: 5px 0px; }
+  .rv-review .comment-content-area {
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: 450px; }
+    .rv-review .comment-content-area .comment-content-list {
+      margin-right: 25px;
+      width: 100%;
+      overflow: visible;
+      box-sizing: border-box; }
+      .rv-review .comment-content-area .comment-content-list > li {
+        position: relative; }
+        .rv-review .comment-content-area .comment-content-list > li > div {
+          border: 1px solid #000;
+          margin: 5px; }
+        .rv-review .comment-content-area .comment-content-list > li .rv-item {
+          padding-top: 18px;
+          padding-right: 10px;
+          cursor: default; }
+          .rv-review .comment-content-area .comment-content-list > li .rv-item .rv-img {
+            background-color: #333333;
+            top: 12px; }
+          .rv-review .comment-content-area .comment-content-list > li .rv-item:after {
+            content: "";
+            display: block;
+            clear: both; }
+          .rv-review .comment-content-area .comment-content-list > li .rv-item:hover {
+            background-color: #fafafa; }
+        .rv-review .comment-content-area .comment-content-list > li .edit {
+          display: none; }
+          .rv-review .comment-content-area .comment-content-list > li .edit input {
+            width: 75%;
+            margin: 10px;
+            display: inline-block; }
+        .rv-review .comment-content-area .comment-content-list > li .comment_user {
+          font-weight: bolder;
+          line-height: 22px;
+          position: relative; }
+          .rv-review .comment-content-area .comment-content-list > li .comment_user .en {
+            font-size: 14px; }
+          .rv-review .comment-content-area .comment-content-list > li .comment_user .tw {
+            font-size: 16px; }
+        .rv-review .comment-content-area .comment-content-list > li .commen-tool {
+          position: absolute;
+          top: 10px;
+          right: 15px; }
+          .rv-review .comment-content-area .comment-content-list > li .commen-tool a {
+            display: inline-block;
+            width: 25px;
+            height: 25px;
+            margin: 2px;
+            color: #a9a9a9;
+            cursor: pointer; }
+        .rv-review .comment-content-area .comment-content-list > li .comment-content {
+          margin-top: 5px; }
+          .rv-review .comment-content-area .comment-content-list > li .comment-content input {
+            position: absolute; }
+          .rv-review .comment-content-area .comment-content-list > li .comment-content .content {
+            margin: 5px;
+            margin-left: 0; }
+        .rv-review .comment-content-area .comment-content-list > li .dropdown-button {
+          border: none;
+          width: 100px;
+          position: absolute;
+          top: 0;
+          right: 10px;
+          background-color: rgba(255, 255, 255, 0.01) !important; }
+        .rv-review .comment-content-area .comment-content-list > li .edit-area {
+          width: 120px;
+          padding: 5px 0px;
+          position: absolute;
+          right: 5px;
+          top: 12px; }
+          .rv-review .comment-content-area .comment-content-list > li .edit-area .tool {
+            font-size: 15px;
+            padding: 5px 15px; }
+  .rv-review .autocomplete-content {
+    margin-top: -15px;
+    display: block;
+    opacity: 1;
+    position: absolute;
+    width: 100%; }
+    .rv-review .autocomplete-content li .highlight {
+      color: #444; }
+    .rv-review .autocomplete-content li img {
+      height: 40px;
+      width: 40px;
+      margin: 5px 15px; }
+  .rv-review .autocomplete-content {
+    margin-top: 0; }
 
 .attendance-block .upload-block {
   border-radius: 10px;
@@ -8396,9 +8624,14 @@ c-datepicker__day-body {
   .evaluation-setting .month-setting .form-group .tip-word {
     padding: 0; }
     .evaluation-setting .month-setting .form-group .tip-word p {
-      font-size: 12px;
+      font-size: 14px;
       color: #999;
       margin: 0 0 5px 0px; }
+    .evaluation-setting .month-setting .form-group .tip-word p.tip-em {
+      color: #f57c00; }
+      .evaluation-setting .month-setting .form-group .tip-word p.tip-em i {
+        color: #f57c00;
+        vertical-align: middle; }
   .evaluation-setting .month-setting .form-group .process-date input {
     width: 50px; }
   .evaluation-setting .month-setting .form-group .process-date span {
@@ -8440,6 +8673,140 @@ c-datepicker__day-body {
 .rv-overview h5 {
   font-size: 20px;
   padding-left: 10px; }
+
+.rv-overview .comment-record .card-panel {
+  position: relative;
+  text-align: left;
+  padding: 5px; }
+  .rv-overview .comment-record .card-panel .comm-name {
+    font-size: 16px;
+    color: #9e5710;
+    font-weight: 700; }
+  .rv-overview .comment-record .card-panel .comment-content {
+    display: block; }
+    .rv-overview .comment-record .card-panel .comment-content::after {
+      content: '';
+      display: block;
+      clear: both;
+      width: 100%;
+      height: 10px; }
+  .rv-overview .comment-record .card-panel .comm-time {
+    color: #999;
+    font-size: 12px;
+    position: relative;
+    margin-top: 6px; }
+
+.rv-overview .rv-item {
+  border: 1px solid #212121; }
+  .rv-overview .rv-item .rv-img {
+    top: 20px; }
+  .rv-overview .rv-item .comment_user {
+    display: block;
+    height: 30px; }
+  .rv-overview .rv-item .comm-time {
+    position: relative;
+    bottom: 15px;
+    left: 20px;
+    float: right;
+    margin-top: 0; }
+
+.loader {
+  position: relative;
+  width: 2.5em;
+  height: 2.5em;
+  -webkit-transform: rotate(165deg);
+  -ms-transform: rotate(165deg);
+  transform: rotate(165deg); }
+  .loader:before, .loader:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: block;
+    width: 0.5em;
+    height: 0.5em;
+    border-radius: 0.25em;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); }
+  .loader:before {
+    -webkit-animation: before 2s infinite;
+    animation: before 2s infinite; }
+  .loader:after {
+    -webkit-animation: after 2s infinite;
+    animation: after 2s infinite; }
+
+@-webkit-keyframes before {
+  0% {
+    width: 0.5em;
+    box-shadow: 1em -0.5em rgba(225, 20, 98, 0.75), -1em 0.5em rgba(111, 202, 220, 0.75); }
+  35% {
+    width: 2.5em;
+    box-shadow: 0 -0.5em rgba(225, 20, 98, 0.75), 0 0.5em rgba(111, 202, 220, 0.75); }
+  70% {
+    width: 0.5em;
+    box-shadow: -1em -0.5em rgba(225, 20, 98, 0.75), 1em 0.5em rgba(111, 202, 220, 0.75); }
+  100% {
+    box-shadow: 1em -0.5em rgba(225, 20, 98, 0.75), -1em 0.5em rgba(111, 202, 220, 0.75); } }
+
+@keyframes before {
+  0% {
+    width: 0.5em;
+    box-shadow: 1em -0.5em rgba(225, 20, 98, 0.75), -1em 0.5em rgba(111, 202, 220, 0.75); }
+  35% {
+    width: 2.5em;
+    box-shadow: 0 -0.5em rgba(225, 20, 98, 0.75), 0 0.5em rgba(111, 202, 220, 0.75); }
+  70% {
+    width: 0.5em;
+    box-shadow: -1em -0.5em rgba(225, 20, 98, 0.75), 1em 0.5em rgba(111, 202, 220, 0.75); }
+  100% {
+    box-shadow: 1em -0.5em rgba(225, 20, 98, 0.75), -1em 0.5em rgba(111, 202, 220, 0.75); } }
+
+@-webkit-keyframes after {
+  0% {
+    height: 0.5em;
+    box-shadow: 0.5em 1em rgba(61, 184, 143, 0.75), -0.5em -1em rgba(233, 169, 32, 0.75); }
+  35% {
+    height: 2.5em;
+    box-shadow: 0.5em 0 rgba(61, 184, 143, 0.75), -0.5em 0 rgba(233, 169, 32, 0.75); }
+  70% {
+    height: 0.5em;
+    box-shadow: 0.5em -1em rgba(61, 184, 143, 0.75), -0.5em 1em rgba(233, 169, 32, 0.75); }
+  100% {
+    box-shadow: 0.5em 1em rgba(61, 184, 143, 0.75), -0.5em -1em rgba(233, 169, 32, 0.75); } }
+
+@keyframes after {
+  0% {
+    height: 0.5em;
+    box-shadow: 0.5em 1em rgba(61, 184, 143, 0.75), -0.5em -1em rgba(233, 169, 32, 0.75); }
+  35% {
+    height: 2.5em;
+    box-shadow: 0.5em 0 rgba(61, 184, 143, 0.75), -0.5em 0 rgba(233, 169, 32, 0.75); }
+  70% {
+    height: 0.5em;
+    box-shadow: 0.5em -1em rgba(61, 184, 143, 0.75), -0.5em 1em rgba(233, 169, 32, 0.75); }
+  100% {
+    box-shadow: 0.5em 1em rgba(61, 184, 143, 0.75), -0.5em -1em rgba(233, 169, 32, 0.75); } }
+
+/**
+ * Attempt to center the whole thing!
+ */
+.loading-blcok {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  height: 100%;
+  height: 100vh;
+  width: 100%;
+  background: #E6E6E6;
+  z-index: 99999;
+  display: none; }
+
+.loader {
+  position: absolute;
+  top: calc(20% - 1.25em);
+  left: calc(50% - 1.25em); }
 
 fieldset {
   padding: 0;

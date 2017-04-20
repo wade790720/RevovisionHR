@@ -12,6 +12,8 @@ class RecordMonthlyReport extends DBPropertyObject{
   public $tables_column = Array(
     'id',
     'operating_staff_id',
+    'processing_record_id',
+    'processing_id',
     'report_id',
     'report_type',
     'changed_json',
@@ -36,6 +38,28 @@ class RecordMonthlyReport extends DBPropertyObject{
       if(isset($val['changed_json']))$val['changed_json'] = json_decode($val['changed_json']);
     }
     return $this;
+  }
+  
+  public function getChangedWithProcessingRecordId($prid){
+    $sql = " select a.update_date, a.changed_json, d.name, d.name_en 
+    from {table} as a 
+    left join rv_monthly_report as b on a.report_id = b.id and a.report_type = 2 
+    left join rv_monthly_report_leader as c on a.report_id = c.id and a.report_type = 1 
+    left join rv_staff as d on if(b.id>0,b.staff_id,c.staff_id) = d.id 
+    where a.processing_record_id = $prid ";
+    $this->sql($sql);
+    $map = array();
+    foreach($this->data as &$val){
+      $val['changed_json'] = json_decode($val['changed_json'],true);
+      
+      $map[$val['name_en']]['name'] = $val['name'];
+      $npt = &$map[$val['name_en']];
+      $npt['name_en'] = $val['name_en'];
+      $npt['update_date'] = $val['update_date'];
+      
+      $npt['changed_json'] = isset($npt['changed_json'])? array_merge( $npt['changed_json'] , $val['changed_json'] ) : $val['changed_json'];
+    }
+    return empty($map)?null:$map;
   }
   
 }

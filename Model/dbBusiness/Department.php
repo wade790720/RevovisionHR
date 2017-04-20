@@ -10,6 +10,8 @@ class Department extends DBPropertyObject{
   
   public static $SubTeam = "subTeam";
   
+  protected static $CeoStaffId;
+  
   //欄位
   public $tables_column = Array(
     "id",
@@ -69,8 +71,11 @@ class Department extends DBPropertyObject{
     return $maps[$manager_id]['supervisor_staff_id'];
   }
   //用主管 取得上層單位佬大
-  public function getSuperArrayWithManager($manager_id,$end_id = 1){
+  public function getSuperArrayWithManager($manager_id,$end_id = 0){
     $a = $manager_id;
+    if($end_id==0){
+      $end_id = $this->getCeoStaffId();
+    }
     $map = $this->map('manager_staff_id');
     $res = array();
     do{
@@ -142,6 +147,26 @@ class Department extends DBPropertyObject{
     }
     
     return $tree[0][$sub];
+  }
+  
+  public function refreshRelation(){
+    $sql = 'update {table} as a 
+    left join (select id, upper_id, manager_staff_id as mid from {table} ) as b on a.upper_id = b.id
+    left join (select id, upper_id, manager_staff_id as mid from {table} ) as c on if(b.upper_id>0,b.upper_id,0) = c.id
+    left join (select id, upper_id, manager_staff_id as mid from {table} ) as d on if(c.upper_id>0,c.upper_id,0) = d.id
+    set a.supervisor_staff_id = if(b.mid>0, b.mid, if(c.mid>0,c.mid, if(d.mid>0, d.mid, a.manager_staff_id) ) ) ';
+    $this->sql($sql);
+    return $this;
+  }
+  
+  public function getCeoStaffId(){
+    if( isset($this->CeoStaffId) ){
+      $id = $this->CeoStaffId;
+    }else{
+      $upMap = $this->map('upper_id',true);
+      $id = $upMap[0]['manager_staff_id'];
+    }
+    return $id;
   }
   
   

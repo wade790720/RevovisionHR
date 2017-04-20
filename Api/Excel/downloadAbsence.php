@@ -56,6 +56,8 @@ if($api->checkPost(array("year","month"))){
       return $colStr.$row;
     }
     
+    
+    
     $savename = "$year-$month-".date("YmjHis");
     $file_type = "vnd.ms-excel";
     $file_ending = "xlsx";
@@ -69,95 +71,94 @@ if($api->checkPost(array("year","month"))){
     
     ob_end_clean();
     //設定寬度
-    $sheet->getColumnDimension( $colMapping[0] )->setWidth(22);
-    $sheet->getColumnDimension( $colMapping[1] )->setWidth(18);
-    
+    // $sheet->getColumnDimension( $colMapping[0] )->setWidth(18);
+    // $sheet->getColumnDimension( $colMapping[1] )->setWidth(18);
+    $sheet->setTitle("$year 年 $month 月 出缺席記錄");
     //合併日期頭
-    $sheet->mergeCells("A1:B2");
-    $sheet->setCellValue("A1", "$year 年 $month 月 出缺席記錄");
-    $sheet->setCellValue("A3", "單位");
-    $sheet->setCellValue("B3", "姓名");
+    $sheet->mergeCells("A1:B1");
+    $sheet->mergeCells("A2:B2");
+    $sheet->mergeCells("A3:B3");
     
+    $sheet->setCellValue("A1", "部門");
+    $sheet->setCellValue("A2", "姓名");
+    $sheet->setCellValue("A3", "日期");
+    // LG($result);
     //標題頭
+    $col = 2;
+    foreach($result as &$val){
+      //每個員工
+      
+      // $sheet->getRowDimension($row)->setRowHeight(22);
+      $nowPosition = str_fetchColRow($col,1);
+      $sheet->mergeCells($nowPosition.":".str_fetchColRow($col+2,1));
+      $sheet->setCellValue($nowPosition, $val['unit_id'].'-'.$val['unit_name']);
+      
+      $nowPosition = str_fetchColRow($col,2);
+      $sheet->mergeCells($nowPosition.":".str_fetchColRow($col+2,2));
+      $sheet->setCellValue($nowPosition, $val['name'].' '.$val['name_en']);
+      
+      $nowPosition = str_fetchColRow($col,3);
+      $sheet->setCellValue($nowPosition, '上班');
+      $nowPosition = str_fetchColRow($col+1,3);
+      $sheet->setCellValue($nowPosition, '下班');
+      $nowPosition = str_fetchColRow($col+2,3);
+      $sheet->setCellValue($nowPosition, '備註');
+      
+      $col+=3;
+      
+    }
+    
+    //產生日期範圍
     $start = strtotime($DateRangeStart);
     $end = strtotime($DateRangeEnd);
     $weekend_map = array( '周日','周一','周二','周三','周四','周五','周六','周日'  );
     $date_array = array();
     
-    //產生日期範圍
-    $col = 2;
+    $row = 4;
     while( $start <= $end ){
       
+      $col = 0;
       
       $week = date("w",$start);
       $date = date("Y-m-d",$start);
       $md = date("m/d",$start);
       
-      $date_array[$date] = true;
       
-      $pcr = str_fetchColRow($col,1);
-      $pcr2m = str_fetchColRow($col+2,1);
-      $sheet->mergeCells($pcr.":".$pcr2m);
+      
+      $pcr = str_fetchColRow($col,$row);
       $sheet->setCellValue($pcr, $md);
+      $col++;
       
-      $pcr = str_fetchColRow($col, 2 );
-      $pcr2m = str_fetchColRow($col+2,2);
-      $sheet->mergeCells($pcr.":".$pcr2m);
+      $pcr = str_fetchColRow($col, $row );
       $sheet->setCellValue($pcr, $weekend_map[$week]);
-      
-      $pcr = str_fetchColRow($col, 3 );
-      $sheet->setCellValue($pcr, '上班');
-      $pcr = str_fetchColRow($col+1, 3 );
-      $sheet->setCellValue($pcr, '下班');
-      $pcr = str_fetchColRow($col+2, 3 );
-      $sheet->setCellValue($pcr, '備註');
-      
-      
-      $start += 86400;
-      $col+=3;
-    }
-    // LG($start);
-    
-    //塞入資料
-    $row = 4;
-    foreach($result as &$val){
-      //每個員工
-      
-      // $sheet->getRowDimension($row)->setRowHeight(22);
-      $nowPosition = str_fetchColRow(0,$row);
-      $sheet->setCellValue($nowPosition, $val['unit_id'].'-'.$val['unit_name']);
-      $nowPosition = str_fetchColRow(1,$row);
-      $sheet->setCellValue($nowPosition, $val['name'].'-'.$val['name_en']);
-      // $name = iconv('UTF-8','UTF-8', $loc[$k]);
-      
-      //每個出勤
-      $col = 2;
-      foreach( $date_array as $k=>&$v){
+      $col++;
+       //塞入資料
+      foreach($result as &$val){
         $absence = $val['_absence'];
-        if( isset($absence[$k]) ){
-          $dataset = $absence[$k];
+        if( isset($absence[$date]) ){
+          $dataset = $absence[$date];
           //上班
-          $nowPosition = str_fetchColRow($col,$row);
-          $sheet->setCellValue($nowPosition, $dataset['checkin_hours']);
-          $col++;
+          $pcr = str_fetchColRow($col,$row);
+          $sheet->setCellValue($pcr, $dataset['checkin_hours'] );
           //下班
-          $nowPosition = str_fetchColRow($col,$row);
-          $sheet->setCellValue($nowPosition, $dataset['checkout_hours']);
-          $col++;
+          $pcr = str_fetchColRow($col+1,$row);
+          $sheet->setCellValue($pcr, $dataset['checkout_hours'] );
           //備註
-          $nowPosition = str_fetchColRow($col,$row);
-          $sheet->setCellValue($nowPosition, $dataset['remark']);
-          $col++;
-        }else{
-          $col+=3;
+          $pcr = str_fetchColRow($col+2,$row);
+          $remark = $dataset['remark'];
+          if(empty($remark)){
+            if($dataset['late']>0){$remark.='遲到 : '.$dataset['late'].' 分,';}
+            if($dataset['early']>0){$remark.='早退 : '.$dataset['early'].' 分,';}
+            if($dataset['nocard']>0){$remark.='忘卡,';}
+          }
+          $sheet->setCellValue($pcr, $remark);
         }
-        
+        $col+=3;
       }
       
       $row++;
-      
+      $start += 86400;
     }
-    
     
     
     

@@ -16,7 +16,7 @@
                 <div class="month-select">
                     <h3 class="title">請選擇月份</h3>
                     <form action="#" class="row month-list">
-                        <span v-for="value in monthArray" >
+                        <span v-for="value in monthArray">
                           <input name="month-choose" type="radio" :id="'eva-month-'+value" @change="now.month=value" />
                           <label :for="'eva-month-'+value">{{value}}月</label>
                         </span>
@@ -31,7 +31,7 @@
                             <div class="form-group">
                                 <label class="col s4 control-label">起始/結束日期設定</label>
                                 <div class="process-date col s8">
-                                    <span>  <i>{{now.month -1 || 12}}月</i><input type="text" maxlength="2" class="form-control date" v-model="setting.day_start"></span>
+                                    <span>  <i>{{(now.month -1) >= 10 ? (now.month -1) : '0'+ (now.month -1) || 12}}月</i><input type="text" maxlength="2" class="form-control date" v-model="setting.day_start"></span>
                                     <span class="icon"><i class="material-icons">keyboard_arrow_right</i></span>
                                     <span>  <i>{{now.month }}月</i><input type="text" maxlength="2" class="form-control date" v-model="setting.day_end"></span>
                                     <div class="tip-word col s12">
@@ -68,6 +68,7 @@
                                     </div>
                                     <div class="tip-word col s12">
                                         <p>請按上方按鈕啟動/關閉 考評</p>
+                                        <p class="tip-em"> <i class="material-icons md-18">error_outline</i> 啟動考評時，「組織設定」及「批次匯入員工資料」皆不可使用；考評關閉後方可設定組織及批次匯人員工資料。</p>
                                     </div>
                                 </div>
                             </div>

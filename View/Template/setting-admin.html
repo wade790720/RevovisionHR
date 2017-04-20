@@ -4,13 +4,13 @@
         <div class="filter-date row">
             <h3 class="title">請選擇日期</h3>
             <div class="dropdown">
-                <select id="getYear" class="btn dropdown-button" type="button" v-model="year" v-on:change="onSelected()">
+                <select id="getYear" class="btn dropdown-button" type="button" v-model="year" v-on:change="onChangeUpdate()">
                     <option value="2017">2017年</option>
                     <option value="2016">2016年</option>
                 </select>
             </div>
             <div class="dropdown">
-                <select id="getMonth" class="btn dropdown-button" type="button" v-model="month" v-on:change="onSelected()">
+                <select id="getMonth" class="btn dropdown-button" type="button" v-model="month" v-on:change="onChangeUpdate()">
                     <option value="1">1月</option>
                     <option value="2">2月</option>
                     <option value="3">3月</option>
@@ -33,21 +33,29 @@
                         <thead>
                             <tr>
                                 <th>單位名稱</th>
-                                <th>主管姓名</th>
-                                <th>職位</th>
+                                <th>單位主管</th>
+                                <th>持有者</th>
                                 <th>考評狀態</th>
                                 <th>執行動作</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>架構發展事業部</td>
-                                <td>蘇穎珊</td>
-                                <td>經理</td>
-                                <td>送審中</td>
+                            <tr v-for="(report,index) in reports">
+                                <td>{{report.created_unit_name}}</td>
+                                <td>{{report.created_name}} {{report.created_name_en}}</td>
+                                <td>{{report.owner_name}} {{report.owner_name_en}}</td>
                                 <td>
-                                    <a href="#" class="btn waves-effect waves-teal lighten-1 orange">送審</a>
-                                    <a href="#" class="btn waves-effect waves-teal lighten-1 red">退回核准</a>
+                                    <div v-if="report.status_code == 1" :style="{ color: ' #636363' }">初始</div>
+                                    <div v-if="report.status_code == 2" :style="{ color: ' #1495ff' }">考評</div>
+                                    <div v-if="report.status_code == 3" :style="{ color: ' #FF9800' }">送審</div>
+                                    <div v-if="report.status_code == 4" :style="{ color: ' #F44336' }">退回</div>
+                                    <div v-if="report.status_code == 5" :style="{ color: ' #52af47' }">核准</div>
+                                    <td>
+
+                                        <a href="#" class="btn waves-effect waves-teal lighten-1 orange" v-if="decideStatus(report.status_code)" v-on:click="commit(report.id)">送審</a>
+                                        <p v-if="report.status_code == 1">尚未啟動送審功能</p>
+                                        <a href="#" class="btn waves-effect waves-teal lighten-1 red" :href="'#ReJectModal-'+(index+1)" v-else-if="report.status_code == 5" v-on:click="reject(report,index)">退回核准</a>
+                                    </td>
                                 </td>
                             </tr>
                         </tbody>
@@ -57,26 +65,4 @@
         </div>
     </div>
 </div>
-<script type="text/javascript">
-var $settingAdmin = $('#SettingAdmin').generalController(function() {
-    var ts = this
-    var vm = new Vue({
-        el: '#SettingAdmin',
-        data: {
-            year: ts.q("#getYear").find("option:selected").val(),
-            month: ts.q("#getMonth").find("option:selected").val()
-        },
-        created: function() {
-            this.onSelected()
-        },
-        methods: {
-            onSelected: function() {
-                var data = {
-                    year: this.year,
-                    month: this.month
-                }
-            }
-        }
-    })
-})
-</script>
+<script src="<?=U('/Public/js/Index/setting-admin.js')?>"></script>

@@ -1,0 +1,802 @@
+<div id="Assess">
+    <div class="rv-page-title">
+        <h1 class="rv-title">待考評單</h1>
+        <div class="pull-right">
+            <!-- <a class="btn waves-effect waves-darken white-text btn-action" href="#">批次送出</a> -->
+        </div>
+    </div>
+    <div id="NoData" class="no-data">
+        <p> 您目前無考評單</p>
+    </div>
+    <div id="AssessForm" class="section rv-assess">
+        <div id="template-1" style="display: none">
+            <div class="row">
+                <div class="col s12">
+                    <ul class="collapsible popout rv-card">
+                        <li>
+                            <input type="hidden" class="ProfileID">
+                            <div class="collapsible-header truncate card-header">
+                                <div class="col s3 info-block area-1">
+                                    <div class="team-info">
+                                        <p>{{recvice.property.created_department_name}}</p>
+                                        <h1>{{recvice.property.created_staff_name}}</h1>
+                                    </div>
+                                </div>
+                                <div class="col s3 info-block area-2">
+                                    <div class="month">
+                                        <p>{{recvice.property.year}}</p>
+                                        <h1>{{recvice.property.month}}月份</h1>
+                                    </div>
+                                </div>
+                                <div class="col s3 info-block area-3">
+                                    <div class="start-date">
+                                        <p>{{recvice.property.month-1}}月</p>
+                                        <h1>{{recvice.property.day_start}}</h1>
+                                        <p>{{recvice.property.year}}</p>
+                                    </div>
+                                    <div class="arrow">
+                                        <svg width="55" height="35">
+                                            <path fill="#759BFD" d="M12.6,17.1H9.1c-1,0-1.8,0.8-1.8,1.8c0,1,0.8,1.8,1.8,1.8h3.5c1,0,1.8-0.8,1.8-1.8 C14.4,17.9,13.6,17.1,12.6,17.1z" />
+                                            <path fill="#759BFD" d="M49.9,17.6L39.1,6.8c-0.7-0.7-1.9-0.7-2.6,0c-0.7,0.7-0.7,1.9,0,2.6l7.7,7.7H20.9c-1,0-1.8,0.8-1.8,1.8 c0,1,0.8,1.8,1.8,1.8h23.3l-7.7,7.7c-0.7,0.7-0.7,1.9,0,2.6c0.7,0.7,1.9,0.7,2.6,0l10.8-10.8C50.8,19.3,50.8,18.5,49.9,17.6z" />
+                                        </svg>
+                                    </div>
+                                    <div class="end-date">
+                                        <p>{{recvice.property.month}}月</p>
+                                        <h1>{{recvice.property.day_end}}</h1>
+                                        <p>{{recvice.property.year}}</p>
+                                        <div></div>
+                                    </div>
+                                </div>
+                                <div class="col s3 info-block area-4">
+                                    <div class="start">
+                                        <p>進程</p>
+                                        <div>
+                                            <h1>{{recvice.property._path_staff[ recvice.property.owner_staff_id ].name}}</h1>
+                                            <p>{{recvice.property._path_staff[ recvice.property.owner_staff_id ].name_en}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="arrow pull-left">
+                                        <svg width="55" height="35">
+                                            <path fill="#fb7844" d="M12.6,17.1H9.1c-1,0-1.8,0.8-1.8,1.8c0,1,0.8,1.8,1.8,1.8h3.5c1,0,1.8-0.8,1.8-1.8 C14.4,17.9,13.6,17.1,12.6,17.1z" />
+                                            <path fill="#fb7844" d="M49.9,17.6L39.1,6.8c-0.7-0.7-1.9-0.7-2.6,0c-0.7,0.7-0.7,1.9,0,2.6l7.7,7.7H20.9c-1,0-1.8,0.8-1.8,1.8 c0,1,0.8,1.8,1.8,1.8h23.3l-7.7,7.7c-0.7,0.7-0.7,1.9,0,2.6c0.7,0.7,1.9,0.7,2.6,0l10.8-10.8C50.8,19.3,50.8,18.5,49.9,17.6z" />
+                                        </svg>
+                                    </div>
+                                    <div class="end">
+                                        <p>0</p>
+                                        <div v-if="recvice.property._next_staff">
+                                            <h1>{{recvice.property._next_staff.name}}</h1>
+                                            <p>{{recvice.property._next_staff.name_en}}</p>
+                                        </div>
+                                        <div v-else>
+                                            <h1>核准</h1>
+                                            <p>Approval</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="dots">
+                                    <div class="dot" title="初始狀態" v-if="recvice.property.status_code == 1" :style="{ background: 'linear-gradient(to bottom, #ffffff, #e3e3e3)' }"></div>
+                                    <div class="dot" title="考評狀態" v-if="recvice.property.status_code == 2" :style="{ background: 'linear-gradient(to bottom, #ffffff, #bbdefb)' }"></div>
+                                    <div class="dot" title="送審狀態" v-if="recvice.property.status_code == 3" :style="{ background: 'linear-gradient(to bottom, #ffffff, #FF9800)' }"></div>
+                                    <div class="dot" title="退回狀態" v-if="recvice.property.status_code == 4" :style="{ background: 'linear-gradient(to bottom, #ffffff, #F44336)' }"></div>
+                                    <div class="dot" title="核准狀態" v-if="recvice.property.status_code == 5" :style="{ background: 'linear-gradient(to bottom, #ffffff, #52af47)' }"></div>
+                                </div>
+                            </div>
+                            <div class="collapsible-body white card-body">
+                                <div class="brand-actions">
+                                    <a title="儲存" v-on:click="save"><i class="material-icons blue-text">save</i></a>
+                                    <a title="送審" v-on:click="commit" v-if="recvice.property.status_code > 1"><i class="material-icons yellow-text text-darken-2">arrow_forward</i></a>
+                                    <a title="退回" :href="'#ReJectModal-'+rand" v-on:click="open(recvice.property)" v-if="recvice.property.created_staff_id != recvice.property.owner_staff_id"><i class="material-icons red-text">arrow_back</i></a>
+                                    <a title="出缺席記錄" target="_blank" v-on:click="absence"><i class="material-icons teal-text">perm_contact_calendar</i></a>
+                                    <a title="歷史記錄" :href="'#HistoryModal-'+rand" v-on:click="history"><i class="material-icons indigo-text">library_books</i></a>
+                                    <div :id="'ReJectModal-'+rand" class="modal">
+                                        <div class="modal-content">
+                                            <div class="rv-page-title">
+                                                <h1 class="rv-title">退回評單</h1>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col s12">
+                                                    <select class="btn dropdown-button"></select>
+                                                    <p>
+                                                        <textarea class="form-control"></textarea>
+                                                    </p>
+                                                    <div class="row">
+                                                        <div class="pull-right">
+                                                            <button href="#" class="btn waves-effect waves-teal lighten-1 red" v-on:click="reject(recvice.property)">退回</button>
+                                                            <button class="waves-effect waves-light btn modal-close darken-1 grey">取消</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div :id="'HistoryModal-'+rand" class="modal">
+                                        <div class="modal-footer">
+                                            <a href="#!" class="modal-action modal-close btn-flat">
+                                                <i class="material-icons md-18">close</i> <span></span>
+                                            </a>
+                                        </div>
+                                        <div class="modal-content">
+                                            <div class="rv-page-title">
+                                                <h1 class="rv-title">歷史紀錄</h1>
+                                            </div>
+                                            <div class="row">
+                                                <div class="widget-timeline">
+                                                    <div class="widget-timeline-section widget-timeline-first">考評單歷程</div>
+                                                    <div class="test" v-for="(r,index) in records">
+                                                        <div class="widget-timeline-item">
+                                                            <div class="widget-timeline-info">
+                                                                <div class="widget-timeline-bullet bg-primary"></div>
+                                                                <div class="widget-timeline-time bg-primary">{{r.update_date}}</div>
+                                                            </div>
+                                                            <div class="panel">
+                                                                <div class="panel-body">
+                                                                    <div v-if="r.action == 'create'">考評單產生日期 : {{r.update_date}}</div>
+                                                                    <div v-if="r.action == 'commit'"><span>{{r._operating_name}} ({{r._operating_name_en}}) </span>已<span class="commit">送審</span>考評單至 <span>{{r._target_name}} ({{r._target_name_en}})</span></div>
+                                                                    <div v-if="r.action == 'return'"><span>{{r._operating_name}} ({{r._operating_name_en}}) </span>已<span class="return">退回</span>此考評單給 <span>{{r._target_name}} ({{r._target_name_en}})</span>
+                                                                        <br> 退回原因： {{r.reason}}</div>
+                                                                    <div v-if="r.action == 'done'">考評單已完成 : {{r.update_date}}</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-table" v-if="recvice[1]">
+                                    <div class="card-tr grey darken-4">
+                                        <div class="card-thead staff-info">員工資訊</div>
+                                        <div class="card-thead unit-info">單位資訊</div>
+                                        <div class="card-thead start-date">到職日</div>
+                                        <div class="card-thead">目標達成</div>
+                                        <div class="card-thead">工作品質</div>
+                                        <div class="card-thead">工作方法</div>
+                                        <div class="card-thead">出錯率</div>
+                                        <div class="card-thead">進度追查</div>
+                                        <div class="card-thead">企劃能力</div>
+                                        <div class="card-thead">執行力</div>
+                                        <div class="card-thead">判斷力</div>
+                                        <div class="card-thead">應變能力</div>
+                                        <div class="card-thead">出缺勤率</div>
+                                        <div class="card-thead">組員出勤</div>
+                                        <div class="card-thead">特殊貢獻</div>
+                                        <div class="card-thead">重大缺失</div>
+                                        <div class="card-thead">總分</div>
+                                        <div class="card-thead">獎金發放</div>
+                                        <div class="card-thead">評語</div>
+                                    </div>
+                                    <div class="card-tr" v-for="(report_leader,index) in recvice[1]._reports">
+                                        <div class="card-cell">
+                                            <div class="staff-block">
+                                                <div class="num" :style="{color: '#ffffff'}">{{report_leader.staff_no}}</div>
+                                                <div class="staff-info">
+                                                    <div class="name">{{report_leader.name}} {{report_leader.name_en}}</div>
+                                                    <div class="title">{{report_leader.post}}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-cell">
+                                            <div class="staff-block unit-block">
+                                                <div class="staff-info">
+                                                    <div class="name">{{report_leader.unit_name}}</div>
+                                                    <div class="title">{{report_leader.unit_id}}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-cell little-padding">
+                                            <div class="text">{{report_leader.first_day}}</div>
+                                        </div>
+                                        <div class="card-cell">
+                                            <div class="card edit-td">
+                                                <input type="number" min="0" max="5" class="form-control" v-model.number="report_leader.target" v-on:change="collectBackData(report_leader,$event,'target')" v-on:keyup="decideFloat(this,report_leader.target)">
+                                            </div>
+                                        </div>
+                                        <div class="card-cell">
+                                            <div class="card edit-td">
+                                                <input type="number" min="0" max="5" class="form-control" v-model.number="report_leader.quality" v-on:change="collectBackData(report_leader,$event,'quality')" v-on:keyup="decideFloat(this,report_leader.quality)">
+                                            </div>
+                                        </div>
+                                        <div class="card-cell">
+                                            <div class="card edit-td">
+                                                <input type="number" min="0" max="5" class="form-control" v-model.number="report_leader.method" v-on:change="collectBackData(report_leader,$event,'method')" v-on:keyup="decideFloat(this,report_leader.method)">
+                                            </div>
+                                        </div>
+                                        <div class="card-cell">
+                                            <div class="card edit-td">
+                                                <input type="number" min="0" max="5" class="form-control" v-model.number="report_leader.error" v-on:change="collectBackData(report_leader,$event,'error')" v-on:keyup="decideFloat(this,report_leader.error)">
+                                            </div>
+                                        </div>
+                                        <div class="card-cell">
+                                            <div class="card edit-td">
+                                                <input type="number" min="0" max="5" class="form-control" v-model.number="report_leader.backtrack" v-on:change="collectBackData(report_leader,$event,'backtrack')" v-on:keyup="decideFloat(this,report_leader.backtrack)">
+                                            </div>
+                                        </div>
+                                        <div class="card-cell">
+                                            <div class="card edit-td">
+                                                <input type="number" min="0" max="5" class="form-control" v-model.number="report_leader.planning" v-on:change="collectBackData(report_leader,$event,'planning')" v-on:keyup="decideFloat(this,report_leader.planning)">
+                                            </div>
+                                        </div>
+                                        <div class="card-cell">
+                                            <div class="card edit-td">
+                                                <input type="number" min="0" max="5" class="form-control" v-model.number="report_leader.execute" v-on:change="collectBackData(report_leader,$event,'execute')" v-on:keyup="decideFloat(this,report_leader.execute)">
+                                            </div>
+                                        </div>
+                                        <div class="card-cell">
+                                            <div class="card edit-td">
+                                                <input type="number" min="0" max="5" class="form-control" v-model.number="report_leader.decision" v-on:change="collectBackData(report_leader,$event,'decision')" v-on:keyup="decideFloat(this,report_leader.decision)">
+                                            </div>
+                                        </div>
+                                        <div class="card-cell">
+                                            <div class="card edit-td">
+                                                <input type="number" min="0" max="5" class="form-control" v-model.number="report_leader.resilience" v-on:change="collectBackData(report_leader,$event,'resilience')" v-on:keyup="decideFloat(this,report_leader.resilience)">
+                                            </div>
+                                        </div>
+                                        <div class="card-cell">
+                                            <div class="card edit-td">
+                                                <input type="number" min="0" max="5" class="form-control" v-model.number="report_leader.attendance" v-on:change="collectBackData(report_leader,$event,'attendance')" v-on:keyup="decideFloat(this,report_leader.attendance)">
+                                            </div>
+                                        </div>
+                                        <div class="card-cell">
+                                            <div class="card edit-td">
+                                                <input type="number" min="0" max="5" class="form-control" v-model.number="report_leader.attendance_members" v-on:change="collectBackData(report_leader,$event,'attendance_members')" v-on:keyup="decideFloat(this,report_leader.attendance_members)">
+                                            </div>
+                                        </div>
+                                        <div class="card-cell">
+                                            <div class="card edit-td ">
+                                                <input type="number" min="0" class="form-control" v-model.number="report_leader.addedValue" v-on:change="collectBackData(report_leader,$event,'addedValue')">
+                                            </div>
+                                        </div>
+                                        <div class="card-cell">
+                                            <div class="card edit-td ">
+                                                <input type="number" min="0" class="form-control" v-model.number="report_leader.mistake" v-on:change="collectBackData(report_leader,$event,'mistake')">
+                                            </div>
+                                        </div>
+                                        <div class="card-cell">
+                                            <div>
+                                                {{ total(1,report_leader) }}
+                                            </div>
+                                        </div>
+                                        <div class="card-cell">
+                                            <input class="myinput large" type="checkbox" :id="'bouns_'+index" v-model="report_leader.bonus" v-on:change="collectBackData(report_leader,$event,'bonus')">
+                                        </div>
+                                        <div class="card-cell click">
+                                            <a class="btn waves-effect waves-teal lighten-1" :href="'#CommentLeaderModal-'+(index+1)+rand" v-on:click="comment(report_leader.staff_id)">{{report_leader._comment_count}}筆</a>
+                                        </div>
+                                    </div>
+                                    <div v-for="(report_leader,index) in recvice[1]._reports">
+                                        <div :id="'CommentLeaderModal-'+(index+1)+rand" class="modal commCard">
+                                            <div class="modal-footer">
+                                                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">
+                                                    <i class="material-icons md-18">close</i> <span>關閉</span>
+                                                </a>
+                                            </div>
+                                            <div class="modal-content">
+                                                <div class="rv-page-title">
+                                                    <h1 class="rv-title">{{report_leader.name}}評論紀錄</h1>
+                                                </div>
+                                                <div class="row">
+                                                    <div :id="'CommentRecord'+(index+1)+'-'+rand" class="card-panel" v-for="(comment,index) in comments">
+                                                        <div class="rv-item">
+                                                            <div class="rv-img">{{comment.name_head}}</div>
+                                                            <div class="comment_user">
+                                                                <span class="tw">{{comment._created_staff_name}}</span>
+                                                                <span class="en">{{comment._created_staff_name_en}}</span>
+                                                            </div>
+                                                            <div class="comment-content">{{comment.content}}</div>
+                                                            <div class="comm-time">{{comment.create_time}}</div>
+                                                            <div class="tool">
+                                                                <a class="waves-effect" v-on:click="editOpen(comment.content,index)"><i class="material-icons teal-text">mode_edit</i></a>
+                                                                <a class="waves-effect" v-on:click="deleteComment(comment.id,index,report_leader)"><i class="material-icons black-text">close</i></a>
+                                                            </div>
+                                                            <div class="edit edit-input">
+                                                                <input type="text" class="form-control">
+                                                                <button type="submit" class="waves-effect waves-light btn blue accent-2" v-on:click="editComment(index,comment.id)">編輯</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-action">
+                                                        <textarea :id="'CommentText'+(index+1)+'-'+rand+report_leader.type" placeholder="請輸入對當前員工的評論.."></textarea>
+                                                        <button type="submit" class="waves-effect waves-light btn" v-on:click="addComment(report_leader,index)">新增評語</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-table" v-if="recvice[2]">
+                                    <div class="card-tr grey darken-4">
+                                        <div class="card-thead staff-info">員工資訊</div>
+                                        <div class="card-thead unit-info">單位資訊</div>
+                                        <div class="card-thead start-date">到職日</div>
+                                        <div class="card-thead">工作品質</div>
+                                        <div class="card-thead">工作績效</div>
+                                        <div class="card-thead">責任感</div>
+                                        <div class="card-thead">配合度</div>
+                                        <div class="card-thead">出席率</div>
+                                        <div class="card-thead">特殊貢獻</div>
+                                        <div class="card-thead">重大缺失</div>
+                                        <div class="card-thead">總分</div>
+                                        <div class="card-thead">獎金發放</div>
+                                        <div class="card-thead">評語</div>
+                                    </div>
+                                    <div class="card-tr" v-for="(report,index) in recvice[2]._reports">
+                                        <div class="card-cell">
+                                            <div class="staff-block">
+                                                <div class="num staff">{{report.staff_no}} </div>
+                                                <!-- 資料庫管理 & 系統管理 & 總務行政處 & 人力資源處 & 風險管理處-->
+                                                <div class="num" v-if="report.unit_id =='D11' || report.unit_id =='D31' || report.unit_id =='B10' || report.unit_id =='B20' || report.unit_id =='G10'" :style="{background:'#f06292',color:'#fff'}">{{report.staff_no}} </div>
+                                                <!-- 稽核處 & 專屬客服 -->
+                                                <div class="num" v-if="report.unit_id =='F10' || report.unit_id =='C11'" :style="{background:'#ffb74d',color:'#fff'}">{{report.staff_no}} </div>
+                                                <!-- 開發組 -->
+                                                <div class="num" v-if="report.unit_id =='D51'" :style="{background:'#e57373',color:'#fff'}">{{report.staff_no}} </div>
+                                                <!-- 值班技術一組 -->
+                                                <div class="num" v-if="report.unit_id =='D23'" :style="{background:'#90a4ae ',color:'#fff'}">{{report.staff_no}} </div>
+                                                <!-- 值班技術二、三、四組 -->
+                                                <div class="num" v-if="report.unit_id =='D24' || report.unit_id =='D25' || report.unit_id =='D26'" :style="{background:'#7986cb ',color:'#fff'}">{{report.staff_no}} </div>
+                                                <!-- 值班客服組 -->
+                                                <div class="num" v-if="report.unit_id =='C12'" :style="{background:'#9575cd',color:'#fff'}">{{report.staff_no}} </div>
+                                                <!-- 聊天管理組 -->
+                                                <div class="num" v-if="report.unit_id =='C13'" :style="{background:'#ff4081',color:'#fff'}">{{report.staff_no}} </div>
+                                                <div class="staff-info">
+                                                    <div class="name">{{report.name}} {{report.name_en}}</div>
+                                                    <div class="title">{{report.post}}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-cell">
+                                            <div class="staff-block unit-block">
+                                                <div class="staff-info">
+                                                    <div class="name">{{report.unit_name}}</div>
+                                                    <div class="title">{{report.unit_id}}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-cell little-padding">
+                                            <div class="text">{{report.first_day}}</div>
+                                        </div>
+                                        <div class="card-cell">
+                                            <div class="card edit-td">
+                                                <input type="number" min="0" max="5" class="form-control" v-model.number="report.quality" v-on:change="collectBackData(report,$event,'quality')" v-on:keyup="decideFloat(this,report.quality)">
+                                            </div>
+                                        </div>
+                                        <div class="card-cell">
+                                            <div class="card edit-td">
+                                                <input type="number" min="0" max="5" class="form-control" v-model.number="report.completeness" v-on:change="collectBackData(report,$event,'completeness')" v-on:keyup="decideFloat(this,report.completeness)">
+                                            </div>
+                                        </div>
+                                        <div class="card-cell">
+                                            <div class="card edit-td">
+                                                <input type="number" min="0" max="5" class="form-control" v-model.number="report.responsibility" v-on:change="collectBackData(report,$event,'responsibility')" v-on:keyup="decideFloat(this,report.responsibility)">
+                                            </div>
+                                        </div>
+                                        <div class="card-cell">
+                                            <div class="card edit-td">
+                                                <input type="number" min="0" max="5" class="form-control" v-model.number="report.cooperation" v-on:change="collectBackData(report,$event,'cooperation')" v-on:keyup="decideFloat(this,report.cooperation)">
+                                            </div>
+                                        </div>
+                                        <div class="card-cell">
+                                            <div class="card edit-td">
+                                                <input type="number" min="0" max="5" class="form-control" v-model.number="report.attendance" v-on:change="collectBackData(report,$event,'attendance')" v-on:keyup="decideFloat(this,report.attendance)">
+                                            </div>
+                                        </div>
+                                        <div class="card-cell">
+                                            <div class="card edit-td">
+                                                <input type="number" min="0" class="form-control" v-model.number="report.addedValue" v-on:change="collectBackData(report,$event,'addedValue')">
+                                            </div>
+                                        </div>
+                                        <div class="card-cell">
+                                            <div class="card edit-td">
+                                                <input type="number" min="0" class="form-control" v-model.number="report.mistake" v-on:change="collectBackData(report,$event,'mistake')">
+                                            </div>
+                                        </div>
+                                        <div class="card-cell">
+                                            <div>{{ total(2,report) }}</div>
+                                        </div>
+                                        <div class="card-cell">
+                                            <input class="myinput large" type="checkbox" :id="'bouns_'+index" v-model="report.bonus" v-on:change="collectBackData(report,$event,'bonus')">
+                                        </div>
+                                        <div class="card-cell click">
+                                            <a class="btn waves-effect waves-teal lighten-1" :href="'#CommentStaffModal-'+(index+1)+rand" v-on:click="comment(report.staff_id)">{{report._comment_count}}筆</a>
+                                        </div>
+                                    </div>
+                                    <div v-for="(report,index) in recvice[2]._reports">
+                                        <div :id="'CommentStaffModal-'+(index+1)+rand" class="modal commCard">
+                                            <div class="modal-footer">
+                                                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">
+                                                    <i class="material-icons md-18">close</i> <span>關閉</span> </a>
+                                            </div>
+                                            <div class="modal-content">
+                                                <div class="rv-page-title">
+                                                    <h1 class="rv-title">{{report.name}}的評論紀錄</h1>
+                                                </div>
+                                                <div class="row">
+                                                    <div :id="'CommentRecord'+(index+1)+'-'+rand" class="card-panel" v-for="(comment,index) in comments">
+                                                        <div class="rv-item">
+                                                            <div class="rv-img">{{comment.name_head}}</div>
+                                                            <div class="comment_user">
+                                                                <span class="tw">{{comment._created_staff_name}}</span>
+                                                                <span class="en">{{comment._created_staff_name_en}}</span>
+                                                            </div>
+                                                            <div class="comment-content">{{comment.content}}</div>
+                                                            <div class="comm-time">{{comment.create_time}}</div>
+                                                            <div class="tool">
+                                                                <a class="waves-effect" v-on:click="editOpen(comment.content,index)"><i class="material-icons teal-text">mode_edit</i></a>
+                                                                <a class="waves-effect" v-on:click="deleteComment(comment.id,index,report)"><i class="material-icons black-text">close</i></a>
+                                                            </div>
+                                                            <div class="edit edit-input">
+                                                                <input type="text" class="form-control">
+                                                                <button type="submit" class="waves-effect waves-light btn blue accent-2" v-on:click="editComment(index,comment.id)">編輯</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-action">
+                                                        <textarea :id="'CommentText'+(index+1)+'-'+rand+report.type" placeholder="請輸入對當前員工的評論.."></textarea>
+                                                        <button type="submit" class="waves-effect waves-light btn" v-on:click="addComment(report,index)">新增評語</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+var $assessForm = $('#Assess').generalController(function() {
+    var ts = this;
+    ts.templateArray = [];
+    ts.vuesObj = {};
+    ts.onLogin(function(member) {
+
+        var today = new Date();
+        var currentYear = today.getFullYear()
+        var currentMonth = today.getMonth() + 1
+        console.log(currentYear)
+        console.log(currentMonth)
+        var init = {
+            year: currentYear,
+            staff_id: member.id
+        }
+        API.getMonthlyProcessWithOwner(init).then(function(json) {
+            var collectHasForm = API.format(json);
+            var getMonthlyData = 0;
+            var count = 1;
+
+            if (collectHasForm.is) {
+                var result = collectHasForm.res();
+                var apiArray = [];
+                for (var id in result) {
+                    var formId = result[id].id;
+                    var data = {
+                        processing_id: formId
+                    }
+                    apiArray.push(API.getMonthlyReport(data));
+                }
+                $.when.all(apiArray).then(function(data) {
+                    var newData = (typeof data[1] == "string") ? [data] : data;
+                    var new_data = {};
+                    for (var i in newData) {
+                        var loc = newData[i];
+                        var result = API.format((loc[0] || loc)).get();
+                        for (var r in result) {
+                            var getMonthlyData = result[r];
+                            for(var q in getMonthlyData._reports){
+                              getMonthlyData._reports[q].type = getMonthlyData.type;
+                            }
+                            //callVueRender(getMonthlyData);
+                            if(!new_data[getMonthlyData.created_department_id]){
+                              new_data[getMonthlyData.created_department_id]={};
+                              new_data[getMonthlyData.created_department_id]['property'] = getMonthlyData;
+                            }
+                            new_data[getMonthlyData.created_department_id][getMonthlyData.type] = getMonthlyData;
+                            
+                        }
+                    }
+                    for(var ii in new_data){
+                      callVueRender(new_data[ii]);
+                    }
+                    console.log(new_data);
+                });
+            } else {
+                ts.q('#NoData').show();
+            }
+
+            function callVueRender(param) {
+                var rand = 'row' + (count++);
+                var tmp1 = null
+                ts.q('#AssessForm').append('<div id="' + rand + '" ></div>');
+                console.log(JSON.parse(JSON.stringify(param)));
+                var tmp_param = param.property;
+                var next = tmp_param.path_staff_id.indexOf(tmp_param.owner_staff_id) + 1;
+                tmp_param._next_staff = tmp_param._path_staff[tmp_param.path_staff_id[next]];
+                var tmp1 = new Vue({
+                    template: '#template-1',
+                    el: '#' + rand,
+                    data: {
+                        year: currentYear,
+                        month: currentMonth,
+                        rand: rand,
+                        member: member,
+                        recvice: param,
+                        changed: {},
+                        records: [],
+                        comments: []
+                    },
+                    methods: {
+                        save: function() {
+                            if (!this.isEmptyObject(this.changed)) {
+                                var changedObj = JSON.parse(JSON.stringify(this.changed))
+                                var insertData = {
+                                    report: changedObj
+                                };
+                                API.saveReport(insertData).then(function(e) {
+                                    var success = API.format(e);
+                                    if (success.is) {
+                                        Materialize.toast('已儲存完畢您的變更', 2000)
+                                    }
+                                })
+                            } else {
+                                Materialize.toast('資料尚未變更', 2000)
+                            }
+                        },
+                        collectBackData: function(report, e, field) {
+                            //console.log(report);
+
+                            var tar = e.target;
+                            report[field] = parseInt(report[field]);
+                            if (tar.min) {
+                                report[field] = Math.max(report[field], tar.min);
+                            }
+                            if (tar.max) {
+                                report[field] = Math.min(report[field], tar.max);
+                            }
+
+                            if (field == 'bonus') {
+                                if (report.bonus) {
+                                    report.bonus = 1;
+                                } else {
+                                    report.bonus = 0;
+                                }
+                            }
+                            if (!this.changed[report.id]) {
+                                this.changed[report.id] = {
+                                    id: report.id,
+                                    processing_id: report.processing_id
+                                };
+                            }
+                            this.changed[report.id][field] = report[field];
+                        },
+                        commit: function() {
+                            this.save();
+                            var commitId = {
+                                processing_id: this.recvice.id
+                            }
+                            API.commitMonthly(commitId).then(function(e) {
+                                var success = API.format(e);
+                                if (success.is) {
+                                    Materialize.toast('已提交送審', 2000)
+                                }
+                            })
+                            $(this.$el).remove();
+                        },
+                        open: function(param) {
+                            ts.q('#ReJectModal-' + rand).modal({
+                                dismissible: false
+                            });
+                            var processingId = {
+                                processing_id: param.id
+                            }
+                            API.getMonthlyRejectList(processingId).then(function(e) {
+                                var result = API.format(e);
+                                if (result.is) {
+                                    var list = result.get();
+                                    var rj = ts.q('#ReJectModal-' + rand).find("select").empty();
+                                    for (var l in list) {
+                                        rj.append('<option value="' + list[l].id + '">' + list[l].name + " " + list[l].name_en + '</option>');
+                                    }
+                                }
+                            })
+                        },
+                        reject: function(param) {
+                            var ownerId = param.id
+                            var backId = ts.q('#ReJectModal-' + rand + ' option:selected').val()
+                            var backReason = ts.q('#ReJectModal-' + rand + ' textarea').val()
+                            var rejectData = {
+                                processing_id: ownerId,
+                                staff_id: backId,
+                                reason: backReason
+                            }
+                            if (backReason != '') {
+                                API.rejectMonthly(rejectData).then(function(e) {
+                                    var success = API.format(e);
+                                    if (success.is) {
+                                        Materialize.toast('已退回該表單', 2000)
+                                    }
+                                })
+                                if (backId != undefined) {
+                                    ts.q('#ReJectModal-' + rand).modal("close")
+                                    $(this.$el).remove();
+                                } else {
+                                    ts.q('#ReJectModal-' + rand).modal("close")
+                                    Materialize.toast('此單您無法執行退回動作', 2000)
+                                }
+                            } else {
+                                alert("請輸入退回原因");
+                            }
+                        },
+                        history: function() {
+                            var historyId = {
+                                processing_id: this.recvice.id
+                            }
+                            var vuethis = this;
+                            API.getMonthlyProcessHistory(historyId).then(function(e) {
+                                var success = API.format(e);
+                                if (success.is) {
+                                    var recordArray = success.res()
+                                    vuethis.records = recordArray
+                                }
+                            })
+                        },
+                        absence: function() {
+                            window.open("None/Frame/absence?year=" + this.year + "&month=" + this.month + "&team=" + this.recvice.property.created_department_id);
+                        },
+                        getComment: function(data) {
+                            var vuethis = this;
+                            if (this.recvice.property.year == this.year && this.recvice.property.month == this.month) {
+                                API.getComment(data).then(function(e) {
+                                    var result = API.format(e);
+                                    console.log(result.res())
+                                    if (result.is) {
+                                        var comment = result.res()
+                                        vuethis.comments = comment
+                                    }
+                                })
+                            }
+                        },
+                        comment: function(id) {
+                            this.comments = []
+                            var commentData = {
+                                staff_id: id,
+                                year: currentYear,
+                                month: currentMonth
+                            }
+                            this.getComment(commentData)
+                        },
+                        addComment: function(obj, index) {
+                            var txt = ts.q("#CommentText" + (index + 1) + "-" + rand+obj.type).val()
+                            var target = {
+                                staff_id: obj.staff_id,
+                                year: this.recvice.property.year,
+                                month: this.recvice.property.month,
+                                content: txt
+                            }
+                            if (txt != "") {
+                                var vss = this;
+                                API.addComment(target).then(function(e) {
+                                    if (API.format(e).is) {
+                                        Materialize.toast('已新增一筆評論', 2000);
+                                        vss.getComment(target);
+                                        ts.q("#CommentText" + (index + 1) + "-" + rand+obj.type).val('')
+                                        var autoScroll = ts.q(".comment-content-area")
+                                        autoScroll.animate({
+                                            scrollTop: autoScroll.height()
+                                        }, 'slow');
+                                        obj._comment_count++;
+                                    } else {
+                                        return alert('無法輸入');
+                                    }
+                                });
+                            } else {
+                                alert('您尚未輸入任何評論');
+                            }
+                        },
+                        editOpen: function(txt, index) {
+                            // 隱藏輸入欄位下的按鈕
+                            ts.q("#CommentRecord" + (index + 1) + "-" + rand).find(".edit-input").hide();
+                            // ts.q("#CommentText" + (index + 1) + "-" + rand).siblings().hide();
+                            var list = ts.q("#CommentRecord" + (index + 1) + "-" + rand)
+                            var txt = list.find(".comment-content").text();
+                            list.find(".edit-input").show();
+                            list.find("input").val(txt);
+                        },
+                        editComment: function(index, id) {
+                            var list = ts.q("#CommentRecord" + (index + 1) + "-" + rand)
+                            var content = ts.q("#CommentRecord" + (index + 1) + "-" + rand).find("input").val()
+                            var editParam = {
+                                comment_id: id,
+                                do: "upd",
+                                content: content
+                            }
+                            API.updateComment(editParam).then(function(e) {
+                                var success = API.format(e);
+                                if (!success.is) {
+                                    list.find(".edit-input").hide()
+                                    return alert('無法編輯');
+                                } else {
+                                    Materialize.toast('已更新一筆評論', 2000)
+                                    list.find(".edit-input").hide()
+                                    list.find(".comment-content").text(editParam.content)
+                                }
+                            })
+                        },
+                        deleteComment: function(id, index,report) {
+                            var deleteParam = {
+                                comment_id: id,
+                                do: "del"
+                            }
+                            var vss = this;
+                            API.updateComment(deleteParam).then(function(e) {
+                                Materialize.toast('已刪除一筆評論', 2000)
+                                if (API.format(e).is) {
+                                    // 改變資料面，從而改變DOM
+                                    vss.comments.splice(index, 1);
+                                    report._comment_count--;
+                                } else {
+                                    Materialize.toast('更新失敗', 2000);
+                                }
+                            })
+                        },
+                        total: function(qq,report) {
+                            if (qq == 1) {
+                                // 主管們的總分
+                                var score_total = (report.target * 2) + (report.quality * 2) + (report.method * 2) + (report.error * 2) + (report.backtrack * 2) + (report.planning * 2) + (report.execute * 1.4) + (report.decision * 1.4) + (report.resilience * 1.2) + (report.attendance * 2) + (report.attendance_members * 2);
+                                score_total = Math.min(score_total, 100) + report.addedValue - report.mistake;
+                                if (score_total < 0) {
+                                    return score_total = 0
+                                } else {
+                                    return Math.round(score_total)
+                                }
+                            } else {
+                                // 員工們的總分
+                                if (report.duty_shift == 0) {
+                                    // 一般員工的總分
+                                    var score_total = (report.quality * 5) + (report.completeness * 5) + (report.responsibility * 5) + (report.cooperation * 3) + (report.attendance * 2);
+
+                                } else {
+                                    // 值班員工的總分
+                                    var score_total = (report.quality * 5) + (report.completeness * 5) + (report.responsibility * 3) + (report.cooperation * 3) + (report.attendance * 4);
+                                }
+                                score_total = Math.min(score_total, 100) + report.addedValue - report.mistake;
+                                if (score_total < 0) {
+                                    return score_total = 0
+                                } else {
+                                    return score_total
+                                }
+                            }
+                        },
+                        isEmptyObject: function(obj) {
+                            for (var name in obj) {
+                                if (obj.hasOwnProperty(name)) {
+                                    return false;
+                                }
+                            }
+                            return true;
+                        },
+                        decideFloat: function(e, pnumber) {
+                            if (!/^\+?[0-5]*$/.test(pnumber)) {
+                                e.value = /\+?[0-5]*/.exec(e.value);
+                                alert("請輸入0~5的整數")
+                            }
+                            return false;
+                        }
+                    }
+                });
+                ts.vuesObj[rand] = tmp1;
+                ts.templateArray.push(tmp1);
+                var ele = tmp1.$el;
+                ts.q(".modal").modal();
+                ts.q(ele).q('.collapsible').collapsible();
+                ts.q("#CommentText").focus(function() {
+                    ts.q("#CommentText" + (index + 1) + "-" + rand).siblings().show();
+                });
+            }
+        });
+    });
+});
+</script>

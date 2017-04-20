@@ -11,7 +11,7 @@ if( $api->SC->isAdmin() ){
   
   $staff = new StaffPost();
   
-  $result = $staff->read()->data;
+  $result = $staff->read(array('id','name','type'),null,"order by orderby desc, FIELD(type,'管理職','行政職','專業職','其他')")->data;
   //成功結果
   $api->setArray($result);
   

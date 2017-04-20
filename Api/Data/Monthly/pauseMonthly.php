@@ -17,12 +17,28 @@ if( $api->checkPost(array('year','month')) && $api->SC->isSuperUser() ){
   $process = new MonthlyProcessing();
   
   // $self_id = $api->SC->getId();
-  $process->update(array('status_code'=>1),array('year'=>$year,'month'=>$month,'status_code'=>'< 5'));
+  $change = $process->update(array('status_code'=>1),array('year'=>$year,'month'=>$month,'status_code'=>'< 5'));
   
   $config = new ConfigCyclical();
   $config->update(array('monthly_launched'=>0), array('year'=>$year,'month'=>$month));
   
-  $api->setArray('ok');
+  if($change){
+    
+    //mail
+    include BASE_PATH.'/Model/MailCenter.php';
+    $mail = new Model\MailCenter;
+    $mail->addAddressGroup('monthly_process');
+    $res = $mail->sendTemplate('monthly_pause', array('year'=>$year,'month'=>$month) );
+  }else{
+    $res = true;
+  }
+  
+  
+  if($res===true){
+    $api->setArray('ok');
+  }else{
+    $api->setArray($res);
+  }
   
 }else{
   $api->denied();

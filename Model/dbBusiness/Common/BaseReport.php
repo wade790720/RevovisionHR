@@ -10,7 +10,7 @@ trait BaseReport{
     parent::select($a,$b,$c);
     foreach($this->data as &$val){
       if(isset($val['comment_id'])){
-        $val['comment_id'] = bomb($val['comment_id']);
+        $val['comment_id'] = array_unique(bomb($sub_val['comment_id']));
         $val['_comment_count'] = count($val['comment_id']);
       }
     }

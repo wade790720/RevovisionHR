@@ -80,33 +80,37 @@ $(function(){
       var data = $(this).serialize();
       doLogin(data);
   });
-  
+
   function doLogin(data){
     API.loginWithData(data).then(function(json) {
           //onsole.log(json);
           var cnt = API.format(json);
           if (cnt.is) {
-          
+
               if(remember_input.prop('checked')){
                 localStorage.setItem('rv-remember',data);
               }else{
                 localStorage.removeItem('rv-remember');
               }
-              location.reload();
+              //location.reload();
+              API.go('/');
           } else {
               switch(cnt.get()){
-              
+
                 case "Input Wrong.":
-                  alert('編號或密碼錯誤.');
+                  //alert('編號或密碼錯誤.');
+                  swal("Error","編號或密碼錯誤!");
                 break;
                 default:
-                alert('登入錯誤.');
+                //alert('登入錯誤.');
+                swal("Error","登入錯誤!");
+
               }
           }
       });
-  
+
   }
-  
+
 });
 
 </script>

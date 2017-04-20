@@ -103,7 +103,7 @@ function ErrorLog($str){
 $time_start;stamp();
 function stamp_log($str, $pre_time=null, $path=0){
   $log = (empty($log))? new \Logging() : $log;
-  if($path===0){$path= RP('/php_log');}
+  if($path===0){$path= '/php_log';}
   if(empty($pre_time)){
     $pre_time = $GLOBALS['time_start'];
   }
@@ -125,9 +125,14 @@ function ms(){
 
 class Logging {
     private $log_file, $fp;
+    private $file_path;
+    public function __construct(){
+      $this->file_path = RP('/Log');
+      if (!file_exists($this->file_path)){ mkdir($this->file_path, 0777, true); }
+    }
     public function lfile($path) { 
         $time = @date('Y_m_d');
-        $this->log_file = $path."_$time.txt";
+        $this->log_file = $this->file_path.$path."_$time.txt";
     }
     public function lwrite($message) {
         if (!is_resource($this->fp)) {
@@ -137,19 +142,11 @@ class Logging {
         $time = @date('[d/M/Y:H:i:s]');
         fwrite($this->fp, "$time ($script_name) $message" . PHP_EOL);
     }
-    
     public function lclose() {
         fclose($this->fp);
     }
-    
     private function lopen() {
-        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-            $log_file_default = 'c:/php/logfile.txt';
-        } else {
-            $log_file_default = '/tmp/logfile.txt';
-        }
-        $lfile = $this->log_file ? $this->log_file : $log_file_default;
-        
+        $lfile = $this->log_file;
         $this->fp = fopen($lfile, 'a') or exit("Can't open $lfile!");
     }
 }

@@ -51,7 +51,7 @@ if( $api->SC->isLogin() && $api->SC->isAdmin() ){
     "account"=>"員工帳號",
     "name"=>"員工姓名",
     "name_en"=>"員工英文名",
-    "title"=>"職稱",
+    "title"=>"職務類別",
     "post"=>"職務",
     "passwd"=>"密碼",
     "email"=>"電子郵件",

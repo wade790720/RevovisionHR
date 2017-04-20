@@ -30,7 +30,7 @@ if( $api->SC->isLogin() && ( $api->checkPost(array('report_id','report_type','co
     //成功結果
     $api->setArray('ok');
   }else{
-    $api->denied('Not Found Report.');
+    $api->denied('Can Not Input.');
   }
   
   

@@ -1,0 +1,41 @@
+1. PHP 版本 5.4.x ~ 5.6.x
+  php.ini
+   post_max_size = 2M +
+   default_mimetype = "text/html"
+   upload_max_filesize = 16M +
+   max_file_uploads = 8 +
+   allow_url_fopen = On
+   allow_url_include = Off
+   
+2. Apache 2.2+
+  http.conf
+   LoadModule rewrite_module
+   LoadModule access_compat_module
+   LoadModule allowmethods
+   LoadModule auth_basic_module
+   LoadModule authz_core_module
+  
+3. MySql 5.x 
+  linux 請換成 mysqlnd 的引擎確保資料庫出來的資料是有資料型別的 而不是只有string( mysqlnd 5.0.11 ) 
+  MyISAM && InnoDB
+  
+4. PDO support PDO Driver for MySQL
+
+5. CURL 
+
+6. 設定
+  a. linux crontab 排程設定   00 00 * * * /usr/bin/curl -l http:// [網站位置] /Api/Email/MonthlyCutOff > /dev/null 2>&2
+  b. linux 網站目錄必須有 apache 讀寫權限 
+  c. linux && mysql && apache 時間一致 台北時間
+  d. 使用 port http:80 , mysql:3306 , smtp:25 
+
+7. 步驟
+  a. 安裝 apache && php && mysql
+  b. 將整個檔案丟入 apache web document
+  c. 設定 /Config/db_config.php 與 /Config/mail_config.php 設定檔
+  d. 倒入初始 sql 檔 產生初始資料
+  e. ok~檢查網站~
+    :如有 404 請檢察 apache rewrite_module 是否開啟
+    :如有 email未寄發 產生 error log 請檢查  mail.rv88.tw  的ip 是否正常 及 25 port 是否能入
+    :如有 產生 mysql error log 請檢查 mysql 連線設置
+    :如有 檔案上傳下載錯誤 請檢查 目錄權限

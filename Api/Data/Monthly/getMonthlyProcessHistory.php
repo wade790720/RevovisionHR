@@ -2,6 +2,7 @@
 include __DIR__."/../../ApiCore.php";
 include BASE_PATH.'/Model/dbBusiness/Multiple/StaffDepartment.php';
 include BASE_PATH.'/Model/dbBusiness/RecordMonthlyProcessing.php';
+include BASE_PATH.'/Model/dbBusiness/RecordMonthlyReport.php';
 include BASE_PATH.'/Model/dbBusiness/MonthlyProcessing.php';
 
 $api = new ApiCore($_REQUEST);
@@ -9,6 +10,7 @@ $api = new ApiCore($_REQUEST);
 // use Model\Business\Multiple\ProcessReport;
 use Model\Business\Multiple\StaffDepartment;
 use Model\Business\RecordMonthlyProcessing;
+use Model\Business\RecordMonthlyReport;
 use Model\Business\MonthlyProcessing;
   
 if( $api->SC->isLogin() && $api->checkPost(array('processing_id')) ){
@@ -20,6 +22,7 @@ if( $api->SC->isLogin() && $api->checkPost(array('processing_id')) ){
   
   $process = new MonthlyProcessing();
   $process_record = new RecordMonthlyProcessing();
+  $report_record = new RecordMonthlyReport();
   
   $create_process = $process->select($processing_id);
   
@@ -77,6 +80,11 @@ if( $api->SC->isLogin() && $api->checkPost(array('processing_id')) ){
         $val['changed_json']['_owner_unit_name'] = $team['unit_name'];
         $val['changed_json']['_owner_unit_id'] = $team['unit_id'];
       }
+      
+      //report修改
+      
+      $val['_report_changed'] = $report_record->getChangedWithProcessingRecordId( $val['id'] );
+      
       unset($val['id']);
       unset($val['processing_id']);
       $result[] = $val;

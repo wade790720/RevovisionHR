@@ -1,0 +1,32 @@
+[14/Apr/2017:17:06:54] (addComment) 
+----------------------------------- Command_START -----------------------------------
+ insert into rv_record_personal_comment (create_staff_id,target_staff_id,report_id,report_type,content) value (2,3,1,2,123);
+ - Spend Time : ( 0.13000798225403 )
+-----------------------------------  Command_END  -----------------------------------
+
+[14/Apr/2017:17:06:54] (addComment) 
+----------------------------------- Command_START -----------------------------------
+ update rv_monthly_report set comment_id = concat(comment_id,',18') where id=1
+ - Spend Time : ( 0.16000890731812 )
+-----------------------------------  Command_END  -----------------------------------
+
+[14/Apr/2017:17:41:40] (updateComment) 
+----------------------------------- Command_START -----------------------------------
+  insert into rv_record_personal_comment_changed (comment_id,create_staff_id,target_staff_id,content) 
+      select id,create_staff_id,target_staff_id,content from rv_record_personal_comment where id = 19
+ - Spend Time : ( 0.11700701713562 )
+-----------------------------------  Command_END  -----------------------------------
+
+[14/Apr/2017:17:56:44] (updateComment) 
+----------------------------------- Command_START -----------------------------------
+  insert into rv_record_personal_comment_changed (comment_id,create_staff_id,target_staff_id,content) 
+      select id,create_staff_id,target_staff_id,content from rv_record_personal_comment where id = 19
+ - Spend Time : ( 0.11800694465637 )
+-----------------------------------  Command_END  -----------------------------------
+
+[14/Apr/2017:18:20:19] (updateComment) 
+----------------------------------- Command_START -----------------------------------
+ update rv_record_personal_comment set status = 0  where id = 23 and create_staff_id = 2
+ - Spend Time : ( 0.13700795173645 )
+-----------------------------------  Command_END  -----------------------------------
+

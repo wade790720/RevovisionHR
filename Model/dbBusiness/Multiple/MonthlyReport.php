@@ -104,10 +104,10 @@ class MonthlyReport extends MultipleSets{
       // 組合設定區間
       $val['_interval'] = array( 'start'=>$this->config_cyc->getLastDate($val['year'],$val['month'],$val['day_start']), 'end'=>$this->config_cyc->getThisDate($val['year'],$val['month'],$val['day_end']) );
       //組合該單的月報表
-      $val['_reports'] = isset($leader[$pid])? $leader[$pid] : $general[$pid];
+      $val['_reports'] = isset($leader[$pid])? $leader[$pid] : (isset($general[$pid]) ? $general[$pid] : array() );
       foreach($val['_reports'] as &$sub_val){
         // convert to array
-        $sub_val['comment_id'] = bomb($sub_val['comment_id']);
+        $sub_val['comment_id'] = array_unique(bomb($sub_val['comment_id']));
         $sub_val['_comment_count'] = count($sub_val['comment_id']);
       }
       // convert to array
@@ -146,17 +146,24 @@ class MonthlyReport extends MultipleSets{
     return $map;
   }
   
-  public function getTotallyShow($release=false){
+  public function getTotallyShow($release=false,$manager_team_id_id=false){
     
     $leader = $this->leader->table_name;
     $general = $this->general->table_name;
     $config = $this->config;
    
     $collect = array();
-    if($release){$release=" and releaseFlag='Y' ";}else{$release=' ';}
+    if($release){$release=" and a.releaseFlag='Y' ";}else{$release=' ';}
+    if($manager_team_id_id){
+      $teams = $this->team->read()->getLowerIdArray($manager_team_id_id);
+      $teams[] = $manager_team_id_id;
+      $staffwhere = " and a.owner_department_id in (".(join(',',$teams)).") ";
+    }else{
+      $staffwhere = '';
+    }
     $year = $this->year;
     $month = $this->month;
-    $where = "year = $year and month = $month $release";
+    $where = "a.year = $year and a.month = $month $release $staffwhere ";
     
     $sql= $this->getReportSQL($leader,$where);
     
@@ -173,26 +180,26 @@ class MonthlyReport extends MultipleSets{
     // stamp();
     foreach($collect['leader'] as $key=>&$val){
       $val['_total_score'] = $this->mathLeaderScore($val);
-      $val['_work_day'] = $this->getOnWorkDays( $config['RangeStart'] , $config['RangeEnd'] , $val['first_day'] );
+      $val['_work_day'] = $this->getOnWorkDays( $config['RangeStart'] , $config['RangeEnd'] , $val['first_day'], $val['last_day'] );
       $report_type_id_array[] = '"1-'.$val['id'].'"';
-      $val['comment_id'] = bomb($val['comment_id']);
+      $val['comment_id'] = array_unique(bomb($val['comment_id']));
       $val['_comment_count'] = count($val['comment_id']);
       if($val['_comment_count']>0){ $comment_id_array = array_merge($comment_id_array,$val['comment_id']); }
       $pointNeedle[1][$val['id']] = &$val;
     }
     
-    foreach($collect['general'] as $key=>&$val){
-      if( $val['duty_shift'] > 0 ){
-        $val['_total_score'] = $this->mathCSITScore($val);
+    foreach($collect['general'] as $key=>&$gval){
+      if( $gval['duty_shift'] > 0 ){
+        $gval['_total_score'] = $this->mathCSITScore($gval);
       }else{
-        $val['_total_score'] = $this->mathGeneralScore($val);
+        $gval['_total_score'] = $this->mathGeneralScore($gval);
       }
-      $val['_work_day'] = $this->getOnWorkDays( $config['RangeStart'] , $config['RangeEnd'] , $val['first_day'] );
-      $report_type_id_array[] = '"2-'.$val['id'].'"';
-      $val['comment_id'] = bomb($val['comment_id']);
-      $val['_comment_count'] = count($val['comment_id']);
-      if($val['_comment_count']>0){ $comment_id_array = array_merge($comment_id_array,$val['comment_id']); }
-      $pointNeedle[2][$val['id']] = &$val;
+      $gval['_work_day'] = $this->getOnWorkDays( $config['RangeStart'] , $config['RangeEnd'] , $gval['first_day'], $gval['last_day'] );
+      $report_type_id_array[] = '"2-'.$gval['id'].'"';
+      $gval['comment_id'] = array_unique(bomb($gval['comment_id']));
+      $gval['_comment_count'] = count($gval['comment_id']);
+      if($gval['_comment_count']>0){ $comment_id_array = array_merge($comment_id_array,$gval['comment_id']); }
+      $pointNeedle[2][$gval['id']] = &$gval;
     }
     // LG($comment_id_array);
     if(count($report_type_id_array)>0){
@@ -279,8 +286,11 @@ class MonthlyReport extends MultipleSets{
     
     $score += $loc['attendance']*2;
     $score += $loc['attendance_members']*2;
+    if($score>100){$score=100;}
+    
     $score += $loc['addedValue'];
     $score -= $loc['mistake'];
+    $score = $score<0?0:$score;
     return (int)$score;
   }
   
@@ -292,9 +302,11 @@ class MonthlyReport extends MultipleSets{
     $score += $loc['responsibility']*3;
     $score += $loc['cooperation']*3;
     $score += $loc['attendance']*4;
+    if($score>100){$score=100;}
     
     $score += $loc['addedValue'];
     $score -= $loc['mistake'];
+    $score = $score<0?0:$score;
     return $score;
   }
   
@@ -306,23 +318,28 @@ class MonthlyReport extends MultipleSets{
     $score += $loc['responsibility']*5;
     $score += $loc['cooperation']*3;
     $score += $loc['attendance']*2;
+    if($score>100){$score=100;}
     
     $score += $loc['addedValue'];
     $score -= $loc['mistake'];
+    $score = $score<0?0:$score;
     return $score;
   }
   
-  private function getOnWorkDays($start,$end,$update){
+  private function getOnWorkDays($start,$end,$first,&$last){
     $ed = $this->DateTime($end,true);
     $st = $this->DateTime($start,true);
-    $up = $this->DateTime($update,true);
-    if( $st > $up ){
-      $fin = $st;
+    $ft = $this->DateTime($first,true);
+    $la = $this->DateTime($last,true);
+    if($la && $la>$st){
+      $final = min($ed,$la);
     }else{
-      $fin = $up;
+      $final = $ed;
+      $last = '--';
     }
-    $gap = $ed - $fin;
-    return $gap/86400;
+    $start = max($st,$ft);
+    $gap = $final - $start;
+    return (int)($gap/86400)+1;
   }
   
   protected function get_team(){

@@ -39,7 +39,7 @@ $SC = new Model\SessionCenter();
   }
   self.checkDepartment = function(data){
     //檢察組織關係 產生 報表,考評表
-    //可選 year, mouth
+    //可選 year, mouth, del
     return $.post(Data_PATH+"getDepartmentList?&check=true", data);
   }
   self.getMonthlyProcessWithCreator = function(data){
@@ -100,7 +100,7 @@ $SC = new Model\SessionCenter();
   }
   self.rejectMonthly = function(data){
     //必須 processing_id, staff_id
-    //可選 reason
+    //可選 reason , turnback = 1 / 0 (是 admin 系統管理員)
     return $.post(Data_PATH+"Monthly/rejectMonthly", data);
   }
   self.launchMonthly = function(data){
@@ -301,13 +301,65 @@ $SC = new Model\SessionCenter();
     }
     return (ary.length>0) ? TemplateKey+ary.join('') : false;
   }
+  self.getCode = function(){
+    var hash = location.hash.replace('#','');
+    var code = self.decode(hash);
+    return code;
+  }
   
+  //URL移動
+  self.go = function(position){
+    location.href = self.ROOT+''+position;
+  }
+  
+   // ajax setting
+  self.ajaxPassenger = [];
+  
+  self.clearPassenger = function(){
+    var ab = API.ajaxPassenger.length-1;
+    while(ab>=0){
+      var ajax = API.ajaxPassenger.splice(ab,1)[0];
+      // ajax.then(function(){});
+      ajax.abort() && ajax==null;
+      ab--;
+    }
+    return self;
+  }
+  
+  $.ajaxSetup({
+    beforeSend:function(a){
+      // console.log(this);
+      // console.log(a);
+      self.ajaxPassenger.push(a);
+    },
+    complete:function(a){
+      // console.log(s.ajaxPassenger);
+      for(var i in self.ajaxPassenger){
+        var loc = self.ajaxPassenger[i];
+        if(loc==a){
+          // console.log(a);
+          self.ajaxPassenger.splice(i,1);break;
+        }
+      }
+    }
+  });
+  
+  isRefresh(self);
   setting(self);
+  
+  function isRefresh(a){
+    var code = a.getCode();
+    if(code){
+      var cc = code.replace(TemplateKey,'');
+      location.href= self.ROOT+"/"+cc;
+    }
+  }
   
 })(jQuery);
 
 //初始設定
 function setting(s){
+  
   
   var dm = s.developMode = <?php echo (IS_DEBUG_MODE)?'true':'false';?>;
   
@@ -330,6 +382,12 @@ function setting(s){
     date.setTime(time+(12*60*60*1000));
     document.cookie="checkDepartment=1;expires="+(date.toGMTString())+"";
     s.checkDepartment();
+  }
+  
+  s.create={
+    year : 2016,
+    month : 4,
+    day : 20
   }
     
 }
@@ -434,3 +492,106 @@ function clone(inn){
   }
   return newi;
 }
+
+//cookie
+(function (factory) {
+  factory(jQuery);
+}(function ($) {
+	var pluses = /\+/g;
+
+	function encode(s) {
+		return config.raw ? s : encodeURIComponent(s);
+	}
+	function decode(s) {
+		return config.raw ? s : decodeURIComponent(s);
+	}
+	function stringifyCookieValue(value) {
+		return encode(config.json ? JSON.stringify(value) : String(value));
+	}
+	function parseCookieValue(s) {
+		if (s.indexOf('"') === 0) {
+			s = s.slice(1, -1).replace(/\\"/g, '"').replace(/\\\\/g, '\\');
+		}
+		try {
+			s = decodeURIComponent(s.replace(pluses, ' '));
+			return config.json ? JSON.parse(s) : s;
+		} catch(e) {}
+	}
+
+	function read(s, converter) {
+		var value = config.raw ? s : parseCookieValue(s);
+		return $.isFunction(converter) ? converter(value) : value;
+	}
+
+	var config = $.cookie = function (key, value, options) {
+
+		if (value !== undefined && !$.isFunction(value)) {
+			options = $.extend({}, config.defaults, options);
+
+			if (typeof options.expires === 'number') {
+				var days = options.expires, t = options.expires = new Date();
+				t.setTime(+t + days * 864e+5);
+			}
+
+			return (document.cookie = [
+				encode(key), '=', stringifyCookieValue(value),
+				options.expires ? '; expires=' + options.expires.toUTCString() : '', // use expires attribute, max-age is not supported by IE
+				options.path    ? '; path=' + options.path : '',
+				options.domain  ? '; domain=' + options.domain : '',
+				options.secure  ? '; secure' : ''
+			].join(''));
+		}
+
+		var result = key ? undefined : {};
+    
+		var cookies = document.cookie ? document.cookie.split('; ') : [];
+
+		for (var i = 0, l = cookies.length; i < l; i++) {
+			var parts = cookies[i].split('=');
+			var name = decode(parts.shift());
+			var cookie = parts.join('=');
+
+			if (key && key === name) {
+				result = read(cookie, value);
+				break;
+			}
+
+			if (!key && (cookie = read(cookie)) !== undefined) {
+				result[name] = cookie;
+			}
+		}
+
+		return result;
+	};
+
+	config.defaults = {};
+
+	$.removeCookie = function (key, options) {
+		if ($.cookie(key) === undefined) {
+			return false;
+		}
+		$.cookie(key, '', $.extend({}, options, { expires: -1 }));
+		return !$.cookie(key);
+	};
+  
+  var current = {
+    year : $.cookie('year') || new Date().getFullYear(),
+    month : $.cookie('month') || new Date().getMonth() + 1
+  }
+  
+  
+  $.ym = {
+    get : function(){
+      return current;
+    },
+    save : function(ym){
+      if(ym){
+        current.year=ym.year;
+        current.month=ym.month;
+      }
+      $.cookie('year',current.year);
+      $.cookie('month',current.month);
+    }
+  }
+
+}));

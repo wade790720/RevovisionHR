@@ -143,19 +143,26 @@ $team-leader-height:23px !default;
     }
 }
 
+.had-container {
+    position: relative;
+}
+
 //組織圖
 .rv-chart-map {
-  @include transition(width 2s cubic-bezier(0.79,-0.07, 0.58, 1));
-  position: relative;
-  .no-data{
-    display: none;
-    position: absolute;
-    margin: 5px 0;
-    top:60px;
-    width:95%;
-    text-align: center;
-    border: 1px dashed #999;
-  }
+    @include transition(width 2s cubic-bezier(0.79,
+    -0.07,
+    0.58,
+    1));
+    position: relative;
+    .no-data {
+        display: none;
+        position: absolute;
+        margin: 5px 0;
+        top: 60px;
+        width: 95%;
+        text-align: center;
+        border: 1px dashed #999;
+    }
     .rv-chart {
         position: relative;
         min-width: 1380px;
@@ -431,26 +438,26 @@ $team-leader-height:23px !default;
         margin: -200px 0 0 50px;
         display: none;
     }
-    .modal{
+    .modal {
         top: 150px !important;
         z-index: 999;
         overflow: auto;
-        .widget-timeline-item{
-          .panel-body{
-            b{
-              color:#FF9800;
+        .widget-timeline-item {
+            .panel-body {
+                b {
+                    color: #FF9800;
+                }
+                i {
+                    color: red;
+                    font-style: normal;
+                    font-weight: 700;
+                }
+                em {
+                    color: green;
+                    font-style: normal;
+                    font-weight: 700;
+                }
             }
-            i {
-              color:red;
-              font-style: normal;
-              font-weight: 700;
-            }
-            em{
-              color: green;
-              font-style: normal;
-              font-weight: 700;
-            }
-          }
         }
     }
 }
@@ -501,6 +508,7 @@ $team-leader-height:23px !default;
         display: inline-block;
         color: #757575;
         font-size: 10px;
+        white-space:nowrap;
     }
     .team-leader {
         font-weight: bold;
@@ -509,6 +517,7 @@ $team-leader-height:23px !default;
         height: $team-leader-height;
         line-height: $team-leader-height;
         position: relative;
+        white-space:nowrap;
         //border-top: 1px solid $team-block-default-border;
     }
     .team-no-leader {
@@ -531,12 +540,40 @@ $team-leader-height:23px !default;
                 margin: 0 auto;
             }
         }
+        // button:nth-child(2) {
+        //     display: none !important;
+        // }
         .score-history {
             width: 100%;
             border: 0;
             border-top: 1px solid #777;
             border-radius: 0;
             @include transition(.5s);
+            &.non-score {
+                color: #000;
+                background: $team-block-nonscore-bg;
+                @include linear-gradient(#eff7fe,
+                #bbdefb);
+            }
+            &.rated {
+                background: $team-block-rated-bg;
+                color: #000;
+                @include linear-gradient(#e5f2d6,
+                #8bc34a);
+            }
+            &.return {
+                background: $team-block-return-bg;
+                @include linear-gradient(#ffdcdc,
+                #ff5252);
+                color: #000 !important;
+            }
+            &.reviewing {
+                background: $team-block-reviewing-bg;
+                color: #000;
+                //@include linear-gradient(#f1fde5, #dcedc8);
+                @include linear-gradient(#fff4d0,
+                #ffd54f);
+            }
         }
     }
     // 沒主管
@@ -566,13 +603,19 @@ $team-leader-height:23px !default;
         color: $team-block-rated-color;
         @include linear-gradient(#e5f2d6,
         #8bc34a);
+        div{
+          color:#000!important;
+        }
     }
     // 退回考評表
     &.return {
         background: $team-block-return-bg;
         @include linear-gradient(#ffdcdc,
         #ff5252);
-        color: $team-block-return-color!important;
+        color:#000;
+        div{
+          color:#000!important;
+        }
         button {
             color: #000;
         }

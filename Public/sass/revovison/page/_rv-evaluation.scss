@@ -56,9 +56,16 @@ $setting-title-color: rgba(0, 0, 0, 0.88);
         .tip-word {
             padding: 0;
             p {
-                font-size: 12px;
+                font-size: 14px;
                 color: #999;
                 margin: 0 0 5px 0px;
+            }
+            p.tip-em{
+              color:#f57c00;
+              i {
+                color: #f57c00;
+                vertical-align: middle;
+              }
             }
         }
         .process-date {

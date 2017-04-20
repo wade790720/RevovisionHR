@@ -63,7 +63,9 @@ class DatabaseCenter {
   }
   
   public function getPDO(){
-    
+    if(empty($this->DB)){
+      $this->DB = $this->buildPDOConnection();
+    }
     return $this->DB;
   }
   
@@ -302,12 +304,13 @@ class DatabaseCenter {
   }
   
   protected function writeDBLog($str,$error=''){
-    if(!empty($error)){$error=" - $error \n";}
     $time_end = microtime(true);
     $spend_time = $time_end - $this->log_time;
+    if(empty($error) && $spend_time <= $this->CONF['DB_CONFIG']['long_time'] ){return;}
+    if(!empty($error)){$error=" - $error \n";$file = '/db_error';}else{$file = '/db_longtime';}
     
     $log = (empty($log))? new \Logging() : $log;
-    $log->lfile( RP('/db_command') );
+    $log->lfile( $file );
     $log->lwrite("\n----------------------------------- Command_START -----------------------------------\n ".$str."\n\r$error - Spend Time : ( ".$spend_time." )\n"."-----------------------------------  Command_END  -----------------------------------\n");
     
     $log->lclose();

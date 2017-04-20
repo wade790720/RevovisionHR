@@ -27,20 +27,26 @@ $config = new ConfigCyclical();
 $con_data = $config->getConfigWithDate($year,$month);
 
 $filter = !!$api->post("release");
-
+if( $api->SC->isAdmin() || $api->SC->isCEO() ){
+  $team_id = false;
+}else{
+  $team_id = $api->SC->getDepartmentId();
+}
 //獲得已核准月考評
-$rgt = $report->getTotallyShow( $filter );
+$rgt = $report->getTotallyShow( $filter , $team_id );
 //預處理資料
 $leader = $rgt['leader'];
 foreach($leader as $k=>&$lv){
   $leader[$k]['unit_new'] = $lv['unit_id'].'_'.$lv['unit_name'];
   $lv['_comments'] = join_comments($lv['_comments']);
+  $lv['name'] = $lv['name'].' '.$lv['name_en'];
 }
 
 $general = $rgt['general'];
 foreach($general as $k=>&$gv){
   $general[$k]['unit_new'] = $gv['unit_id'].'_'.$gv['unit_name'];
   $gv['_comments'] = join_comments($gv['_comments']);
+  $gv['name'] = $gv['name'].' '.$gv['name_en'];
 }
 // LG($general);
 
@@ -49,7 +55,7 @@ function join_comments(&$loc){
   if( isset($loc) && is_array($loc)){
     // LG($loc);
     foreach($loc as &$l){
-      $tmp.= $l['_create_staff_name']." : ".$l['content'].","; 
+      $tmp.= $l['_create_staff_name'].$l['_create_staff_name_en']." : ".$l['content']." 。"; 
     }
   }
   return $tmp;
@@ -87,6 +93,7 @@ ob_end_clean();
 $colData = array( 
   "unit_new"=>"單位",
   "staff_no"=>"員工編號",
+  "post"=>"職務",
   "name"=>"員工姓名",
   "quality"=>"工作品質",
   "completeness"=>"工作績效",
@@ -106,7 +113,7 @@ $colData = array(
 $colDataLeader = array(
   "unit_new"=>"單位",
   "staff_no"=>"員工編號",
-  "title"=>"職稱",
+  "post"=>"職務",
   "name"=>"員工姓名",
   "target"=>"目標達成率",
   "quality"=>"工作品質",
@@ -143,7 +150,7 @@ $sharedStyle1->applyFromArray(  array('borders' => array(
 
 
 //標頭欄位
-$sheet->setSharedStyle($sharedStyle1, 'A4:P4' );
+$sheet->setSharedStyle($sharedStyle1, 'A4:Q4' );
 $sheet_2->setSharedStyle($sharedStyle1, 'A4:W4' );
 $col = 0;
 
@@ -171,10 +178,10 @@ foreach($colDataLeader as $k => $cv){
 //置中
 $general_count = count($general)+10;
 $leader_count = count($leader)+10;
-$sheet->getStyle('A1:O'.$general_count)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER)->setWrapText(true);
-$sheet->getStyle('A1:O'.$general_count)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER)->setWrapText(true);
-$sheet_2->getStyle('A1:V'.$leader_count)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER)->setWrapText(true);
-$sheet_2->getStyle('A1:V'.$leader_count)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER)->setWrapText(true);
+$sheet->getStyle('A1:Q'.$general_count)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER)->setWrapText(true);
+$sheet->getStyle('A1:Q'.$general_count)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER)->setWrapText(true);
+$sheet_2->getStyle('A1:W'.$leader_count)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER)->setWrapText(true);
+$sheet_2->getStyle('A1:W'.$leader_count)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER)->setWrapText(true);
 //表頭
 $sheet->setCellValue('B1', '年月');
 $sheet->setCellValue('C1', $year.'/'.$month);
@@ -194,7 +201,10 @@ foreach($general as &$gloc){
   foreach($colData as $k=>$v){
     $nowPosition = str_fetchColRow($col,$row);
     if( isset($gloc[$k]) ){
-      $name = iconv('UTF-8','UTF-8', $gloc[$k]);
+      if( $k=='bonus' ){ $name= $gloc[$k]==1?'是':'否'; }else{
+        $name = iconv('UTF-8','UTF-8', $gloc[$k]);
+      }
+      
     }else{
       $name = '';
     }
@@ -213,7 +223,9 @@ foreach($leader as &$lloc){
   foreach($colDataLeader as $k=>$v){
     $nowPosition = str_fetchColRow($col,$row);
     if( isset($lloc[$k]) ){
-      $name = iconv('UTF-8','UTF-8', $lloc[$k]);
+      if( $k=='bonus' ){ $name= $gloc[$k]==1?'是':'否'; }else{
+        $name = iconv('UTF-8','UTF-8', $lloc[$k]);
+      }
     }else{
       $name = '';
     }

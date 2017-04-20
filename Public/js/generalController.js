@@ -13,6 +13,7 @@
     self.$ = $self;
     $self.data(_gc_,this).attr(_gc_,config.name);
     if(typeof config.init=="function" && $self.length>0){
+      // api.startLoading($self);
       $(function(){ config.init.apply(self,[$self,o]); });
     }
     return this;
@@ -106,12 +107,12 @@
         return false;
       }
     },
-    children : function(){
+    children : function(only){
       var ary = [];
       var cc = this.$.q('['+_gc_+']').map(function(){
         ary.push($(this).data(_gc_));
       });
-      return ary;
+      return only?(ary[0]||this):ary;
     }
   }
   

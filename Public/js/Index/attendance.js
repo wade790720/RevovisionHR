@@ -2,26 +2,26 @@ Dropzone.autoDiscover = false;
 var $Attendance = $('#Attendance').generalController(function() {
     var ts = this;
     var form = ts.q('form');
+    var current = $.ym.get();
     var SelectYM = ts.q('#SelectYM');
     var YearSelect = ts.q('#getYear');
     var MonthSelect = ts.q('#getMonth');
 
-    function init() {
+    function initYM() {
         var thisyear = new Date().getFullYear();
-        for (i = thisyear; i > thisyear - 2; i--) {
+        for (i = thisyear; i >= API.create.year ; i--) {
             YearSelect.append('<option value="' + i + '">' + i + '年</option>');
         }
-
-        //month
-        var thismonth = new Date().getMonth() + 1;
         for (i = 1; i <= 12; i++) {
             MonthSelect.append('<option value="' + i + '">' + i + '月</option>');
         }
-        //default current month and year
-        YearSelect.val(thisyear).attr('selected');
-        MonthSelect.val(thismonth).attr('selected');
-        
+        //
+        YearSelect.val(current.year).attr('selected');
+        YearSelect.change(function(){ current.year = this.value;$.ym.save(); });
+        MonthSelect.val(current.month).attr('selected');
+        MonthSelect.change(function(){ current.month = this.value;$.ym.save(); });
     }
+    initYM();
 
     // Prevent Dropzone from auto discovering this element:
 
@@ -37,16 +37,19 @@ var $Attendance = $('#Attendance').generalController(function() {
         console.log(f);
         if (!f.name.match(/\.xlsx?/i)) {
             this.removeFile(f);
-            return alert('不接受的檔案格式');
+            //return alert('不接受的檔案格式');
+            return swal("Fail","不接受的檔案格式");
         }
         var data = new FormData();
         data.append('file', f);
         API.addAbsence(data).then(function(e) {
           var cnt = API.format(e);
             if (cnt.is) {
-                alert('上傳成功 : ' + f.name);
+                //alert('上傳成功 : ' + f.name);
+                swal('Success','上傳成功 : ' + f.name);
             } else {
-                alert('上傳失敗 : ' + f.name + '\r\n' + cnt.get());
+                //alert('上傳失敗 : ' + f.name + '\r\n' + cnt.get());
+                swal('Fail','上傳失敗 : ' + f.name + '\r\n' + cnt.get() );
             }
             clearInterval(f.setInterval);
             myDropzone.removeFile(f);
@@ -65,6 +68,5 @@ var $Attendance = $('#Attendance').generalController(function() {
         }, 100);
 
     });
-    init();
 
 });

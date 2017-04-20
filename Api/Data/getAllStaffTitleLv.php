@@ -11,7 +11,7 @@ if( $api->SC->isAdmin() ){
   
   $staff = new StaffTitleLv();
   
-  $result = $staff->read(null,null,'order by id desc')->data;
+  $result = $staff->read(array('id','name','lv'),null,'order by lv asc')->data;
   //成功結果
   $api->setArray($result);
   

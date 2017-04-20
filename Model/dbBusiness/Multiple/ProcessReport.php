@@ -46,12 +46,16 @@ class ProcessReport extends MultipleSets{
       $this->month = $month;
       
       $this->date_condition = array("year"=>$year,"month"=>$month);
-      $this->process->read( $this->date_condition );
-      
-      $this->leader->read( array('id','staff_id','year','month'),$this->date_condition );
-      $this->general->read( array('id','staff_id','year','month'),$this->date_condition );
+      $this->initRead( $this->date_condition );
     }
     return $this;
+  }
+  
+  public function initRead($codi){
+    $this->process->read( $codi );
+    
+    $this->leader->read( array('id','staff_id','year','month'),$codi );
+    $this->general->read( array('id','staff_id','year','month'),$codi );
   }
   
   //
@@ -163,6 +167,9 @@ class ProcessReport extends MultipleSets{
     and a.year = b.year and a.month = b.month and b.type = '1' 
     set processing_id = b.id where a.year = $year and a.month = $month";
     $this->leader->DB->doSQL($sql2);
+    
+    $this->deleteNoReportProcess();
+    
     return $this;
   }
   
@@ -175,15 +182,34 @@ class ProcessReport extends MultipleSets{
     }
     $id = $data['id'];
     unset($data['id']);
-    $table->update($data,$id);
-    if($process['created_staff_id']!=$process['owner_staff_id'] && count($data)>0){
+    $chagne = $table->update($data,$id);
+    if($chagne && $process['status_code']>=3 && count($data)>0){
+      $pr_id = $process['id'];
+      // $rprt_name = $this->record_process->table_name;
       $this->record_report->add(array(
         'operating_staff_id'=>$staff_id,
+        'processing_id'=>$pr_id,
+        // 'processing_record_id'=>"(select id from $rprt_name where processing_id = $pr_id order by update_date desc limit 1)",
+        'processing_record_id'=>0,
         'report_id'=>$id,
         'report_type'=>$type,
         'changed_json'=>json_encode($data)
       ));
     }
+    return $this;
+  }
+  
+  public function deleteNoReportProcess(){
+    $general = $this->general->table_name;
+    $leader = $this->leader->table_name;
+    $year = $this->year;
+    $month = $this->month;
+    
+    $this->process->sql("delete from {table} where id not in ( 
+    select processing_id from $general where year=$year and month = $month UNION 
+    select processing_id from $leader where year=$year and month = $month ) 
+    and year = $year and month = $month ");
+    
     return $this;
   }
   

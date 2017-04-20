@@ -34,7 +34,24 @@ if( $api->checkPost(array('year','month')) && $api->SC->isAdmin() ){
   $self_id = $api->SC->getId();
   
   
-  $api->setArray('ok');
+  //發送 email
+  $config_data['cut_off_date'] = str_replace('-','/',$cutOffDate);
+  
+  // LG($config_data);
+  
+  include BASE_PATH.'/Model/MailCenter.php';
+  $mail = new Model\MailCenter;
+  // $mail->addAddress('snow.jhung@rv88.tw', 'Snow');
+  $mail->addAddressGroup('monthly_process');
+  $res = $mail->sendTemplate('monthly_start',$config_data);
+  
+  
+  if($res===true){
+    $api->setArray('ok');
+  }else{
+    $api->setArray($res);
+  }
+  
   
 }else{
   $api->denied();

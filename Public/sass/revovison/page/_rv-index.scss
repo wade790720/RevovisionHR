@@ -1,0 +1,551 @@
+.no-data {
+    width: 90%;
+    display: none;
+    margin: 10px auto;
+    border: 1px dashed #999;
+    min-width: 300px;
+    min-height: 60px;
+    text-align: center;
+    vertical-align: middle;
+    p {
+        color: #000;
+        font-weight: 700;
+        font-size: 15px;
+    }
+}
+
+.rv-assess {
+    .rv-item {
+        border: 1px solid #212121;
+        .rv-img {
+            top: 20px;
+        }
+        .comment_user {
+            display: block;
+            height: 30px;
+        }
+        .comm-time {
+            position: relative;
+            bottom: 15px;
+            left: 20px;
+            float: right;
+            margin-top: 0;
+        }
+    }
+    .rv-card {
+        .info-block {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            p {
+                margin: 0;
+                line-height: 20px;
+            }
+        }
+        &:focus {
+            border: 1px solid #FF9800;
+            outline: 0;
+        }
+    }
+    .card-header {
+        position: relative;
+        .area-1 {
+            min-width: 185px;
+            border-right: 1px solid #eee;
+            height: 82px;
+            .team-info {
+                display: inline-block;
+                h1 {
+                    margin: 0;
+                }
+                p {
+                    line-height: 20px;
+                }
+            }
+        }
+        .area-2 {
+            border-right: 1px solid #eee;
+            height: 82px;
+            .month {
+                margin-top: 15px;
+                h1 {
+                    display: block;
+                    margin-top: 0px;
+                    margin-right: 5px;
+                }
+                p {
+                    margin: 0;
+                    line-height: 20px;
+                }
+            }
+        }
+        .area-3 {
+            border-right: 1px solid #eee;
+            height: 82px;
+            .arrow {
+                margin: 0 15px;
+                margin-top: 15px;
+            }
+            h1 {
+                display: block;
+                margin: 0px;
+            }
+            .start-date {
+                text-align: center;
+            }
+            .end-date {
+                text-align: center;
+            }
+        }
+        .area-4 {
+            height: 82px;
+            .arrow {
+                margin: 0 15px;
+                margin-top: 15px;
+            }
+            h1 {
+                display: block;
+                margin: 0px;
+            }
+            .end {
+                > p:first-child {
+                    visibility: hidden;
+                }
+            }
+        }
+        .dots {
+            width: 45px;
+            display: flex;
+            justify-content: space-around;
+            padding: 1em;
+            position: absolute;
+            left: -15px;
+            top: -10px;
+            .dot {
+                display: inline-block;
+                height: 10px;
+                width: 10px;
+                border-radius: 50%;
+                text-align: center;
+                margin: 0 3px;
+                background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiP…dpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==);
+                background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #dddddd));
+                background: -moz-linear-gradient(top, #ffffff, #dddddd);
+                background: -webkit-linear-gradient(top, #ffffff, #dddddd);
+                background: linear-gradient(to bottom, #ffffff, #ff4e4e);
+                box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), inset 0 0 3px transparent;
+                outline: 0;
+                transition: all 0.2s;
+                cursor: pointer;
+                position: absolute;
+            }
+        }
+    }
+    .card-body {
+        padding: 0px 0px 0rem 0px;
+        border-bottom: none;
+        .brand-actions {
+            float: left;
+            width: 100%;
+            a {
+                margin: 12px 8px;
+                cursor: pointer;
+                display: inline-block;
+                padding: 5px;
+                border: 1px solid #dddddd;
+                padding-bottom: 0;
+                border-radius: 5px;
+                box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.18);
+            }
+            a:active {
+                box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.18)
+            }
+        }
+        .card-table {
+            display: table;
+            width: 100%;
+            .card-fixtop {
+                // table-layout: fixed;
+            }
+            .card-tbody {
+                height: 200px;
+                overflow-y: auto;
+            }
+        }
+        .card-tr {
+            display: table-row;
+        }
+        .card-thead {
+            display: table-cell;
+            font-size: 10px;
+            width: 70px;
+            border-right: 0;
+            color: #fff;
+            padding: 10px 10px;
+            height: 45px;
+            border-bottom: 1px solid #d8d8d8;
+            text-align: center;
+            &.staff-info {
+                min-width: 200px;
+                text-align: left;
+            }
+            &.unit-info {
+                width: 150px;
+                text-align: left;
+            }
+            &.start-date {
+                width: 100px;
+                text-align: left;
+            }
+        }
+        .card-cell {
+            display: table-cell;
+            text-align: center;
+            border-bottom: 1px solid #d8d8d8;
+            .comment-num {
+                white-space: nowrap;
+            }
+            .staff-block {
+                margin-left: 0px;
+                padding: 0px 0px 0px 85px;
+                position: relative;
+                .num {
+                    @include size(40px, 40px);
+                    position: absolute;
+                    bottom: 5px;
+                    left: 20px;
+                    border-radius: 50%;
+                    background-color: #333333;
+                    font-size: 9px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+                .staff {
+                    background-color: #795548;
+                    color: #fff;
+                }
+                .staff-info {
+                    padding: 2px 27px 0px 0px;
+                    position: relative;
+                    bottom: 7px;
+                    text-align: left;
+                    .name {
+                        font-size: 14px;
+                    }
+                    .title {
+                        font-size: 12px;
+                        line-height: 16px;
+                        height: 16px;
+                        color: rgba(0, 0, 0, 0.541176);
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                    }
+                }
+            }
+            &.little-padding {
+                padding-left: 10px;
+            }
+            .unit-block {
+                padding: 0px 10px;
+                position: static;
+                text-align: left;
+            }
+            .edit-td {
+                margin-bottom: 7px;
+                cursor: pointer;
+                input {
+                    border: 0;
+                    box-shadow: none;
+                    height: 70px;
+                    text-align: center;
+                }
+            }
+            label {
+                position: relative;
+                top: 21px;
+                left: 8px;
+            }
+            .text {
+                text-align: left;
+            }
+        }
+        .myinput {
+            &.large {
+                width: 22px;
+                height: 15px;
+                cursor: pointer;
+            }
+            &[type="checkbox"] {
+                &:before {
+                    position: relative;
+                    display: block;
+                    width: 11px;
+                    height: 11px;
+                    border: 1px solid #808080;
+                    content: "";
+                    background: #FFF;
+                }
+                &:after {
+                    position: relative;
+                    display: block;
+                    left: 2px;
+                    top: -11px;
+                    width: 7px;
+                    height: 7px;
+                    border-width: 1px;
+                    border-style: solid;
+                    border-color: #B3B3B3 #dcddde #dcddde #B3B3B3;
+                    content: "";
+                    background-image: linear-gradient(135deg, #FFF 0%, #FFF 100%);
+                    background-repeat: no-repeat;
+                    background-position: center;
+                }
+                &:before {
+                    position: relative;
+                    display: block;
+                    width: 11px;
+                    height: 11px;
+                    border: 1px solid #808080;
+                    content: "";
+                    background: #FFF;
+                }
+            }
+            &.large[type="checkbox"] {
+                &:before {
+                    width: 20px;
+                    height: 20px;
+                }
+                &:after {
+                    top: -18px;
+                    width: 16px;
+                    height: 16px;
+                    left: 2px;
+                }
+                &:checked:after {
+                    background: transparent;
+                    left: 5px;
+                    width: 20px;
+                    transform: rotate(-45deg);
+                    -o-transform: rotate(-45deg);
+                    -ms-transform: rotate(-45deg);
+                    -moz-transform: rotate(-45deg);
+                    -webkit-transform: rotate(-45deg);
+                    border-width: 3px;
+                    height: .5rem;
+                    border-color: #FF9800;
+                    border-top: 0;
+                    border-right: 0;
+                }
+            }
+        }
+    }
+    .card-action {
+        button {
+            float: right;
+            margin: 5px 0px;
+        }
+    }
+    .comment-record {
+        .card-panel {
+            @extend .z-depth-0;
+            position: relative;
+            text-align: left;
+            padding: 10px;
+            margin: 0;
+            .comm-name {
+                @extend .orange-text,
+                .text-darken-1;
+                font-size: 16px;
+                color: #9e5710;
+                font-weight: 700;
+            }
+            .comment-content {
+                display: block;
+                &::after {
+                    content: '';
+                    display: block;
+                    clear: both;
+                    width: 100%;
+                    height: 10px;
+                }
+            }
+            .comm-time {
+                color: #999;
+                font-size: 12px;
+                position: relative;
+                margin-top: 6px;
+            }
+            .tool {
+                position: absolute;
+                top: 12px;
+                right: 20px;
+                a {
+                    display: inline-block;
+                    margin: 0px 5px;
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                    text-align: center;
+                    line-height: 53px;
+                    cursor: pointer;
+                }
+            }
+            .edit {
+                display: none;
+                input {
+                    position: relative;
+                    top: 2px;
+                    display: inline-block;
+                    margin: 10px 0;
+                    width: 90%;
+                }
+            }
+        }
+        .card-action {
+            margin: 10px;
+            textarea {
+                margin: 15px auto;
+                padding: 10px;
+                width: 100%;
+                min-height: 75px;
+                outline: none;
+                border: 1px solid #d8d8d8;
+                resize: none;
+            }
+            .comm-submit {
+                text-align: center;
+            }
+        }
+    }
+}
+
+@media (min-width: 544px) {
+    .area-1 {
+        display: block;
+        .team-info {
+            display: inline-block;
+            p {
+                margin: 0;
+                line-height: 20px;
+            }
+        }
+    }
+}
+
+.fixedTable {
+    position: fixed;
+    top: 63px;
+    width: auto;
+    display: none;
+    border: none;
+    z-index: 9990;
+}
+
+.staff-table {
+    .table-fixed {
+        tbody {
+            display: block;
+            //max-height: 450px;
+            //overflow: auto;
+        }
+        thead,
+        tbody tr {
+            display: table;
+            width: 100%;
+            table-layout: fixed;
+        }
+        thead {
+            width: 100%;
+            @extend .grey,
+            .darken-4,
+            .grey-text;
+            th {
+                @extend .grey,
+                .darken-4,
+                .grey-text;
+            }
+            .staff-info {
+                width: 200px;
+            }
+            .unit-info {
+                width: 110px;
+            }
+            .start-date {
+                width: 115px;
+            }
+        }
+        tbody {
+            .staff-block {
+                margin-left: 0px;
+                padding: 0px 0px 0px 85px;
+                position: relative;
+                width: 210px;
+                box-sizing: border-box;
+                .num {
+                    @include size(40px, 40px);
+                    position: absolute;
+                    left: 20px;
+                    border-radius: 50%;
+                    background-color: #333333;
+                    font-size: 9px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+                .staff {
+                    background-color: #795548;
+                    color: #fff;
+                }
+                .staff-info {
+                    padding: 2px 27px 0px 0px;
+                    position: relative;
+                    bottom: 7px;
+                    text-align: left;
+                    .name {
+                        font-size: 14px;
+                    }
+                    .title {
+                        font-size: 12px;
+                        line-height: 16px;
+                        height: 16px;
+                        color: rgba(0, 0, 0, 0.541176);
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                    }
+                }
+            }
+            .unit-block {
+                width: 110px;
+            }
+            .text {
+                width: 115px;
+            }
+            .edit-td {
+                text-align: center;
+                box-shadow: none;
+                input {
+                    text-align: center;
+                    max-width: 55px;
+                    min-width: 35px;
+                    margin: 0 auto;
+                    padding: 5px 0;
+                }
+                input {
+                    text-align: center;
+                    max-width: 55px;
+                    min-width: 35px;
+                    margin: 0 auto;
+                    padding: 5px;
+                }
+            }
+            .comment-num {
+                white-space: nowrap;
+                width: 55px;
+                padding: 0 10px;
+            }
+        }
+    }
+}
